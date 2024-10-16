@@ -221,3 +221,5 @@ def is_king_in_check_after_move(board: Vector[Vector[Int]], king_pos: (Int, Int)
 }
 
 println("Hallo ich bin eine Änderung")
+
+println("Änderung Nr. 1 von Jakob")
