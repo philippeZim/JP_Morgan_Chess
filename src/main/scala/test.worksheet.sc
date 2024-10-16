@@ -220,3 +220,4 @@ def is_king_in_check_after_move(board: Vector[Vector[Int]], king_pos: (Int, Int)
     is_pos_attacked(make_move(board, move), king_pos, attack_color)
 }
 
+println("Hallo ich bin eine Änderung")
