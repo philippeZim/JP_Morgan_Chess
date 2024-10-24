@@ -10,6 +10,9 @@ class PieceSpec extends AnyWordSpec{
         p1.toString should be("p");
         p2.toString should be("N");
         p3.toString should be("q");
+        Piece(null, null).toString should be("?");
     }
+
+
   }
 }

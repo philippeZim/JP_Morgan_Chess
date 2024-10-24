@@ -308,3 +308,12 @@ def splitLine(): String = {
 
 val e = getBoardString(getDefaultBoard());
 
+
+
+val res: Vector[List[Piece]] = Vector(
+    List(), List(), List(), List(), List(), List(), List(), List()
+)
+
+val testFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
+

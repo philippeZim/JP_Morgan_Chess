@@ -50,7 +50,14 @@ object ChessBoard {
       Vector(R, N, B, Q, K, B, N, R)
     )
     board
-  } 
+  }
+
+  def fenToBoard(fen: String): Vector[Vector[Piece]] = {
+    val res: Vector[List[Piece]] = Vector(List() * 8)
+    fen.split(" ")(0).map(el => {
+      
+    })
+  }
 
 
 }
