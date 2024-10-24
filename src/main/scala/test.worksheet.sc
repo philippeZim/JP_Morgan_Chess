@@ -328,14 +328,14 @@ def fenToBoard(fen: String): Vector[Vector[Piece]] = {
             case _ => acc
         }
     }
-    
+
     @tailrec
     def sub(fen: List[Char], cur: List[Piece], acc: List[List[Piece]]): List[List[Piece]] = {
         fen match {
-            case Nil => cur :: acc
+            case Nil => cur.reverse :: acc
             case h :: t => {
                 h match {
-                    case '/' => sub(t, List(), cur :: acc)
+                    case '/' => sub(t, List(), cur.reverse :: acc)
                     case 'p' => sub(t, Piece(PieceType.PAWN, Color.BLACK) :: cur, acc)
                     case 'r' => sub(t, Piece(PieceType.ROOK, Color.BLACK) :: cur, acc)
                     case 'n' => sub(t, Piece(PieceType.KNIGHT, Color.BLACK) :: cur, acc)
