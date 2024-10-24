@@ -6,7 +6,7 @@ enum PieceType:
 
 final case class Piece(pieceType: PieceType, color: Color) {
     
-    override def toString(): String = {
+    override def toString: String = {
         val pieceMap: Map[(PieceType, Color), String] = Map(
             (PieceType.PAWN, Color.WHITE) -> "P",
             (PieceType.PAWN, Color.BLACK) -> "p",
