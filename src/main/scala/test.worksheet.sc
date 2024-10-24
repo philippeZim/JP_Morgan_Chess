@@ -1,5 +1,8 @@
 
 
+import Color.{BLACK, WHITE}
+import PieceType.{BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK}
+
 import scala.annotation.tailrec
 
 object ChessBoard {
@@ -315,5 +318,44 @@ val res: Vector[List[Piece]] = Vector(
 )
 
 val testFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
+testFen.toList
+def fenToBoard(fen: String): Vector[Vector[Piece]] = {
+    @tailrec
+    def sub2(acc: List[Piece], n: Int): List[Piece] = {
+        n match {
+            case el if el > 0 => sub2(Piece(PieceType.EMPTY, Color.EMPTY) :: acc, n-1)
+            case _ => acc
+        }
+    }
+    
+    @tailrec
+    def sub(fen: List[Char], cur: List[Piece], acc: List[List[Piece]]): List[List[Piece]] = {
+        fen match {
+            case Nil => cur :: acc
+            case h :: t => {
+                h match {
+                    case '/' => sub(t, List(), cur :: acc)
+                    case 'p' => sub(t, Piece(PieceType.PAWN, Color.BLACK) :: cur, acc)
+                    case 'r' => sub(t, Piece(PieceType.ROOK, Color.BLACK) :: cur, acc)
+                    case 'n' => sub(t, Piece(PieceType.KNIGHT, Color.BLACK) :: cur, acc)
+                    case 'b' => sub(t, Piece(PieceType.BISHOP, Color.BLACK) :: cur, acc)
+                    case 'q' => sub(t, Piece(PieceType.QUEEN, Color.BLACK) :: cur, acc)
+                    case 'k' => sub(t, Piece(PieceType.KING, Color.BLACK) :: cur, acc)
+                    case 'P' => sub(t, Piece(PieceType.PAWN, Color.WHITE) :: cur, acc)
+                    case 'R' => sub(t, Piece(PieceType.ROOK, Color.WHITE) :: cur, acc)
+                    case 'N' => sub(t, Piece(PieceType.KNIGHT, Color.WHITE) :: cur, acc)
+                    case 'B' => sub(t, Piece(PieceType.BISHOP, Color.WHITE) :: cur, acc)
+                    case 'Q' => sub(t, Piece(PieceType.QUEEN, Color.WHITE) :: cur, acc)
+                    case 'K' => sub(t, Piece(PieceType.KING, Color.WHITE) :: cur, acc)
+                    case el if el.isDigit => sub(t, sub2(cur, el.toInt - 48), acc)
+                }
+            }
+        }
+    }
+    sub(fen.split(" ")(0).toList, List(), List()).reverse.map(_.toVector).toVector
+}
+
+fenToBoard(testFen)
 
 

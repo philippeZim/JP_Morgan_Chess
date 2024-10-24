@@ -1,3 +1,4 @@
+import scala.annotation.tailrec
 //Pe4; pe5; Bc4; nc6; Qf3; pd6; Qf7;
 
 object ScholarsMate {
@@ -11,6 +12,7 @@ object ScholarsMate {
     
 
     def movesToString(board: Vector[Vector[Piece]], moves: List[(Int, Int, Int, Int)]): String = {
+        @tailrec
         def sub(currentBoard: Vector[Vector[Piece]], acc: String, moves: List[(Int, Int, Int, Int)]): String = {
             moves match {
                 case Nil => acc;
