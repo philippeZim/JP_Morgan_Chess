@@ -1,3 +1,5 @@
+
+
 import scala.annotation.tailrec
 
 object ChessBoard {
@@ -222,3 +224,87 @@ def is_king_in_check_after_move(board: Vector[Vector[Int]], king_pos: (Int, Int)
 
 println("Dies ist die Änderung in Branch example-feature1")
 println("Änderung Nr.2 Philippe")
+
+enum Color:
+    case BLACK, WHITE, EMPTY
+
+enum PieceType:
+    case PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING, EMPTY
+
+final case class Piece(pieceType: PieceType, color: Color) {
+    
+    override def toString(): String = {
+        val pieceMap: Map[(PieceType, Color), String] = Map(
+            (PieceType.PAWN, Color.WHITE) -> "P",
+            (PieceType.PAWN, Color.BLACK) -> "p",
+            (PieceType.ROOK, Color.WHITE) -> "R",
+            (PieceType.ROOK, Color.BLACK) -> "r",
+            (PieceType.KNIGHT, Color.WHITE) -> "N",
+            (PieceType.KNIGHT, Color.BLACK) -> "n",
+            (PieceType.BISHOP, Color.WHITE) -> "B",
+            (PieceType.BISHOP, Color.BLACK) -> "b",
+            (PieceType.QUEEN, Color.WHITE) -> "Q",
+            (PieceType.QUEEN, Color.BLACK) -> "q",
+            (PieceType.KING, Color.WHITE) -> "K",
+            (PieceType.KING, Color.BLACK) -> "k",
+            (PieceType.EMPTY, Color.EMPTY) -> "."
+        );
+
+        pieceMap.get((this.pieceType, this.color)) match {
+            case None => "?"
+            case Some(value) => value
+        }
+    }
+}
+
+def splitLine(): String = {
+    "      " + "+-----" * 8 + "+\n"
+  }
+
+  def peaceLine(line: Vector[Piece], columnNumber: String): String = {
+    s"  $columnNumber   |" + line.map(el => s"  ${el.toString()}  |").mkString("") + "\n";
+  }
+
+  def getBoardString(board: Vector[Vector[Piece]]) : String = {
+    def sub(ind: Int, acc: String): String = {
+      if (ind == 8) {
+        val letters = "abcdefgh";
+        return acc + splitLine() + "         " + letters.map(el => s"$el     ").mkString("");
+      }
+      sub(ind + 1, acc + splitLine() + peaceLine(board(ind), s"${8 - ind}"));
+
+    }
+
+    sub(0, "")
+  }
+
+  def getDefaultBoard(): Vector[Vector[Piece]] = {
+    val p = Piece(PieceType.PAWN, Color.BLACK);
+    val r = Piece(PieceType.ROOK, Color.BLACK);
+    val n = Piece(PieceType.KNIGHT, Color.BLACK);
+    val b = Piece(PieceType.BISHOP, Color.BLACK);
+    val q = Piece(PieceType.QUEEN, Color.BLACK);
+    val k = Piece(PieceType.KING, Color.BLACK);
+
+    val P = Piece(PieceType.PAWN, Color.WHITE);
+    val R = Piece(PieceType.ROOK, Color.WHITE);
+    val N = Piece(PieceType.KNIGHT, Color.WHITE);
+    val B = Piece(PieceType.BISHOP, Color.WHITE);
+    val Q = Piece(PieceType.QUEEN, Color.WHITE);
+    val K = Piece(PieceType.KING, Color.WHITE);
+    val point = Piece(PieceType.EMPTY, Color.EMPTY);
+    val board: Vector[Vector[Piece]] = Vector(
+      Vector(r, n, b, q, k, b, n, r),
+      Vector(p, p, p, p, p, p, p, p),
+      Vector(point, point, point, point, point, point, point, point),
+      Vector(point, point, point, point, point, point, point, point),
+      Vector(point, point, point, point, point, point, point, point),
+      Vector(point, point, point, point, point, point, point, point),
+      Vector(P, P, P, P, P, P, P, P),
+      Vector(R, N, B, Q, K, B, N, R)
+    )
+    board
+  } 
+
+val e = getBoardString(getDefaultBoard());
+

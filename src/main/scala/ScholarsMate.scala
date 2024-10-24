@@ -1,6 +1,7 @@
 //Pe4; pe5; Bc4; nc6; Qf3; pd6; Qf7;
 
 object ScholarsMate {
+    /*
     val moves: List[(Int, Int, Int, Int)] = List(
         (6, 4, 4, 4), (1, 4, 3, 4),
         (7, 5, 4, 2), (0, 1, 2, 2),
@@ -24,6 +25,6 @@ object ScholarsMate {
         board
           .updated(toRow, board(toRow).updated(toCol, piece))
           .updated(fromRow, board(fromRow).updated(fromCol, "."))
-    }
+    }*/
 
 }
