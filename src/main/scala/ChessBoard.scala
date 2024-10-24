@@ -4,11 +4,11 @@ object ChessBoard {
 
 
   def splitLine(): String = {
-    "    " + "+-----" * 8 + "+\r\n"
+    "    " + "+-----" * 8 + "+\n"
   }
 
   def pieceLine(line: Vector[Piece], columnNumber: String): String = {
-    s"$columnNumber   |" + line.map(el => s"  ${el.toString()}  |").mkString("") + "\r\n";
+    s"$columnNumber   |" + line.map(el => s"  ${el.toString()}  |").mkString("") + "\n";
   }
 
   def getBoardString(board: Vector[Vector[Piece]]) : String = {
