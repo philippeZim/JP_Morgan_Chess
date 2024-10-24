@@ -36,7 +36,6 @@ class ChessBoardSpec extends AnyWordSpec {
 
       "return a correct splitline" in {
          splitLine() should be ("    +-----+-----+-----+-----+-----+-----+-----+-----+\n");
-          
       }
 
       "return a correct pieceLine" in {

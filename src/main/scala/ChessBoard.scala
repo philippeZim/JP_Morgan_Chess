@@ -12,7 +12,6 @@ object ChessBoard {
     }
 
     def getBoardString(board: Vector[Vector[Piece]]): String = {
-
         @tailrec
         def sub(ind: Int, acc: String): String = {
             if (ind == 8) {

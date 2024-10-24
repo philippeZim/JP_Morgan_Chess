@@ -32,7 +32,6 @@ class ScholarsMateSpec extends AnyWordSpec{
             Vector(R, N, B, Q, K, B, N, R)
         )
         makeMove(getDefaultBoard(), (6, 4, 4, 4)) should equal (board);
-        
     }
 
     "return the same string of moves" in {
