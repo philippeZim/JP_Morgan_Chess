@@ -26,7 +26,6 @@ object ChessBoard {
     }
 
     def getDefaultBoard(): Vector[Vector[Piece]] = {
-        
         val defaultFEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
         fenToBoard(defaultFEN);
     }
@@ -65,7 +64,7 @@ object ChessBoard {
             }
         }
 
-        sub(fen.split(" ")(0).toList, List(), List()).reverse.map(_.toVector).toVector
+        sub(fen.split(" ")(0).toList, List(), List()).reverse.map(el => el.toVector).toVector
     }
 
 
