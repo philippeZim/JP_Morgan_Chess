@@ -4,7 +4,7 @@ import org.scalatest.matchers.should.Matchers._
 
 class MainSpec extends AnyWordSpec{
   "Main" should {
-    "return starting chess board" in {
+    "return return Unit" in {
         main() should be (());
     }
   }

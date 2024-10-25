@@ -4,36 +4,16 @@ import ScholarsMate._
 import ChessBoard._
 
 class ScholarsMateSpec extends AnyWordSpec{
+  
   "ScholarsMate" should {
     "move a piece on the board" in {
         
-        val p = Piece(PieceType.PAWN, Color.BLACK);
-        val r = Piece(PieceType.ROOK, Color.BLACK);
-        val n = Piece(PieceType.KNIGHT, Color.BLACK);
-        val b = Piece(PieceType.BISHOP, Color.BLACK);
-        val q = Piece(PieceType.QUEEN, Color.BLACK);
-        val k = Piece(PieceType.KING, Color.BLACK);
-
-        val P = Piece(PieceType.PAWN, Color.WHITE);
-        val R = Piece(PieceType.ROOK, Color.WHITE);
-        val N = Piece(PieceType.KNIGHT, Color.WHITE);
-        val B = Piece(PieceType.BISHOP, Color.WHITE);
-        val Q = Piece(PieceType.QUEEN, Color.WHITE);
-        val K = Piece(PieceType.KING, Color.WHITE);
-        val point = Piece(PieceType.EMPTY, Color.EMPTY);
-        val board: Vector[Vector[Piece]] = Vector(
-            Vector(r, n, b, q, k, b, n, r),
-            Vector(p, p, p, p, p, p, p, p),
-            Vector(point, point, point, point, point, point, point, point),
-            Vector(point, point, point, point, point, point, point, point),
-            Vector(point, point, point, point, P, point, point, point),
-            Vector(point, point, point, point, point, point, point, point),
-            Vector(P, P, P, P, point, P, P, P),
-            Vector(R, N, B, Q, K, B, N, R)
-        )
-        makeMove(getDefaultBoard(), (6, 4, 4, 4)) should equal (board);
+        val e4FEN = "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1"
+        
+        makeMove(ChessBoard.getDefaultBoard(), (6, 4, 4, 4)) should equal (ChessBoard.fenToBoard(e4FEN));
     }
-
+  
+    
     "return the same string of moves" in {
         ScholarsMate.movesToString(ChessBoard.getDefaultBoard(), ScholarsMate.moves) should be (
             "    +-----+-----+-----+-----+-----+-----+-----+-----+\n" +

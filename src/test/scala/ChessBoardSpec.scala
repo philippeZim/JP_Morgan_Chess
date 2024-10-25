@@ -6,10 +6,35 @@ import Piece._
 class ChessBoardSpec extends AnyWordSpec {
 
     
-    
+   
    "ChessBoard" should {
       "return default board" in {
-         getDefaultBoard()(0)(0) should equal (Piece(PieceType.ROOK, Color.BLACK));
+         val p = Piece(PieceType.PAWN, Color.BLACK);
+         val r = Piece(PieceType.ROOK, Color.BLACK);
+         val n = Piece(PieceType.KNIGHT, Color.BLACK);
+         val b = Piece(PieceType.BISHOP, Color.BLACK);
+         val q = Piece(PieceType.QUEEN, Color.BLACK);
+         val k = Piece(PieceType.KING, Color.BLACK);
+
+         val P = Piece(PieceType.PAWN, Color.WHITE);
+         val R = Piece(PieceType.ROOK, Color.WHITE);
+         val N = Piece(PieceType.KNIGHT, Color.WHITE);
+         val B = Piece(PieceType.BISHOP, Color.WHITE);
+         val Q = Piece(PieceType.QUEEN, Color.WHITE);
+         val K = Piece(PieceType.KING, Color.WHITE);
+         val point = Piece(PieceType.EMPTY, Color.EMPTY);
+         val board: Vector[Vector[Piece]] = Vector(
+               Vector(r, n, b, q, k, b, n, r),
+               Vector(p, p, p, p, p, p, p, p),
+               Vector(point, point, point, point, point, point, point, point),
+               Vector(point, point, point, point, point, point, point, point),
+               Vector(point, point, point, point, point, point, point, point),
+               Vector(point, point, point, point, point, point, point, point),
+               Vector(P, P, P, P, P, P, P, P),
+               Vector(R, N, B, Q, K, B, N, R)
+         )
+         
+         getDefaultBoard() should equal (board);
       }
       "return the correct board string" in {
          getBoardString(getDefaultBoard()) should be ((
@@ -49,5 +74,6 @@ class ChessBoardSpec extends AnyWordSpec {
         ChessBoard.fenToBoard(testFen) should equal (ChessBoard.getDefaultBoard());
       }
    }
+   
         
 }
