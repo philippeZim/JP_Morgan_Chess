@@ -359,3 +359,15 @@ def fenToBoard(fen: String): Vector[Vector[Piece]] = {
 fenToBoard(testFen)
 
 
+
+def coordinatesToIndex(co: String): (Int, Int) = {
+    (co.charAt(0).toInt - 97, co.charAt(1).toInt - 49)
+}
+
+def moveToIndex(co1: String, co2: String): (Int, Int, Int, Int) {
+    val a = coordinatesToIndex(co1);
+    val (c, d) = coordinatesToIndex(co2);
+    (a, b, c, d);
+}
+
+val a = coordinatesToIndex("a4")
