@@ -6,3 +6,5 @@
 
 # And everything inside src
 !src/**
+
+!README.md
