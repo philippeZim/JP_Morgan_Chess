@@ -119,7 +119,16 @@ class PseudoMovesSpec extends AnyWordSpec {
                 "rnbqkb1r/p4ppp/5n2/1p1pp3/1PpP1P2/2NQBN2/P1P1P1PP/2KR1B1R b KQkq - 0 1"
             ) should contain allElementsOf (correctBlackPawnMoves3);
         }
+
         "pseudo pawn moves for en passant with black and white" in {
+            val correctBlackPawnMoves: List[(Int, Int)] = List(
+                ChessBoard.moveToIndex("e5", "e6"),
+                ChessBoard.moveToIndex("e5", "f6")
+            )
+            PseudoMoves.pseudoPawnMoves(
+                "8/8/8/4Pp2/8/8/8/8 w - f6 0 1"
+            ) should contain allElementsOf (correctBlackPawnMoves);
+
             val correctMoves1: List[(Int, Int)] = List(
                 ChessBoard.moveToIndex("a2", "a3"),
                 ChessBoard.moveToIndex("a2", "a4"),
@@ -193,6 +202,8 @@ class PseudoMovesSpec extends AnyWordSpec {
             PseudoMoves.pseudoPawnMoves(
                 "rnbqkbnr/1p1p3p/8/p3ppp1/1PpP3P/2N2NP1/P1P1PP2/R1BQKB1R b KQkq b3 0 1"
             ) should contain allElementsOf (correctEnPassantMoves4);
+
+
         }
     }
 }

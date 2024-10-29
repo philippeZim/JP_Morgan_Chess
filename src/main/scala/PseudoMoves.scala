@@ -72,11 +72,24 @@ object PseudoMoves {
 
     }
 
-    def checkEnPassant(board: Vector[Piece], epPos: Int, attackColorNum: Int): List[(Int, Int)] = {
-
+    def checkEnPassant(board: Vector[Piece], epPos: Int, attackColorNum: Int, moveColor: Color): List[(Int, Int)] = {
         val toCheck = List((attackColorNum * -1, attackColorNum * -1), (attackColorNum * -1, attackColorNum))
-        def sub()
+        @tailrec
+        def sub1(li: List[(Int, Int)], acc: List[(Int, Int)]): List[(Int, Int)] = {
+            li match {
+                case Nil => acc
+                case (rd, cd) :: t => {
+                    if (onBoard(epPos, rd, cd) && board(epPos + 8 * rd + cd) == Piece(PieceType.PAWN, moveColor)) {
+                        sub1(t, (epPos + 8 * rd + cd, epPos)::acc)
+                    } else {
+                        sub1(t, acc)
+                    }
+                }
+            }
+        }
+        sub1(toCheck, List());
     }
+
 
 
     def pseudoPawnMoves(fen: String): List[(Int, Int)] = {
@@ -86,7 +99,8 @@ object PseudoMoves {
         val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = extractColor(fenSplit(1));
 
         val attackMoves = List((attackColorNum, attackColorNum), (attackColorNum, attackColorNum * -1));
-        val straightMoves = List((attackColorNum, 0), (attackColorNum * 2, 0));
+        val straightMovesBase = List((attackColorNum, 0), (attackColorNum * 2, 0));
+        val straightMoves = List((attackColorNum, 0));
 
         val piecePos = piecePositions(board, Piece(PieceType.PAWN, moveColor));
 
@@ -95,17 +109,22 @@ object PseudoMoves {
             piecePos match {
                 case Nil => acc
                 case h :: t => {
-                    sub1(checkMoves(board, h, straightMoves, attackMoves, acc, attackColor), t)
+                    if ((h > 7 && h < 16 && attackColorNum == 1) || (h > 47 && h < 56 && attackColorNum == -1)) {
+                        sub1(checkMoves(board, h, straightMovesBase, attackMoves, acc, attackColor), t)
+                    } else {
+                        sub1(checkMoves(board, h, straightMoves, attackMoves, acc, attackColor), t)
+                    }
+                    
                 }
             }
         }
 
-
         if (fenSplit(3) != "-") {
-            sub1(checkEnPassant(board, ChessBoard.coordinatesToIndex(fenSplit(3)), attackColorNum), piecePos);
+            sub1(checkEnPassant(board, ChessBoard.coordinatesToIndex(fenSplit(3)), attackColorNum, moveColor), piecePos);
         } else {
             sub1(List(), piecePos);
         }
+
     }
 
     /*
