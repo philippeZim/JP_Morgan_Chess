@@ -1,28 +1,13 @@
-import scala.annotation.tailrec
-//Pe4; pe5; Bc4; nc6; Qf3; pd6; Qf7;
+import PieceType.EMPTY
+
+import scala.annotation.tailrec //Pe4; pe5; Bc4; nc6; Qf3; pd6; Qf7;
 
 object ScholarsMate {
 
-    val moves: List[(Int, Int, Int, Int)] = List(
-        (6, 4, 4, 4),
-        (1, 4, 3, 4),
-        (7, 5, 4, 2),
-        (0, 1, 2, 2),
-        (7, 3, 5, 5),
-        (1, 3, 2, 3),
-        (5, 5, 1, 5)
-    )
+    val moves: List[(Int, Int)] = List((52, 36), (12, 28), (61, 34), (1, 18), (59, 45), (11, 19), (45, 13));
 
-    def movesToString(
-        board: Vector[Vector[Piece]],
-        moves: List[(Int, Int, Int, Int)]
-    ): String = {
-        @tailrec
-        def sub(
-            currentBoard: Vector[Vector[Piece]],
-            acc: String,
-            moves: List[(Int, Int, Int, Int)]
-        ): String = {
+    def movesToString(board: Vector[Piece], moves: List[(Int, Int)]): String = {
+        @tailrec def sub(currentBoard: Vector[Piece], acc: String, moves: List[(Int, Int)]): String = {
             moves match {
                 case Nil => acc;
                 case h :: t => {
@@ -31,21 +16,13 @@ object ScholarsMate {
                 }
             }
         }
+
         sub(board, ChessBoard.getBoardString(board) + "\n\n", moves);
     }
 
-    def makeMove(
-        board: Vector[Vector[Piece]],
-        move: (Int, Int, Int, Int)
-    ): Vector[Vector[Piece]] = {
-        val (fromRow, fromCol, toRow, toCol) = move
-        val piece = board(fromRow)(fromCol)
-        board
-            .updated(toRow, board(toRow).updated(toCol, piece))
-            .updated(
-                fromRow,
-                board(fromRow)
-                    .updated(fromCol, Piece(PieceType.EMPTY, Color.EMPTY))
-            )
+    def makeMove(board: Vector[Piece], move: (Int, Int)): Vector[Piece] = {
+        val (from, to) = move
+        val piece = board(from)
+        board.updated(to, piece).updated(from, Piece(PieceType.EMPTY, Color.EMPTY))
     }
 }
