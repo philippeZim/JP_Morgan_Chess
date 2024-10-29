@@ -27,3 +27,4 @@ final case class Piece(pieceType: PieceType, color: Color) {
         }
     }
 }
+
