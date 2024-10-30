@@ -25,6 +25,7 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("h2", "h3"),
                 ChessBoard.moveToIndex("h2", "h4"));
             PseudoMoves.pseudoPawnMoves("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1") should contain allElementsOf (correctMoves1);
+            //PseudoMoves.pseudoPawnMoves("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1").length should be correctMoves1.length;
 
 
             val correctMoves2: List[(Int, Int)] = List(
@@ -192,7 +193,7 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("d7", "d5"),
                 ChessBoard.moveToIndex("e5", "d4"),
                 ChessBoard.moveToIndex("e5", "e4"),
-                ChessBoard.moveToIndex("f5", "f6"),
+                ChessBoard.moveToIndex("f5", "f4"),
                 ChessBoard.moveToIndex("g5", "g4"),
                 ChessBoard.moveToIndex("g5", "h4"),
                 ChessBoard.moveToIndex("h7", "h6"),
@@ -205,6 +206,44 @@ class PseudoMovesSpec extends AnyWordSpec {
 
 
         }
+
+        "should return the correct Knight Moves" in {
+
+            //print(PseudoMoves.pseudoKnightMoves("8/8/1P6/2P5/N7/2P2p2/8/8 w - - 0 1"))
+            val correctKnightMoves1 : List [(Int, Int)] = List(
+                ChessBoard.moveToIndex("a4", "b6"),
+                ChessBoard.moveToIndex("a4", "c5"),
+                ChessBoard.moveToIndex("a4", "c3"),
+                ChessBoard.moveToIndex("e5", "d7"),
+                ChessBoard.moveToIndex("e5", "f7"),
+                ChessBoard.moveToIndex("e5", "g6"),
+                ChessBoard.moveToIndex("e5", "g4"),
+                ChessBoard.moveToIndex("e5", "f3"),
+                ChessBoard.moveToIndex("e5", "d3"),
+                ChessBoard.moveToIndex("e5", "c4"),
+                ChessBoard.moveToIndex("e5", "c6")
+            )
+            PseudoMoves.pseudoKnightMoves("r1bq2nr/pp1ppkpp/2n2p2/2p1N3/Nb6/8/PPP2PPP/R1BQ1K1R w KQkq - 0 1") should contain allElementsOf(correctKnightMoves1)
+
+            val correctKnightMoves2: List[(Int, Int)] = List(
+                ChessBoard.moveToIndex("b5", "a3"),
+                ChessBoard.moveToIndex("b5", "c7"),
+                ChessBoard.moveToIndex("b5", "d6"),
+                ChessBoard.moveToIndex("b5", "d4"),
+                ChessBoard.moveToIndex("b5", "c3"),
+                ChessBoard.moveToIndex("e5", "f7"),
+                ChessBoard.moveToIndex("e5", "g6"),
+                ChessBoard.moveToIndex("e5", "g4"),
+                ChessBoard.moveToIndex("e5", "f3"),
+                ChessBoard.moveToIndex("e5", "d3"),
+                ChessBoard.moveToIndex("e5", "c4"),
+                ChessBoard.moveToIndex("e5", "c6"),
+                ChessBoard.moveToIndex("e5", "d7")
+            )
+            PseudoMoves.pseudoKnightMoves("8/k1Q5/6p1/1n2n3/6r1/R2N4/8/7K b - - 0 1") should contain allElementsOf (correctKnightMoves2)
+        }
     }
 }
+
+/*TODO: Listenlaenge vergleichen, damit die Listen genau gleich sind*/
 

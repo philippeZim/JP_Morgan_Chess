@@ -7,3 +7,5 @@ def moveToIndex(from: String, to: String): (Int, Int) = {
 }
 
 val t1 = coordinatesToIndex("a1");
+
+PseudoMoves.onBoard(ChessBoard.coordinatesToIndex("a4"), 1, 2)
