@@ -24,8 +24,10 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("g2", "g4"),
                 ChessBoard.moveToIndex("h2", "h3"),
                 ChessBoard.moveToIndex("h2", "h4"));
-            PseudoMoves.pseudoPawnMoves("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1") should contain allElementsOf (correctMoves1);
-            //PseudoMoves.pseudoPawnMoves("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1").length should be correctMoves1.length;
+
+            val ourMoves1 = PseudoMoves.pseudoPawnMoves("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+            ourMoves1.length should be (correctMoves1.length);
+            ourMoves1 should contain allElementsOf (correctMoves1);
 
 
             val correctMoves2: List[(Int, Int)] = List(
@@ -40,9 +42,11 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("h2", "h3"),
                 ChessBoard.moveToIndex("h2", "h4")
             );
-            PseudoMoves.pseudoPawnMoves(
+            val ourMoves2 = PseudoMoves.pseudoPawnMoves(
                 "r1bqkbnr/2p2ppp/p1n5/1p1pp3/4P3/1BP2N2/PP1P1PPP/RNBQK2R w KQkq - 0 1"
-            ) should contain allElementsOf (correctMoves2);
+            );
+            ourMoves2 should contain allElementsOf (correctMoves2);
+            ourMoves2.length should be (correctMoves2.length)
 
             val correctMoves3: List[(Int, Int)] = List(
                 ChessBoard.moveToIndex("a3", "a4"),
@@ -57,9 +61,12 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("h2", "h3"),
                 ChessBoard.moveToIndex("h2", "h4")
             );
-            PseudoMoves.pseudoPawnMoves(
+            val ourMoves3 = PseudoMoves.pseudoPawnMoves(
                 "r1bqk1nr/pppp1ppp/2n5/4p3/4P3/P1b2N2/1PPP1PPP/R1BQKB1R w KQkq - 0 1"
-            ) should contain allElementsOf (correctMoves3);
+            );
+            ourMoves3 should contain allElementsOf (correctMoves3);
+            ourMoves3.length should be (correctMoves3.length)
+
         }
 
         "pseudo pawn moves for black" in {
@@ -82,9 +89,11 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("h7", "h5")
             );
 
-            PseudoMoves.pseudoPawnMoves(
+            val ourMoves1 = PseudoMoves.pseudoPawnMoves(
                 "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1"
-            ) should contain allElementsOf (correctBlackPawnMoves1);
+            );
+            ourMoves1 should contain allElementsOf (correctBlackPawnMoves1);
+            ourMoves1.length should be (correctBlackPawnMoves1.length)
 
             val correctBlackPawnMoves2: List[(Int, Int)] = List(
                 ChessBoard.moveToIndex("a7", "a6"),
@@ -99,9 +108,11 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("h6", "h5")
             );
 
-            PseudoMoves.pseudoPawnMoves(
+            val ourMoves2 = PseudoMoves.pseudoPawnMoves(
                 "rnbq1rk1/pp3pp1/2p2n1p/3pp1B1/1b2P3/3P1NP1/PPPNQP1P/2KR1B1R b KQkq - 0 1"
-            ) should contain allElementsOf (correctBlackPawnMoves2);
+            );
+            ourMoves2 should contain allElementsOf (correctBlackPawnMoves2);
+            ourMoves2.length should be (correctBlackPawnMoves2.length)
 
             val correctBlackPawnMoves3: List[(Int, Int)] = List(
                 ChessBoard.moveToIndex("a7", "a6"),
@@ -116,9 +127,11 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("h7", "h5")
             )
 
-            PseudoMoves.pseudoPawnMoves(
+            val ourMoves3 = PseudoMoves.pseudoPawnMoves(
                 "rnbqkb1r/p4ppp/5n2/1p1pp3/1PpP1P2/2NQBN2/P1P1P1PP/2KR1B1R b KQkq - 0 1"
-            ) should contain allElementsOf (correctBlackPawnMoves3);
+            );
+            ourMoves3 should contain allElementsOf (correctBlackPawnMoves3);
+            ourMoves3.length should be (correctBlackPawnMoves3.length);
         }
 
         "pseudo pawn moves for en passant with black and white" in {
@@ -126,9 +139,11 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("e5", "e6"),
                 ChessBoard.moveToIndex("e5", "f6")
             )
-            PseudoMoves.pseudoPawnMoves(
+            val ourMoves1 = PseudoMoves.pseudoPawnMoves(
                 "8/8/8/4Pp2/8/8/8/8 w - f6 0 1"
-            ) should contain allElementsOf (correctBlackPawnMoves);
+            );
+            ourMoves1 should contain allElementsOf (correctBlackPawnMoves);
+            ourMoves1.length should be (correctBlackPawnMoves.length);
 
             val correctMoves1: List[(Int, Int)] = List(
                 ChessBoard.moveToIndex("a2", "a3"),
@@ -143,9 +158,11 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("h2", "h3"),
                 ChessBoard.moveToIndex("h2", "h4")
             );
-            PseudoMoves.pseudoPawnMoves(
+            val ourMoves2 = PseudoMoves.pseudoPawnMoves(
                 "rnbqkb1r/pp1p1ppp/3n4/1Pp1p3/8/2N2P2/P1PP2PP/R1BQKBNR w KQkq c6 0 1"
-            ) should contain allElementsOf (correctMoves1);
+            );
+            ourMoves2 should contain allElementsOf (correctMoves1);
+            ourMoves2.length should be (correctMoves1.length);
 
             val correctMoves2: List[(Int, Int)] = List(
                 ChessBoard.moveToIndex("a2", "a3"),
@@ -161,9 +178,11 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("h2", "h3"),
                 ChessBoard.moveToIndex("h2", "h4")
             );
-            PseudoMoves.pseudoPawnMoves(
+            val ourMoves3 = PseudoMoves.pseudoPawnMoves(
                 "rnbqk2r/1p1p1ppp/3b1n2/pPpPp3/4P3/8/P1P2PPP/RNBQKBNR w KQkq a6 0 1"
-            ) should contain allElementsOf (correctMoves2);
+            );
+            ourMoves3 should contain allElementsOf (correctMoves2);
+            ourMoves3.length should be (correctMoves2.length);
 
             val correctMoves3: List[(Int, Int)] = List(
                 ChessBoard.moveToIndex("a7", "a6"),
@@ -172,6 +191,8 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("b7", "b5"),
                 ChessBoard.moveToIndex("c5", "c4"),
                 ChessBoard.moveToIndex("c5", "d4"),
+                ChessBoard.moveToIndex("d7", "d6"),
+                ChessBoard.moveToIndex("d7", "d5"),
                 ChessBoard.moveToIndex("f4", "f3"),
                 ChessBoard.moveToIndex("f4", "g3"),
                 ChessBoard.moveToIndex("g7", "g6"),
@@ -179,9 +200,11 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("h7", "h6"),
                 ChessBoard.moveToIndex("h7", "h5")
             );
-            PseudoMoves.pseudoPawnMoves(
+            val ourMoves4 = PseudoMoves.pseudoPawnMoves(
                 "rnbqkbnr/pp1p2pp/8/2p5/3NPpP1/2N5/PPP2P1P/R1BQKB1R b KQkq g3 0 1"
-            ) should contain allElementsOf (correctMoves3);
+            );
+            ourMoves4 should contain allElementsOf (correctMoves3);
+            ourMoves4.length should be (correctMoves3.length);
 
             val correctEnPassantMoves4: List[(Int, Int)] = List(
                 ChessBoard.moveToIndex("a5", "a4"),
@@ -200,16 +223,19 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("h7", "h5")
             );
 
-            PseudoMoves.pseudoPawnMoves(
+            val ourMoves5 = PseudoMoves.pseudoPawnMoves(
                 "rnbqkbnr/1p1p3p/8/p3ppp1/1PpP3P/2N2NP1/P1P1PP2/R1BQKB1R b KQkq b3 0 1"
-            ) should contain allElementsOf (correctEnPassantMoves4);
+            );
+            ourMoves5 should contain allElementsOf (correctEnPassantMoves4);
+            ourMoves5.length should be (correctEnPassantMoves4.length)
 
 
         }
 
+
+
         "should return the correct Knight Moves" in {
 
-            //print(PseudoMoves.pseudoKnightMoves("8/8/1P6/2P5/N7/2P2p2/8/8 w - - 0 1"))
             val correctKnightMoves1 : List [(Int, Int)] = List(
                 ChessBoard.moveToIndex("a4", "b6"),
                 ChessBoard.moveToIndex("a4", "c5"),
@@ -223,7 +249,9 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("e5", "c4"),
                 ChessBoard.moveToIndex("e5", "c6")
             )
-            PseudoMoves.pseudoKnightMoves("r1bq2nr/pp1ppkpp/2n2p2/2p1N3/Nb6/8/PPP2PPP/R1BQ1K1R w KQkq - 0 1") should contain allElementsOf(correctKnightMoves1)
+            val ourMoves1 = PseudoMoves.pseudoKnightMoves("r1bq2nr/pp1ppkpp/2n2p2/2p1N3/Nb6/8/PPP2PPP/R1BQ1K1R w KQkq - 0 1");
+            ourMoves1 should contain allElementsOf(correctKnightMoves1);
+            ourMoves1.length should be (correctKnightMoves1.length);
 
             val correctKnightMoves2: List[(Int, Int)] = List(
                 ChessBoard.moveToIndex("b5", "a3"),
@@ -232,18 +260,42 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("b5", "d4"),
                 ChessBoard.moveToIndex("b5", "c3"),
                 ChessBoard.moveToIndex("e5", "f7"),
-                ChessBoard.moveToIndex("e5", "g6"),
-                ChessBoard.moveToIndex("e5", "g4"),
                 ChessBoard.moveToIndex("e5", "f3"),
                 ChessBoard.moveToIndex("e5", "d3"),
                 ChessBoard.moveToIndex("e5", "c4"),
                 ChessBoard.moveToIndex("e5", "c6"),
                 ChessBoard.moveToIndex("e5", "d7")
             )
-            PseudoMoves.pseudoKnightMoves("8/k1Q5/6p1/1n2n3/6r1/R2N4/8/7K b - - 0 1") should contain allElementsOf (correctKnightMoves2)
+            val ourMoves2 = PseudoMoves.pseudoKnightMoves("8/k1Q5/6p1/1n2n3/6r1/R2N4/8/7K b - - 0 1");
+            ourMoves2 should contain allElementsOf (correctKnightMoves2);
+            ourMoves2.length should be (correctKnightMoves2.length);
+
+
+        }
+
+        "should return the correct King Moves" in {
+            val correctKingMoves: List[(Int, Int)] = List(
+                ChessBoard.moveToIndex("d2", "d3"),
+                ChessBoard.moveToIndex("d2", "e3"),
+                ChessBoard.moveToIndex("d2", "e1"),
+                ChessBoard.moveToIndex("d2", "d1"),
+                ChessBoard.moveToIndex("d2", "c1"),
+                ChessBoard.moveToIndex("d2", "c2")
+            )
+            val ourMoves1 = PseudoMoves.pseudoKingMoves("4k3/3ppR2/8/8/8/2P5/3KN3/2n5 w - - 0 1");
+            ourMoves1 should contain allElementsOf (correctKingMoves);
+            ourMoves1.length should be(correctKingMoves.length);
+
+            val correctKingMoves2: List[(Int, Int)] = List(
+                ChessBoard.moveToIndex("e8", "d8"),
+                ChessBoard.moveToIndex("e8", "f7"),
+                ChessBoard.moveToIndex("e8", "f8")
+            )
+            val ourMoves2 = PseudoMoves.pseudoKingMoves("4k3/3ppR2/8/8/8/2P5/3KN3/2n5 b - - 0 1");
+            ourMoves2 should contain allElementsOf (correctKingMoves2);
+            ourMoves2.length should be(correctKingMoves2.length);
         }
     }
 }
 
-/*TODO: Listenlaenge vergleichen, damit die Listen genau gleich sind*/
 

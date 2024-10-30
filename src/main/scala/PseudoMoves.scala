@@ -7,7 +7,11 @@ object PseudoMoves {
     }
 
     def pseudoLegalPawnMove(board: Vector[Piece], pos: Int, rd: Int, cd: Int): Boolean = {
-        onBoard(pos, rd, cd) && board(pos + rd * 8 + cd).color == Color.EMPTY
+        if (Math.abs(rd) == 2) {
+            onBoard(pos, rd, cd) && board(pos + rd * 8 + cd).color == Color.EMPTY && board(pos + (rd/2) * 8 + cd).color == Color.EMPTY
+        } else {
+            onBoard(pos, rd, cd) && board(pos + rd * 8 + cd).color == Color.EMPTY
+        }
     }
     def pseudoLegalMove(board: Vector[Piece], pos: Int, rd: Int, cd: Int, attackColor: Color): Boolean = {
         if(pos == 32 && cd == 1 && rd == 2) {
@@ -15,7 +19,6 @@ object PseudoMoves {
             val bbb = board(pos + rd * 8 + cd).color
             val b = board(pos + rd * 8 + cd).color == Color.EMPTY
                 val c = board(pos + rd * 8 + cd).color == attackColor
-            print(1)
         }
         onBoard(pos, rd, cd) && (board(pos + rd * 8 + cd).color == Color.EMPTY || board(pos + rd * 8 + cd).color == attackColor)
     }
@@ -128,7 +131,6 @@ object PseudoMoves {
         }
 
         if (fenSplit(3) != "-") {
-            print(fenSplit(3))
             sub1(checkEnPassant(board, ChessBoard.coordinatesToIndex(fenSplit(3)), attackColorNum, moveColor), piecePos);
         } else {
             sub1(List(), piecePos);
@@ -140,9 +142,6 @@ object PseudoMoves {
         moves match {
             case Nil => acc;
             case (rd, cd) :: t => {
-                if(rd == 2 && cd == 1 && pos == 32) {
-                    print(1)
-                }
                 if (pseudoLegalMove(board, pos, rd, cd, attackColor)) {
                     checkMoves(board, pos, t, (pos, pos + rd * 8 + cd) :: acc, attackColor)
                 } else {
@@ -162,7 +161,7 @@ object PseudoMoves {
         val moves = List((-2, 1), (-2, -1), (-1, 2), (1, 2), (2, 1), (2, -1), (1, -2), (-1, -2));
 
         val piecePos = piecePositions(board, Piece(PieceType.KNIGHT, moveColor));
-        print(1)
+
 
         @tailrec def sub1(acc: List[(Int, Int)], piecePos: List[Int]): List[(Int, Int)] = {
             piecePos match {
@@ -172,6 +171,29 @@ object PseudoMoves {
                 }
             }
         }
+        sub1(List(), piecePos);
+    }
+
+    def pseudoKingMoves(fen: String): List[(Int, Int)] = {
+        val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
+        val fenSplit: List[String] = fen.split(" ").toList;
+
+        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = extractColor(fenSplit(1));
+
+        val moves = List((1, 1), (-1, 1), (-1, -1), (1, -1), (-1, 0), (1, 0), (0, 1), (0, -1))
+
+        val piecePos = piecePositions(board, Piece(PieceType.KING, moveColor));
+
+
+        @tailrec def sub1(acc: List[(Int, Int)], piecePos: List[Int]): List[(Int, Int)] = {
+            piecePos match {
+                case Nil => acc
+                case h :: t => {
+                    sub1(checkMoves(board, h, moves, acc, attackColor), t)
+                }
+            }
+        }
+
         sub1(List(), piecePos);
     }
 }
