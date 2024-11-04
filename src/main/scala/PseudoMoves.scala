@@ -193,6 +193,34 @@ object PseudoMoves {
                 }
             }
         }
+        /*
+        val mapKastleToMove: Map[Char, (Int, Int)] = Map(
+            'K': (-1, -1),
+            'Q': (-2, -1),
+            'k': (-3, -1),
+            ''
+
+        )
+
+        def sub2(acc: List[(Int, Int)], fenCastle: List[Char]): List[(Int, Int)] = {
+            fenCastle match {
+                case Nil => acc;
+                case h :: t => {
+                    h match {
+                        case '-' => acc
+                        case castleType => {
+                            if (emptyForKastle(castleType)) {
+                                sub2(mapKastleToMove(castleType)::acc, t);
+                            } else {
+                                sub2(acc, t);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+         */
 
         sub1(List(), piecePos);
     }
