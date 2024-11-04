@@ -1,3 +1,5 @@
+import PieceType.EMPTY
+
 import scala.annotation.tailrec
 
 object PseudoMoves {
@@ -187,15 +189,25 @@ object PseudoMoves {
                 }
             }
         }
-        /*
-        val mapKastleToMove: Map[Char, (Int, Int)] = Map(
-            'K': (-1, -1),
-            'Q': (-2, -1),
-            'k': (-3, -1),
-            ''
 
+        val mapKastleToMove: Map[Char, (Int, Int)] = Map(
+            'K' -> (-1, -1),
+            'Q' -> (-2, -1),
+            'k' -> (-3, -1),
+            'q' -> (-4, -1)
         )
 
+        def emptyForKastle(c: Char): Boolean = {
+            c match {
+                case 'K' => board(61).pieceType == PieceType.EMPTY && board(62).pieceType == PieceType.EMPTY
+                case 'Q' => board(59).pieceType == PieceType.EMPTY && board(58).pieceType == PieceType.EMPTY && board(57).pieceType == PieceType.EMPTY
+                case 'k' => board(5).pieceType == PieceType.EMPTY && board(6).pieceType == PieceType.EMPTY
+                case 'q' => board(1).pieceType == PieceType.EMPTY && board(2).pieceType == PieceType.EMPTY && board(3).pieceType == PieceType.EMPTY
+
+            }
+        }
+
+        @tailrec
         def sub2(acc: List[(Int, Int)], fenCastle: List[Char]): List[(Int, Int)] = {
             fenCastle match {
                 case Nil => acc;
@@ -214,9 +226,9 @@ object PseudoMoves {
             }
         }
         
-         */
 
-        sub1(List(), piecePos);
+
+        sub1(sub2(List(), fenSplit(2).toList), piecePos);
     }
 
 
@@ -255,7 +267,7 @@ object PseudoMoves {
         }
         rookMovesRecursive(List(), piecePos, directions);
     }
-    
+
 
     def pseudoRookMoves2(fen: String): List[(Int, Int)] = {
         val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
@@ -266,7 +278,7 @@ object PseudoMoves {
         val directions: List[(Int, Int)] = List((-1, 0), (1, 0), (0, 1), (0, -1));
 
         val piecePos = piecePositions(board, Piece(PieceType.ROOK, moveColor));
-        
+
         @tailrec
         def sub2(acc: List[(Int, Int)], piecePos: Int, moveDir: (Int, Int)): List[(Int, Int)] = {
             val (r, c) = moveDir;
@@ -277,14 +289,14 @@ object PseudoMoves {
                 acc;
             }
         }
-        
+
         @tailrec
         def sub1(acc: List[(Int, Int)], piecePos: Int, moveDirections: List[(Int, Int)]): List[(Int, Int)] = {
             moveDirections match {
                 case Nil => acc;
                 case h :: t => sub1(sub2(acc, piecePos, h), piecePos, t);
             }
-            
+
         }
 
         @tailrec def rookMovesRecursive(acc: List[(Int, Int)], piecePos: List[Int]): List[(Int, Int)] = {
