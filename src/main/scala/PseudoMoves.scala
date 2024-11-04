@@ -14,12 +14,6 @@ object PseudoMoves {
         }
     }
     def pseudoLegalMove(board: Vector[Piece], pos: Int, rd: Int, cd: Int, attackColor: Color): Boolean = {
-        if(pos == 32 && cd == 1 && rd == 2) {
-            val a = onBoard(pos, rd, cd)
-            val bbb = board(pos + rd * 8 + cd).color
-            val b = board(pos + rd * 8 + cd).color == Color.EMPTY
-                val c = board(pos + rd * 8 + cd).color == attackColor
-        }
         onBoard(pos, rd, cd) && (board(pos + rd * 8 + cd).color == Color.EMPTY || board(pos + rd * 8 + cd).color == attackColor)
     }
 
@@ -223,5 +217,42 @@ object PseudoMoves {
          */
 
         sub1(List(), piecePos);
+    }
+
+
+    @tailrec def checkContinuingMoves(board: Vector[Piece], pos: Int, direction: (Int, Int), movelength: Int, acc: List[(Int, Int)], attackColor: Color): List[(Int, Int)] = {
+
+        val (rd, cd) = direction
+        if(pseudoLegalMove(board, pos, rd, cd, attackColor)){
+            checkContinuingMoves(board, pos + 8 * rd + cd, direction, movelength + 1, (pos, pos + rd * 8 * movelength + cd * movelength) :: acc, attackColor);
+        } else {
+            acc
+        }
+    }
+
+    def pseudoRookMoves(fen: String): List[(Int, Int)] = {
+        val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
+        val fenSplit: List[String] = fen.split(" ").toList;
+
+        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = extractColor(fenSplit(1));
+
+        val directions: List[(Int, Int)] = List((-1, 0), (1, 0), (0, 1), (0, -1));
+
+        val piecePos = piecePositions(board, Piece(PieceType.ROOK, moveColor));
+
+        @tailrec def rookMovesRecursive(acc: List[(Int, Int)], piecePos: List[Int], moveDirections: List[(Int, Int)]): List[(Int, Int)] = {
+            piecePos match {
+                case Nil => acc
+                case h :: t => {
+                    moveDirections match {
+                        case Nil => rookMovesRecursive(acc, t, directions)
+                        case k :: s => {
+                            rookMovesRecursive(checkContinuingMoves(board, h, k, 1, acc, attackColor) ::: acc, piecePos, s);
+                        }
+                    }
+                }
+            }
+        }
+        rookMovesRecursive(List(), piecePos, directions);
     }
 }
