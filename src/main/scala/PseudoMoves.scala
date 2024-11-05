@@ -1,3 +1,4 @@
+import Color.WHITE
 import PieceType.EMPTY
 
 import scala.annotation.tailrec
@@ -232,7 +233,7 @@ object PseudoMoves {
                     h match {
                         case '-' => acc
                         case castleType => {
-                            if (emptyForKastle(castleType)) {
+                            if (((moveColor == WHITE && castleType.isUpper) || (moveColor == Color.BLACK && castleType.isLower)) && emptyForKastle(castleType)) {
                                 sub2(mapKastleToMove(castleType)::acc, t);
                             } else {
                                 sub2(acc, t);

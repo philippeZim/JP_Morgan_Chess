@@ -30,6 +30,50 @@ object ChessBoard {
         fenToBoard(defaultFEN);
     }
 
+    def boardToFen(board: Vector[Piece]): String = {
+
+        @tailrec
+        def sub2(fen: List[String], acc: List[String], empty: Int): String = {
+            fen match {
+                case Nil => {
+                    if (empty == 0) {
+                        acc.mkString
+                    } else {
+                        (empty.toString::acc).mkString
+                    }
+
+                }
+                case h :: t => {
+                    h match {
+                        case "." => sub2(t, acc, empty + 1);
+                        case el => {
+                            if (empty == 0) {
+                                sub2(t, el::acc, empty)
+                            } else {
+                                sub2(t, el::empty.toString::acc, 0)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        @tailrec
+        def sub1(acc: List[String], size: Int, pieces: List[Piece]): List[String] = {
+            pieces match {
+                case Nil => acc
+                case h :: t => {
+                    if ((size + 1) % 8 == 0 && size != 63) {
+                        sub1("/"::h.toString()::acc, size+1, t)
+                    } else {
+                        sub1(h.toString()::acc, size+1, t)
+                    }
+                }
+            }
+        }
+        sub2(sub1(List(), 0, board.toList), List(), 0);
+    }
+
     def fenToBoard(fen: String): Vector[Piece] = {
         @tailrec def sub2(acc: List[Piece], n: Int): List[Piece] = {
             n match {
