@@ -168,9 +168,39 @@ object LegalMoves {
     }
 
     def makeMove(board: Vector[Piece], move: (Int, Int)): Vector[Piece] = {
-        val (from, to) = move;
-        val from_piece = board(from);
-        board.updated(from, Piece(PieceType.EMPTY, Color.EMPTY)).updated(to, from_piece);
+
+        move match {
+            case (-1, -1) => {
+                val e = Piece(PieceType.EMPTY, Color.EMPTY);
+                val K = Piece(PieceType.KING, Color.WHITE);
+                val R = Piece(PieceType.ROOK, Color.WHITE)
+                board.updated(60, e).updated(62, K).updated(63, e).updated(61, R);
+            }
+            case (-2, -1) => {
+                val e = Piece(PieceType.EMPTY, Color.EMPTY);
+                val K = Piece(PieceType.KING, Color.WHITE);
+                val R = Piece(PieceType.ROOK, Color.WHITE)
+                board.updated(60, e).updated(58, K).updated(56, e).updated(59, R);
+            }
+            case (-3, -1) => {
+                val e = Piece(PieceType.EMPTY, Color.EMPTY);
+                val k = Piece(PieceType.KING, Color.BLACK);
+                val r = Piece(PieceType.ROOK, Color.BLACK)
+                board.updated(4, e).updated(6, k).updated(7, e).updated(5, r);
+            }
+            case (-4, -1) => {
+                val e = Piece(PieceType.EMPTY, Color.EMPTY);
+                val k = Piece(PieceType.KING, Color.BLACK);
+                val r = Piece(PieceType.ROOK, Color.BLACK)
+                board.updated(4, e).updated(2, k).updated(0, e).updated(3, r);
+            }
+            case _ => {
+                val (from, to) = move;
+                val from_piece = board(from);
+                board.updated(from, Piece(PieceType.EMPTY, Color.EMPTY)).updated(to, from_piece);
+            }
+        }
+
     }
 
     def isLegalMove(fen: String, move: (Int, Int)): Boolean = {
@@ -180,8 +210,25 @@ object LegalMoves {
         val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = PseudoMoves.extractColor(fenSplit(1));
         val (from, to) = move;
         val kingPos: Int = PseudoMoves.piecePositions(board, Piece(PieceType.KING, moveColor)).head
-        val moveFen = ChessBoard.boardToFen(makeMove(board, move)) + " " + fenSplit.tail.mkString
+        val moveFen = ChessBoard.boardToFen(makeMove(board, move)) + " " + fenSplit.tail.mkString(" ")
         isPosAttacked(moveFen, kingPos)
+    }
+
+    def getAllLegalMoves(fen: String): List[(Int, Int)] = {
+        @tailrec
+        def filterLegal(acc: List[(Int, Int)], pseudo: List[(Int, Int)]): List[(Int, Int)] = {
+            pseudo match {
+                case Nil => acc;
+                case h :: t => {
+                    if (isLegalMove(fen, h)) {
+                        filterLegal(h::acc, t);
+                    } else {
+                        filterLegal(acc, t);
+                    }
+                }
+            }
+        }
+        filterLegal(List(), PseudoMoves.getAllPseudoLegalMoves(fen));
     }
 
 }

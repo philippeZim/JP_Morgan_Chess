@@ -33,6 +33,10 @@ object PseudoMoves {
             return false
         }
         val nc = pos + cd
+        val oldCol = pos % 8
+        if (oldCol + cd < 0 || oldCol + cd > 7) {
+            return false
+        }
         if (pos / 8 != nc / 8) {
             return false
         }
@@ -371,7 +375,7 @@ object PseudoMoves {
         movesRecursive(res, piecePos);
     }
 
-    def getAllPseudoLegalMoves(fen: String, acc: List[(Int, Int)]): List[(Int, Int)] = {
+    def getAllPseudoLegalMoves(fen: String): List[(Int, Int)] = {
         pseudoBishopAndQueenMoves1(pseudoRookAndQueenMoves2(pseudoKingMoves(pseudoKnightMoves(pseudoPawnMoves(fen), fen), fen), fen), fen);
     }
 

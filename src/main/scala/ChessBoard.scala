@@ -113,8 +113,51 @@ object ChessBoard {
         (coord.charAt(0).toInt - 97) + 8 * (8 - (coord.charAt(1).toInt - 48));
     }
 
+    def indexToCoordinates(index: Int): String = {
+        val file = (index % 8)
+        val rank = 7 - (index / 8)
+
+        val fileChar = (file + 97).toChar
+        val rankChar = (rank + 49).toChar
+
+        s"$fileChar$rankChar"
+    }
+
     def moveToIndex(from: String, to: String): (Int, Int) = {
         (coordinatesToIndex(from), coordinatesToIndex(to));
+    }
+
+    def updateCastleing(fenCastles: String, move:(Int, Int)): String = {
+        move match {
+            case (a, b) if b != -1 => fenCastles
+            case (-1, -1) => fenCastles.replace("K", "")
+            case (-2, -1) => fenCastles.replace("Q", "")
+            case (-3, -1) => fenCastles.replace("k", "")
+            case (-4, -1) => fenCastles.replace("q", "")
+        }
+    }
+    
+    def updateEnpassant(fen: String, move:(Int, Int)): String = {
+        val (from, to) = move;
+        val fenSplit = fen.split(" ");
+        val board = ChessBoard.fenToBoard(fen);
+        if (board(from).pieceType == PieceType.PAWN && Math.abs(from - to) == 16) {
+            ChessBoard.indexToCoordinates(from + 8 * ((to - from) / Math.abs(to - from)))
+        } else {
+            "-"
+        }
+    }
+
+    def makeMove(fen: String, move: (Int, Int)): String = {
+        val fenSplit = fen.split(" ")
+        //rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+        val board = ChessBoard.fenToBoard(fen);
+        val newBoard = LegalMoves.makeMove(board, move);
+        if (fenSplit(1) == "w") {
+            ChessBoard.boardToFen(newBoard) + " b " + updateCastleing(fenSplit(2), move) + " " + updateEnpassant(fen, move) + " " + fenSplit(4) + " " + fenSplit(5)
+        } else {
+            ChessBoard.boardToFen(newBoard) + " w " + updateCastleing(fenSplit(2), move) + " " + updateEnpassant(fen, move) + " " + fenSplit(4) + " " + (fenSplit(5).toInt+1).toString
+        }
     }
 
 }
