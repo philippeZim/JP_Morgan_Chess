@@ -165,7 +165,7 @@ object PseudoMoves {
 
     }
 
-    def pseudoKnightMoves(fen: String): List[(Int, Int)] = {
+    def pseudoKnightMoves(res: List[(Int, Int)], fen: String): List[(Int, Int)] = {
         val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;
 
@@ -184,10 +184,10 @@ object PseudoMoves {
                 }
             }
         }
-        sub1(List(), piecePos);
+        sub1(res, piecePos);
     }
 
-    def pseudoKingMoves(fen: String): List[(Int, Int)] = {
+    def pseudoKingMoves(res: List[(Int, Int)], fen: String): List[(Int, Int)] = {
         val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;
 
@@ -245,7 +245,7 @@ object PseudoMoves {
         
 
 
-        sub1(sub2(List(), fenSplit(2).toList), piecePos);
+        sub1(sub2(res, fenSplit(2).toList), piecePos);
     }
 
 
@@ -286,7 +286,7 @@ object PseudoMoves {
     }
 
 
-    def pseudoRookAndQueenMoves2(fen: String): List[(Int, Int)] = {
+    def pseudoRookAndQueenMoves2(res: List[(Int, Int)], fen: String): List[(Int, Int)] = {
         val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;
 
@@ -325,10 +325,10 @@ object PseudoMoves {
             }
         }
 
-        rookMovesRecursive(List(), piecePos);
+        rookMovesRecursive(res, piecePos);
     }
 
-    def pseudoBishopAndQueenMoves1(fen: String): List[(Int, Int)] = {
+    def pseudoBishopAndQueenMoves1(res: List[(Int, Int)], fen: String): List[(Int, Int)] = {
         val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;
 
@@ -358,16 +358,20 @@ object PseudoMoves {
 
         }
 
-        @tailrec def rookMovesRecursive(acc: List[(Int, Int)], piecePos: List[Int]): List[(Int, Int)] = {
+        @tailrec def movesRecursive(acc: List[(Int, Int)], piecePos: List[Int]): List[(Int, Int)] = {
             piecePos match {
                 case Nil => acc
                 case h :: t => {
-                    rookMovesRecursive(sub1(acc, h, directions), t);
+                    movesRecursive(sub1(acc, h, directions), t);
                 }
             }
         }
 
-        rookMovesRecursive(List(), piecePos);
+        movesRecursive(res, piecePos);
+    }
+
+    def getAllPseudoLegalMoves(fen: String, acc: List[(Int, Int)]): List[(Int, Int)] = {
+        pseudoBishopAndQueenMoves1(pseudoRookAndQueenMoves2(pseudoKingMoves(pseudoKnightMoves(pseudoPawnMoves(fen), fen), fen), fen), fen);
     }
 
 
