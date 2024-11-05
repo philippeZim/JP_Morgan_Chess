@@ -55,6 +55,23 @@ object PseudoMoves {
         sub(board.toList, List(), 0);
     }
 
+    def piecesPositions(board: Vector[Piece], pieces: List[Piece]): List[Int] = {
+        @tailrec def sub(board: List[Piece], acc: List[Int], ind: Int): List[Int] = {
+            board match {
+                case Nil => acc
+                case h :: t => {
+                    if (pieces.contains(h)) {
+                        sub(t, ind :: acc, ind + 1);
+                    } else {
+                        sub(t, acc, ind + 1);
+                    }
+                }
+            }
+        }
+
+        sub(board.toList, List(), 0);
+    }
+
     @tailrec def checkPawnMoves(board: Vector[Piece], pos: Int, moves: List[(Int, Int)], attacks: List[(Int, Int)], acc: List[(Int, Int)], attackColor: Color): List[(Int, Int)] = {
         attacks match {
             case Nil => {
@@ -269,7 +286,7 @@ object PseudoMoves {
     }
 
 
-    def pseudoRookMoves2(fen: String): List[(Int, Int)] = {
+    def pseudoRookAndQueenMoves2(fen: String): List[(Int, Int)] = {
         val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;
 
@@ -277,7 +294,7 @@ object PseudoMoves {
 
         val directions: List[(Int, Int)] = List((-1, 0), (1, 0), (0, 1), (0, -1));
 
-        val piecePos = piecePositions(board, Piece(PieceType.ROOK, moveColor));
+        val piecePos = piecesPositions(board, List(Piece(PieceType.ROOK, moveColor), Piece(PieceType.QUEEN, moveColor)));
 
         @tailrec
         def sub2(acc: List[(Int, Int)], piecePos: Int, moveDir: (Int, Int)): List[(Int, Int)] = {
@@ -310,4 +327,48 @@ object PseudoMoves {
 
         rookMovesRecursive(List(), piecePos);
     }
+
+    def pseudoBishopAndQueenMoves1(fen: String): List[(Int, Int)] = {
+        val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
+        val fenSplit: List[String] = fen.split(" ").toList;
+
+        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = extractColor(fenSplit(1));
+
+        val directions: List[(Int, Int)] = List((-1, 1), (1, 1), (1, -1), (-1, -1));
+
+        val piecePos = piecesPositions(board, List(Piece(PieceType.BISHOP, moveColor), Piece(PieceType.QUEEN, moveColor)));
+
+        @tailrec
+        def sub2(acc: List[(Int, Int)], piecePos: Int, moveDir: (Int, Int)): List[(Int, Int)] = {
+            val (r, c) = moveDir;
+            if (pseudoLegalMove(board, piecePos, r, c, attackColor)) {
+                val new_pos = piecePos + 8 * r + c;
+                sub2((piecePos, new_pos) :: acc, new_pos, moveDir);
+            } else {
+                acc;
+            }
+        }
+
+        @tailrec
+        def sub1(acc: List[(Int, Int)], piecePos: Int, moveDirections: List[(Int, Int)]): List[(Int, Int)] = {
+            moveDirections match {
+                case Nil => acc;
+                case h :: t => sub1(sub2(acc, piecePos, h), piecePos, t);
+            }
+
+        }
+
+        @tailrec def rookMovesRecursive(acc: List[(Int, Int)], piecePos: List[Int]): List[(Int, Int)] = {
+            piecePos match {
+                case Nil => acc
+                case h :: t => {
+                    rookMovesRecursive(sub1(acc, h, directions), t);
+                }
+            }
+        }
+
+        rookMovesRecursive(List(), piecePos);
+    }
+
+
 }
