@@ -1,17 +1,10 @@
-def onBoard(pos: Int, rd: Int, cd: Int): Boolean = {
-    val nr = pos + rd * 8
-    if (nr < 0 || nr > 63) {
-        return false
-    }
-    val nc = pos + cd
-    val oldCol = pos % 8
-    if (oldCol + cd < 0 || oldCol + cd > 7) {
-        return false
-    }
-    if (pos / 8 != nc / 8) {
-        return false
-    }
-    true
+def indexToCoordinates(index: Int): String = {
+    val file = (index % 8)
+    val rank = 7 - (index / 8)
+
+    val fileChar = (file + 97).toChar
+    val rankChar = (rank + 49).toChar
+
+    s"$fileChar$rankChar"
 }
 
-onBoard(0, 0, -1)

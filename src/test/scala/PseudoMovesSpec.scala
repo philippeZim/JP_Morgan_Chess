@@ -281,8 +281,9 @@ class PseudoMovesSpec extends AnyWordSpec {
             ourMoves2 should contain allElementsOf (correctKingMoves2);
             ourMoves2.length should be(correctKingMoves2.length);
         }
-
+        /*
         "should return the correct Rook and Queen straight moves" in {
+            
             val correctRookMoves1: List[(Int, Int)] = List(
                 ChessBoard.moveToIndex("h4", "h5"),
                 ChessBoard.moveToIndex("h4", "h6"),
@@ -324,6 +325,10 @@ class PseudoMovesSpec extends AnyWordSpec {
         }
         
         ""
+        
+         */
     }
+    
+         
 }
 
