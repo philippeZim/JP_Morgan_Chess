@@ -67,34 +67,34 @@ object LegalMoves {
         val attacks: List[(Int, Int)] = List((-1, 0), (1, 0), (0, 1), (0, -1))
 
         @tailrec
-        def sub2(lr: Int, lc: Int, pos: Int): Boolean = {
+        def sub2(lr: Int, lc: Int, pos: Int, attackColor: Color): Boolean = {
             if (!PseudoMoves.onBoard(pos, lr, lc)) {
                 return false;
             }
 
             board(pos + 8 * lr + lc) match {
-                case Piece(e, attackColor) if e == PieceType.ROOK || e == PieceType.QUEEN => true;
-                case Piece(PieceType.EMPTY, Color.EMPTY) => sub2(lr, lc, pos + 8 * lr + lc);
+                case Piece(e, loloCol) if e == PieceType.ROOK || e == PieceType.QUEEN => true
+                case Piece(PieceType.EMPTY, Color.EMPTY) => sub2(lr, lc, pos + 8 * lr + lc, attackColor);
                 case _ => false;
             }
         }
 
 
         @tailrec
-        def sub(moves: List[(Int, Int)]): Boolean = {
+        def sub(moves: List[(Int, Int)], attackColor: Color): Boolean = {
             moves match {
                 case Nil => false;
                 case (rd, cd) :: t => {
-                    if(sub2(rd, cd, pos)) {
+                    if(sub2(rd, cd, pos, attackColor)) {
                         true;
                     } else {
-                        sub(t);
+                        sub(t, attackColor);
                     }
                 }
             }
         }
 
-        sub(attacks);
+        sub(attacks, attackColor);
     }
 
     def verticalAttack(fen: String, pos: Int): Boolean = {
@@ -106,34 +106,34 @@ object LegalMoves {
         val attacks: List[(Int, Int)] = List((1, 1), (-1, 1), (-1, -1), (1, -1))
 
         @tailrec
-        def sub2(lr: Int, lc: Int, pos: Int): Boolean = {
+        def sub2(lr: Int, lc: Int, pos: Int, attackColor: Color): Boolean = {
             if (!PseudoMoves.onBoard(pos, lr, lc)) {
                 return false;
             }
 
             board(pos + 8 * lr + lc) match {
                 case Piece(e, attackColor) if e == PieceType.BISHOP || e == PieceType.QUEEN => true;
-                case Piece(PieceType.EMPTY, Color.EMPTY) => sub2(lr, lc, pos + 8 * lr + lc);
+                case Piece(PieceType.EMPTY, Color.EMPTY) => sub2(lr, lc, pos + 8 * lr + lc, attackColor);
                 case _ => false;
             }
         }
 
 
         @tailrec
-        def sub(moves: List[(Int, Int)]): Boolean = {
+        def sub(moves: List[(Int, Int)], attackColor: Color): Boolean = {
             moves match {
                 case Nil => false;
                 case (rd, cd) :: t => {
-                    if (sub2(rd, cd, pos)) {
+                    if (sub2(rd, cd, pos, attackColor)) {
                         true;
                     } else {
-                        sub(t);
+                        sub(t, attackColor);
                     }
                 }
             }
         }
 
-        sub(attacks);
+        sub(attacks, attackColor);
     }
 
     def kingAttack(fen: String, pos: Int): Boolean = {
@@ -164,6 +164,12 @@ object LegalMoves {
 
 
     def isPosAttacked(fen: String, pos: Int): Boolean = {
+        val see1 = pawnAttack(fen, pos)
+        val see2 = knightAttack(fen, pos)
+        val see3 = verticalAttack(fen, pos)
+        val see4 = horizontalAttack(fen, pos)
+        val see5 = verticalAttack(fen, pos)
+        val see6 = kingAttack(fen, pos)
         pawnAttack(fen, pos) || knightAttack(fen, pos) || verticalAttack(fen, pos) || horizontalAttack(fen, pos) || verticalAttack(fen, pos) || kingAttack(fen, pos)
     }
 
@@ -211,7 +217,8 @@ object LegalMoves {
         val (from, to) = move;
         val kingPos: Int = PseudoMoves.piecePositions(board, Piece(PieceType.KING, moveColor)).head
         val moveFen = ChessBoard.boardToFen(makeMove(board, move)) + " " + fenSplit.tail.mkString(" ")
-        isPosAttacked(moveFen, kingPos)
+        val see = !isPosAttacked(moveFen, kingPos)
+        see
     }
 
     def getAllLegalMoves(fen: String): List[(Int, Int)] = {
