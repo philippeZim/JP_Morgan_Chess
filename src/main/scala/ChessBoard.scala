@@ -128,6 +128,7 @@ object ChessBoard {
     }
 
     def updateCastleing(fenCastles: String, move:(Int, Int)): String = {
+        //TODO: king or rook move update castling
         move match {
             case (a, b) if b != -1 => fenCastles
             case (-1, -1) => fenCastles.replace("K", "")
@@ -150,7 +151,6 @@ object ChessBoard {
 
     def makeMove(fen: String, move: (Int, Int)): String = {
         val fenSplit = fen.split(" ")
-        //rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
         val board = ChessBoard.fenToBoard(fen);
         val newBoard = LegalMoves.makeMove(board, move);
         if (fenSplit(1) == "w") {

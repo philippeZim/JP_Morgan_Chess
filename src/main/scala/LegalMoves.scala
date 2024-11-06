@@ -164,13 +164,7 @@ object LegalMoves {
 
 
     def isPosAttacked(fen: String, pos: Int): Boolean = {
-        val see1 = pawnAttack(fen, pos)
-        val see2 = knightAttack(fen, pos)
-        val see3 = verticalAttack(fen, pos)
-        val see4 = horizontalAttack(fen, pos)
-        val see5 = verticalAttack(fen, pos)
-        val see6 = kingAttack(fen, pos)
-        pawnAttack(fen, pos) || knightAttack(fen, pos) || verticalAttack(fen, pos) || horizontalAttack(fen, pos) || verticalAttack(fen, pos) || kingAttack(fen, pos)
+        pawnAttack(fen, pos) || knightAttack(fen, pos) || verticalAttack(fen, pos) || horizontalAttack(fen, pos) || kingAttack(fen, pos)
     }
 
     def makeMove(board: Vector[Piece], move: (Int, Int)): Vector[Piece] = {
