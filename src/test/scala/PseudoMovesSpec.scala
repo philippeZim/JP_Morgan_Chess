@@ -281,14 +281,14 @@ class PseudoMovesSpec extends AnyWordSpec {
             ourMoves2 should contain allElementsOf (correctKingMoves2);
             ourMoves2.length should be(correctKingMoves2.length);
         }
-        /*
+
         "should return the correct Rook and Queen straight moves" in {
             
             val correctRookMoves1: List[(Int, Int)] = List(
                 ChessBoard.moveToIndex("h4", "h5"),
                 ChessBoard.moveToIndex("h4", "h6"),
                 ChessBoard.moveToIndex("h4", "h7"),
-                ChessBoard.moveToIndex("h4", "g4"), 
+                ChessBoard.moveToIndex("h4", "g4"),
                 ChessBoard.moveToIndex("h4", "f4"),
                 ChessBoard.moveToIndex("h4", "e4"),
                 ChessBoard.moveToIndex("h4", "d4"),
@@ -298,11 +298,11 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("c5", "c6"),
                 ChessBoard.moveToIndex("c5", "c7"),
                 ChessBoard.moveToIndex("c5", "b5"),
-                ChessBoard.moveToIndex("c5", "a5")
-            )
-            val ourMoves1 = PseudoMoves.pseudoRookAndQueenMoves2()Moves("rnbqk2r/ppppp1pp/5n2/2R1Bp2/1Pb4R/7P/P1PPP3/1N1QKBN1 w KQkq - 0 1")
-            ourMoves1 should contain allElementsOf (correctRookMoves1);
-            ourMoves1.length should be(correctRookMoves1.length);
+                ChessBoard.moveToIndex("c5", "a5"),
+                ChessBoard.moveToIndex("d1", "c1")
+            ).sorted
+            val ourMoves1 = PseudoMoves.pseudoHorizontalMoves(List(), "rnbqk2r/ppppp1pp/5n2/2R1Bp2/1Pb4R/7P/P1PPP3/1N1QKBN1 w KQkq - 0 1")
+            ourMoves1.sorted should be (correctRookMoves1);
 
             val correctRookMoves2: List[(Int, Int)] = List(
                 ChessBoard.moveToIndex("b6", "a6"),
@@ -317,16 +317,33 @@ class PseudoMovesSpec extends AnyWordSpec {
                 ChessBoard.moveToIndex("f3", "f1"),
                 ChessBoard.moveToIndex("f3", "f4"),
                 ChessBoard.moveToIndex("f3", "e3")
+            ).sorted
+
+            val ourMoves2 = PseudoMoves.pseudoHorizontalMoves(List(), "1nbqk3/ppppp1pp/1r3n2/2R1Bp2/1P5R/N2b1r1P/P1PPP1B1/3QK1N1 b KQkq - 0 1")
+            ourMoves2.sorted should be(correctRookMoves2);
+        }
+
+        "should return the correct Rook and Queen vertical moves" in {
+            val correctVerticalMoves1 = List(
+                ChessBoard.moveToIndex("c1", "b2"),
+                ChessBoard.moveToIndex("e5", "f6"),
+                ChessBoard.moveToIndex("e5", "d6"),
+                ChessBoard.moveToIndex("e5", "c7"),
+                ChessBoard.moveToIndex("e5", "d4"),
+                ChessBoard.moveToIndex("e5", "c3"),
+                ChessBoard.moveToIndex("e5", "b2"),
+                ChessBoard.moveToIndex("e5", "a1"),
+                ChessBoard.moveToIndex("e5", "f4"),
+                ChessBoard.moveToIndex("e5", "g3"),
+                ChessBoard.moveToIndex("e5", "h2"),
+                ChessBoard.moveToIndex("g2", "h1"),
+                ChessBoard.moveToIndex("g2", "f1"),
+                ChessBoard.moveToIndex("g2", "f3")
             )
 
-            val ourMoves2 = PseudoMoves.pseudoRookMoves("1nbqk3/ppppp1pp/1r3n2/2R1Bp2/1P5R/N2b1r1P/P1PPP1B1/3QK1N1 b KQkq - 0 1")
-            ourMoves2 should contain allElementsOf (correctRookMoves2);
-            ourMoves2.length should be(correctRookMoves2.length);
+            PseudoMoves.pseudoVerticalMoves(List(), "1nbqk3/pppp2pp/r3pn2/2R1Bp2/1P5R/N2b1r1P/P1PPP1B1/2Q1K1N1 w KQkq - 2 3").sorted should be (correctVerticalMoves1.sorted)
         }
-        
-        ""
-        
-         */
+        //TODO: for black horizontal
     }
     
          

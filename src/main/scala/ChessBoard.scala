@@ -140,6 +140,9 @@ object ChessBoard {
     
     def updateEnpassant(fen: String, move:(Int, Int)): String = {
         val (from, to) = move;
+        if(to < 0) {
+            return "-"
+        }
         val fenSplit = fen.split(" ");
         val board = ChessBoard.fenToBoard(fen);
         if (board(from).pieceType == PieceType.PAWN && Math.abs(from - to) == 16) {
