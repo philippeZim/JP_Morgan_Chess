@@ -205,6 +205,113 @@ class PseudoMovesSpec extends AnyWordSpec {
 
 
         }
+        "should return the correct Knight Moves" in {
+            val correctKnightMoves1: List[(Int, Int)] = List(
+                ChessBoard.moveToIndex("a4", "b6"),
+                ChessBoard.moveToIndex("a4", "c5"),
+                ChessBoard.moveToIndex("a4", "c3"),
+                ChessBoard.moveToIndex("e5", "d7"),
+                ChessBoard.moveToIndex("e5", "f7"),
+                ChessBoard.moveToIndex("e5", "g6"),
+                ChessBoard.moveToIndex("e5", "g4"),
+                ChessBoard.moveToIndex("e5", "f3"),
+                ChessBoard.moveToIndex("e5", "d3"),
+                ChessBoard.moveToIndex("e5", "c4"),
+                ChessBoard.moveToIndex("e5", "c6")
+            )
+            val ourMoves1 = PseudoMoves.pseudoKnightMoves(List(), "r1bq2nr/pp1ppkpp/2n2p2/2p1N3/Nb6/8/PPP2PPP/R1BQ1K1R w KQkq - 0 1");
+            ourMoves1 should contain allElementsOf (correctKnightMoves1);
+            ourMoves1.length should be(correctKnightMoves1.length);
+
+            val correctKnightMoves2: List[(Int, Int)] = List(ChessBoard.moveToIndex("b5", "a3"), ChessBoard.moveToIndex("b5", "c7"), ChessBoard.moveToIndex("b5", "d6"), ChessBoard.moveToIndex("b5", "d4"), ChessBoard.moveToIndex("b5", "c3"), ChessBoard.moveToIndex("e5", "f7"), ChessBoard.moveToIndex("e5", "f3"), ChessBoard.moveToIndex("e5", "d3"), ChessBoard.moveToIndex("e5", "c4"), ChessBoard.moveToIndex("e5", "c6"), ChessBoard.moveToIndex("e5", "d7"))
+            val ourMoves2 = PseudoMoves.pseudoKnightMoves(List(), "8/k1Q5/6p1/1n2n3/6r1/R2N4/8/7K b - - 0 1");
+            ourMoves2 should contain allElementsOf (correctKnightMoves2);
+            ourMoves2.length should be(correctKnightMoves2.length);
+
+
+        }
+
+        "should return the correct King Moves" in {
+            val correctKingMoves: List[(Int, Int)] = List(
+                ChessBoard.moveToIndex("d2", "d3"),
+                ChessBoard.moveToIndex("d2", "e3"),
+                ChessBoard.moveToIndex("d2", "e1"),
+                ChessBoard.moveToIndex("d2", "d1"),
+                ChessBoard.moveToIndex("d2", "c1"),
+                ChessBoard.moveToIndex("d2", "c2"))
+            val ourMoves1 = PseudoMoves.pseudoKingMoves(List(), "4k3/3ppR2/8/8/8/2P5/3KN3/2n5 w - - 0 1");
+            ourMoves1 should contain allElementsOf (correctKingMoves);
+            ourMoves1.length should be(correctKingMoves.length);
+
+            val correctKingMoves2: List[(Int, Int)] = List(
+                ChessBoard.moveToIndex("e8", "d8"),
+                ChessBoard.moveToIndex("e8", "f7"),
+                ChessBoard.moveToIndex("e8", "f8")
+            )
+            val ourMoves2 = PseudoMoves.pseudoKingMoves(List(), "4k3/3ppR2/8/8/8/2P5/3KN3/2n5 b - - 0 1");
+            ourMoves2 should contain allElementsOf (correctKingMoves2);
+            ourMoves2.length should be(correctKingMoves2.length);
+        }
+
+        "should detect castling moves" in {
+            /*
+            'K' -> (-1, -1),
+            'Q' -> (-2, -1),
+            'k' -> (-3, -1),
+            'q' -> (-4, -1)
+             */ val correctKingMoves: List[(Int, Int)] = List(ChessBoard.moveToIndex("e1", "f1"), ChessBoard.moveToIndex("e1", "d1"), ChessBoard.moveToIndex("e1", "d2"), (-1, -1), (-2, -1))
+
+            val ourMoves1 = PseudoMoves.pseudoKingMoves(List(), "rnbqk2r/2p2ppp/1p1p4/p3p2n/2B1P3/NP1P1N2/PBP1QPPP/R3K2R w KQkq - 2 9");
+            ourMoves1 should contain allElementsOf (correctKingMoves);
+            ourMoves1.length should be(correctKingMoves.length);
+
+            val correctKingMoves2: List[(Int, Int)] = List(ChessBoard.moveToIndex("e8", "f8"), ChessBoard.moveToIndex("e8", "d7"), ChessBoard.moveToIndex("e8", "e7"), (-3, -1))
+
+            val ourMoves2 = PseudoMoves.pseudoKingMoves(List(), "rnbqk2r/2p2ppp/1p1p1n2/p3p3/2B1P3/NP1P1N2/PBP1QPPP/R3K2R b KQkq - 1 8");
+            ourMoves2 should contain allElementsOf (correctKingMoves2);
+            ourMoves2.length should be(correctKingMoves2.length);
+        }
+
+        "should return the correct Rook moves" in {
+            val correctRookMoves1: List[(Int, Int)] = List(
+                ChessBoard.moveToIndex("h4", "h5"),
+                ChessBoard.moveToIndex("h4", "h6"),
+                ChessBoard.moveToIndex("h4", "h7"),
+                ChessBoard.moveToIndex("h4", "g4"), 
+                ChessBoard.moveToIndex("h4", "f4"),
+                ChessBoard.moveToIndex("h4", "e4"),
+                ChessBoard.moveToIndex("h4", "d4"),
+                ChessBoard.moveToIndex("h4", "c4"),
+                ChessBoard.moveToIndex("c5", "c4"),
+                ChessBoard.moveToIndex("c5", "d5"),
+                ChessBoard.moveToIndex("c5", "c6"),
+                ChessBoard.moveToIndex("c5", "c7"),
+                ChessBoard.moveToIndex("c5", "b5"),
+                ChessBoard.moveToIndex("c5", "a5")
+            )
+            val ourMoves1 = PseudoMoves.pseudoRookMoves("rnbqk2r/ppppp1pp/5n2/2R1Bp2/1Pb4R/7P/P1PPP3/1N1QKBN1 w KQkq - 0 1")
+            ourMoves1 should contain allElementsOf (correctRookMoves1);
+            ourMoves1.length should be(correctRookMoves1.length);
+
+            val correctRookMoves2: List[(Int, Int)] = List(
+                ChessBoard.moveToIndex("b6", "a6"),
+                ChessBoard.moveToIndex("b6", "c6"),
+                ChessBoard.moveToIndex("b6", "d6"),
+                ChessBoard.moveToIndex("b6", "e6"),
+                ChessBoard.moveToIndex("b6", "b5"),
+                ChessBoard.moveToIndex("b6", "b4"),
+                ChessBoard.moveToIndex("f3", "g3"),
+                ChessBoard.moveToIndex("f3", "h3"),
+                ChessBoard.moveToIndex("f3", "f2"),
+                ChessBoard.moveToIndex("f3", "f1"),
+                ChessBoard.moveToIndex("f3", "f4"),
+                ChessBoard.moveToIndex("f3", "e3")
+            )
+
+            val ourMoves2 = PseudoMoves.pseudoRookMoves("1nbqk3/ppppp1pp/1r3n2/2R1Bp2/1P5R/N2b1r1P/P1PPP1B1/3QK1N1 b KQkq - 0 1")
+            ourMoves2 should contain allElementsOf (correctRookMoves2);
+            ourMoves2.length should be(correctRookMoves2.length);
+        }
     }
 }
 
