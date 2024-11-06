@@ -135,6 +135,12 @@ object ChessBoard {
             case (-2, -1) => fenCastles.replace("Q", "")
             case (-3, -1) => fenCastles.replace("k", "")
             case (-4, -1) => fenCastles.replace("q", "")
+            case (60, _) => fenCastles.replace("K", "").replace("Q", "")
+            case (4, _) => fenCastles.replace("k", "").replace("q", "")
+            case (0, _) => fenCastles.replace("q", "")
+            case (7, _) => fenCastles.replace("k", "")
+            case (63, _) => fenCastles.replace("K", "")
+            case (56, _) => fenCastles.replace("Q", "")
         }
     }
     
