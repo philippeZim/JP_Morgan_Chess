@@ -247,7 +247,7 @@ object PseudoMoves {
                 }
             }
         }
-        
+
 
 
         sub1(sub2(res, fenSplit(2).toList), piecePos);
