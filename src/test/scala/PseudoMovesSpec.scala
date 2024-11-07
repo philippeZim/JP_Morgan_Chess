@@ -342,8 +342,19 @@ class PseudoMovesSpec extends AnyWordSpec {
             )
 
             PseudoMoves.pseudoVerticalMoves(List(), "1nbqk3/pppp2pp/r3pn2/2R1Bp2/1P5R/N2b1r1P/P1PPP1B1/2Q1K1N1 w KQkq - 2 3").sorted should be (correctVerticalMoves1.sorted)
+
+            val correctVerticalMoves2 = List(
+                ChessBoard.moveToIndex("c8", "b7"),
+                ChessBoard.moveToIndex("d8", "e7"),
+                ChessBoard.moveToIndex("d3", "c2"),
+                ChessBoard.moveToIndex("d3", "e2"),
+                ChessBoard.moveToIndex("d3", "e4"),
+                ChessBoard.moveToIndex("d3", "c4"),
+                ChessBoard.moveToIndex("d3", "b5")
+            )
+            PseudoMoves.pseudoVerticalMoves(List(), "1nbqk3/p1pp2pp/rp2pn2/2R1Bp2/1P5R/N2b1r1P/PQPPP1B1/3K2N1 b kq - 1 4") .sorted should be (correctVerticalMoves2.sorted)
         }
-        //TODO: for black horizontal
+        
     }
     
          
