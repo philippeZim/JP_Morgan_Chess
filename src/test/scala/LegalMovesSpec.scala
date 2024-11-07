@@ -21,12 +21,12 @@ class LegalMovesSpec extends AnyWordSpec {
             val fen2 = "rn1q1bnr/1ppkp1p1/4b2p/2p2P1P/5P2/p2P4/PP3NP1/RNBQKB1R b KQ - 0 10";
             LegalMoves.getAllLegalMoves(fen2).sorted should be(expected2)
 
-            /*
-            val expected3: List[(Int, Int)] = List((45, 30), (45, 28), (45, 39), (45, 35), (45, 55), (45, 51), (45, 62), (45, 60), (54, 47), (54, 61), (50, 32), (50, 41), (50, 51), (50, 59), (50, 58), (63, 39), (63, 47), (63, 55), (63, 62), (63, 61), (63, 60), (63, 59), (63, 58), (57, 40), (57, 51), (12, 5), (12, 5), (12, 5), (12, 5), (46, 38), (43, 35), (42, 34), (49, 41), (48, 40), (49, 33), (48, 32)).sorted;
+
+            val expected3: List[(Int, Int)] = List((45, 30), (45, 28), (45, 39), (45, 35), (45, 55), (45, 51), (45, 62), (45, 60), (54, 47), (54, 61), (50, 32), (50, 41), (50, 51), (50, 59), (50, 58), (63, 39), (63, 47), (63, 55), (63, 62), (63, 61), (63, 60), (63, 59), (63, 58), (57, 40), (57, 51), (12, 5), (12, 5), (12, 5), (12, 5), (46, 38), (43, 35), (42, 34), (49, 41), (48, 40), (49, 33), (48, 32)).sorted.distinct;
             val fen3 = "1rb1kb1r/ppp1P2p/7n/n4ppP/8/2PP1NP1/PPQ1KPB1/RNq4R w - - 0 19";
             LegalMoves.getAllLegalMoves(fen3).sorted should be(expected3)
 
-             */
+
 
             val expected4: List[(Int, Int)] = List((2, 1), (2, 11)).sorted;
             val fen4 = "2k5/3R4/2R3K1/6b1/6b1/8/3P1r2/6NB b - - 6 116";
@@ -68,12 +68,12 @@ class LegalMovesSpec extends AnyWordSpec {
             val fen13 = "3q1b2/r1nbkp2/ppp1p1pr/3P3p/PP2P3/3PK1PP/1B1NP1B1/R2Q2NR b - - 2 24";
             LegalMoves.getAllLegalMoves(fen13).sorted should be(expected13)
 
-            /*
-            val expected14: List[(Int, Int)] = List((1, 0), (1, 9), (1, 8), (37, 5), (37, 13), (37, 21), (37, 29), (37, 39), (37, 38), (37, 36), (37, 35), (37, 34), (37, 33), (37, 32), (37, 45), (18, 27), (31, 39), (55, 63), (55, 63), (55, 63), (55, 63)).sorted;
+
+            val expected14: List[(Int, Int)] = List((1, 0), (1, 9), (1, 8), (37, 5), (37, 13), (37, 21), (37, 29), (37, 39), (37, 38), (37, 36), (37, 35), (37, 34), (37, 33), (37, 32), (37, 45), (18, 27), (31, 39), (55, 63), (55, 63), (55, 63), (55, 63)).sorted.distinct;
             val fen14 = "1k6/3P2B1/2p5/2KN2Pp/B4r2/5P2/P6p/5R2 b - - 3 57";
             LegalMoves.getAllLegalMoves(fen14).sorted should be(expected14)
 
-             */
+
 
             val expected15: List[(Int, Int)] = List((59, 60), (59, 58), (5, 45), (42, 52)).sorted;
             val fen15 = "2Q2R2/1p1nk3/3p4/P1r5/8/2N1Nb1n/1r6/1R1K4 w - - 3 71";
@@ -179,12 +179,12 @@ class LegalMovesSpec extends AnyWordSpec {
             val fen40 = "2N4r/8/2B5/7k/2K5/8/8/5q2 w - - 10 164";
             LegalMoves.getAllLegalMoves(fen40).sorted should be(expected40)
 
-            /*
-            val expected41: List[(Int, Int)] = List((18, 0), (18, 11), (18, 9), (18, 27), (18, 25), (18, 36), (18, 32), (18, 45), (18, 54), (18, 63), (29, 22), (29, 21), (29, 20), (29, 30), (29, 28), (29, 36), (50, 35), (50, 44), (50, 40), (50, 60), (50, 56), (33, 41), (49, 57), (49, 57), (49, 57), (49, 57)).sorted;
+
+            val expected41: List[(Int, Int)] = List((18, 0), (18, 11), (18, 9), (18, 27), (18, 25), (18, 36), (18, 32), (18, 45), (18, 54), (18, 63), (29, 22), (29, 21), (29, 20), (29, 30), (29, 28), (29, 36), (50, 35), (50, 44), (50, 40), (50, 60), (50, 56), (33, 41), (49, 57), (49, 57), (49, 57), (49, 57)).sorted.distinct;
             val fen41 = "8/3R4/2b2P2/5k2/1p6/6K1/1pn5/8 b - - 21 127";
             LegalMoves.getAllLegalMoves(fen41).sorted should be(expected41)
 
-             */
+
 
             val expected42: List[(Int, Int)] = List((14, 7), (14, 6), (14, 5), (14, 15), (14, 13), (14, 23), (14, 22), (14, 21)).sorted;
             val fen42 = "8/6k1/8/6p1/6P1/3N4/4R3/5K2 b - - 94 204";
@@ -198,12 +198,12 @@ class LegalMovesSpec extends AnyWordSpec {
             val fen44 = "8/8/8/6q1/8/K3k1B1/8/8 w - - 46 197";
             LegalMoves.getAllLegalMoves(fen44).sorted should be(expected44)
 
-            /*
-            val expected45: List[(Int, Int)] = List((12, 5), (12, 4), (12, 13), (12, 21), (12, 20), (43, 28), (43, 26), (43, 37), (43, 33), (43, 53), (43, 49), (43, 60), (43, 58), (48, 56), (48, 56), (48, 56), (48, 56)).sorted;
+
+            val expected45: List[(Int, Int)] = List((12, 5), (12, 4), (12, 13), (12, 21), (12, 20), (43, 28), (43, 26), (43, 37), (43, 33), (43, 53), (43, 49), (43, 60), (43, 58), (48, 56), (48, 56), (48, 56), (48, 56)).sorted.distinct;
             val fen45 = "8/2K1k3/8/8/8/3n4/p7/8 b - - 17 159";
             LegalMoves.getAllLegalMoves(fen45).sorted should be(expected45)
 
-             */
+
 
             val expected46: List[(Int, Int)] = List((6, 12), (6, 21), (3, 2), (3, 12), (1, 11), (1, 18), (8, 0), (23, 5), (23, 14), (34, 13), (34, 20), (34, 27), (34, 25), (34, 43), (34, 41), (34, 48), (55, 28), (55, 37), (55, 47), (55, 46), (55, 54), (55, 63), (55, 62), (10, 17), (19, 28), (45, 54), (45, 52), (10, 18), (19, 27), (16, 24), (30, 38), (45, 53), (10, 26)).sorted;
             val fen46 = "1n1k2nr/rpp4p/pP1p3b/4P1p1/Q1b1P3/B1NP1p1P/P3N1Pq/R4K1R b - - 0 22";
