@@ -69,6 +69,31 @@ class ChessBoardSpec extends AnyWordSpec {
             val testFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
             ChessBoard.fenToBoard(testFen) should equal(ChessBoard.getDefaultBoard());
         }
+
+        "return a correct FEN given a board" in {
+            ChessBoard.boardToFen(ChessBoard.getDefaultBoard()) should equal("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+
+        }
+
+        "return correct index given coordinates" in {
+            ChessBoard.coordinatesToIndex("a1") should be(56);
+            ChessBoard.coordinatesToIndex("e1") should be(60);
+            ChessBoard.coordinatesToIndex("a8") should be(0);
+            ChessBoard.coordinatesToIndex("h8") should be(7);
+            ChessBoard.coordinatesToIndex("d4") should be(35);
+        }
+        "return correct coordinates given index" in {
+            ChessBoard.indexToCoordinates(56) should be("a1");
+            ChessBoard.indexToCoordinates(60) should be("e1");
+            ChessBoard.indexToCoordinates(0) should be("a8");
+            ChessBoard.indexToCoordinates(7) should be("h8");
+            ChessBoard.indexToCoordinates(35) should be("d4");
+        }
+        "return correct index move given a coordinates move" in {
+            ChessBoard.moveToIndex("a1", "e1") should be((56, 60))
+            ChessBoard.moveToIndex("d4", "a8") should be((35, 0))
+            
+        }
     }
 
 }
