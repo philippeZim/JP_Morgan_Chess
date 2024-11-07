@@ -128,13 +128,12 @@ object ChessBoard {
     }
 
     def updateCastleing(fenCastles: String, move:(Int, Int)): String = {
-        //TODO: king or rook move update castling
         move match {
             case (a, b) if b != -1 => fenCastles
-            case (-1, -1) => fenCastles.replace("K", "")
-            case (-2, -1) => fenCastles.replace("Q", "")
-            case (-3, -1) => fenCastles.replace("k", "")
-            case (-4, -1) => fenCastles.replace("q", "")
+            case (-1, -1) => fenCastles.replace("K", "").replace("Q", "")
+            case (-2, -1) => fenCastles.replace("Q", "").replace("K", "")
+            case (-3, -1) => fenCastles.replace("k", "").replace("q", "")
+            case (-4, -1) => fenCastles.replace("q", "").replace("k", "")
             case (60, _) => fenCastles.replace("K", "").replace("Q", "")
             case (4, _) => fenCastles.replace("k", "").replace("q", "")
             case (0, _) => fenCastles.replace("q", "")
