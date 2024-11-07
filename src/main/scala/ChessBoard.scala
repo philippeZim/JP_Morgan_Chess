@@ -129,17 +129,48 @@ object ChessBoard {
 
     def updateCastleing(fenCastles: String, move:(Int, Int)): String = {
         move match {
-            case (a, b) if b != -1 => fenCastles
-            case (-1, -1) => fenCastles.replace("K", "").replace("Q", "")
-            case (-2, -1) => fenCastles.replace("Q", "").replace("K", "")
-            case (-3, -1) => fenCastles.replace("k", "").replace("q", "")
-            case (-4, -1) => fenCastles.replace("q", "").replace("k", "")
-            case (60, _) => fenCastles.replace("K", "").replace("Q", "")
-            case (4, _) => fenCastles.replace("k", "").replace("q", "")
-            case (0, _) => fenCastles.replace("q", "")
-            case (7, _) => fenCastles.replace("k", "")
-            case (63, _) => fenCastles.replace("K", "")
-            case (56, _) => fenCastles.replace("Q", "")
+            case (-1, -1) => {
+                val newRights = fenCastles.replace("K", "")
+                if (newRights.isEmpty) "-" else newRights
+            }
+            case (-2, -1) => {
+                val newRights = fenCastles.replace("Q", "")
+                if (newRights.isEmpty) "-" else newRights
+
+            }
+            case (-3, -1) => {
+                val newRights = fenCastles.replace("k", "")
+                if (newRights.isEmpty) "-" else newRights
+            }
+            case (-4, -1) => {
+                val newRights = fenCastles.replace("q", "")
+                if (newRights.isEmpty) "-" else newRights
+            }
+            case (60, _) => {
+                val newRights = fenCastles.replace("K", "").replace("Q", "")
+                if (newRights.isEmpty) "-" else newRights
+            }
+            case (4, _) => {
+                val newRights = fenCastles.replace("k", "").replace("q", "")
+                if (newRights.isEmpty) "-" else newRights
+            }
+            case (0, _) => {
+                val newRights = fenCastles.replace("q", "")
+                if (newRights.isEmpty) "-" else newRights
+            }
+            case (7, _) => {
+                val newRights = fenCastles.replace("k", "")
+                if (newRights.isEmpty) "-" else newRights
+            }
+            case (63, _) => {
+                val newRights = fenCastles.replace("K", "")
+                if (newRights.isEmpty) "-" else newRights
+            }
+            case (56, _) => {
+                val newRights = fenCastles.replace("Q", "")
+                if (newRights.isEmpty) "-" else newRights
+            }
+            case _ => fenCastles
         }
     }
     

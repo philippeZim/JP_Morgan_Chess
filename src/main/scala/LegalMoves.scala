@@ -211,8 +211,11 @@ object LegalMoves {
         val (from, to) = move;
         val kingPos: Int = PseudoMoves.piecePositions(board, Piece(PieceType.KING, moveColor)).head
         val moveFen = ChessBoard.boardToFen(makeMove(board, move)) + " " + fenSplit.tail.mkString(" ")
-        val see = !isPosAttacked(moveFen, kingPos)
-        see
+        if (from == kingPos) {
+            !isPosAttacked(moveFen, to)
+        } else {
+            !isPosAttacked(moveFen, kingPos)
+        }
     }
 
     def getAllLegalMoves(fen: String): List[(Int, Int)] = {
