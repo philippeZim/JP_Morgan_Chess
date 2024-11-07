@@ -130,20 +130,20 @@ object ChessBoard {
     def updateCastleing(fenCastles: String, move:(Int, Int)): String = {
         move match {
             case (-1, -1) => {
-                val newRights = fenCastles.replace("K", "")
+                val newRights = fenCastles.replace("K", "").replace("Q", "")
                 if (newRights.isEmpty) "-" else newRights
             }
             case (-2, -1) => {
-                val newRights = fenCastles.replace("Q", "")
+                val newRights = fenCastles.replace("Q", "").replace("K", "")
                 if (newRights.isEmpty) "-" else newRights
 
             }
             case (-3, -1) => {
-                val newRights = fenCastles.replace("k", "")
+                val newRights = fenCastles.replace("k", "").replace("q", "")
                 if (newRights.isEmpty) "-" else newRights
             }
             case (-4, -1) => {
-                val newRights = fenCastles.replace("q", "")
+                val newRights = fenCastles.replace("q", "").replace("k", "")
                 if (newRights.isEmpty) "-" else newRights
             }
             case (60, _) => {

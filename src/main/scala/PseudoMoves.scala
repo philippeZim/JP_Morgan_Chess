@@ -74,9 +74,6 @@ object PseudoMoves {
         if (oldColum + columDirection < 0 || oldColum + columDirection > 7) {
             return false
         }
-        if (beginningPosition / 8 != newColum / 8) {
-            return false
-        }
         true
     }
 
