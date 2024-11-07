@@ -5,6 +5,7 @@ import scala.util.Random
     val random = new Random()
     def play(curFen: String): Unit = {
         println(ChessBoard.getBoardString(ChessBoard.fenToBoard(curFen)))
+        println(curFen)
         println()
         val legalMoves = LegalMoves.getAllLegalMoves(curFen);
         if (legalMoves.isEmpty) {
