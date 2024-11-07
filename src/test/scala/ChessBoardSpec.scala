@@ -182,6 +182,18 @@ class ChessBoardSpec extends AnyWordSpec {
             val oldfen22 = "rnbq1bnr/ppppkppp/8/4p3/8/2N2N2/PPPPPPPP/R1BQKB1R w KQ - 0 3"
             val newfen22 = "rnbq1bnr/ppppkppp/8/4p3/8/2N2N2/PPPPPPPP/1RBQKB1R b K - 0 3"
             ChessBoard.makeMove(oldfen22, ChessBoard.moveToIndex("a1", "b1")) should be(newfen22)
+
+            val oldfen23 = "r1bqkbnr/pppp1ppp/2n1p3/8/2B1P3/8/PPPPKPPP/RNBQ2NR b kq - 0 3"
+            val newfen23 = "1rbqkbnr/pppp1ppp/2n1p3/8/2B1P3/8/PPPPKPPP/RNBQ2NR w k - 0 4"
+            ChessBoard.makeMove(oldfen23, ChessBoard.moveToIndex("a8", "b8")) should be(newfen23)
+
+            val oldfen24 = "rnbq1bnr/ppppkppp/8/4p3/8/2N2N2/PPPPPPPP/R1BQKB1R w KQ - 0 3"
+            val newfen24 = "rnbq1bnr/ppppkppp/8/4p3/8/2N2N2/PPPPPPPP/R1BQKBR1 b Q - 0 3"
+            ChessBoard.makeMove(oldfen24, ChessBoard.moveToIndex("h1", "g1")) should be(newfen24)
+
+            val oldfen25 = "rnbq1bnr/ppppkppp/8/4p3/4P3/2N5/PPPP1PPP/R1BQKBNR w KQ - 0 3"
+            val newfen25 = "rnbq1bnr/ppppkppp/8/4p3/4P3/2N5/PPPP1PPP/1RBQKBNR b K - 0 3"
+            ChessBoard.makeMove(oldfen25, ChessBoard.moveToIndex("a1", "b1")) should be(newfen25)
         }
     }
 
