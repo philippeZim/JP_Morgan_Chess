@@ -142,6 +142,46 @@ class ChessBoardSpec extends AnyWordSpec {
             val oldfen12 = "1rbqkb1r/pppppppp/2n2n2/8/8/2N2N2/PPPPPPPP/1RBQKBR1 b k - 0 4"
             val newfen12 = "1rbqkbr1/pppppppp/2n2n2/8/8/2N2N2/PPPPPPPP/1RBQKBR1 w - - 0 5"
             ChessBoard.makeMove(oldfen12, ChessBoard.moveToIndex("h8", "g8")) should be(newfen12)
+
+            val oldfen13 = "rnbq2nr/ppppkppp/8/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQ - 0 4"
+            val newfen13 = "rnbq2nr/ppppkppp/8/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQ1RK1 b - - 0 4"
+            ChessBoard.makeMove(oldfen13, (-1,-1)) should be(newfen13)
+
+            val oldfen14 = "rnbq1bnr/pp1kp1pp/2p2p2/3p4/3P1B2/2NQ4/PPP1PPPP/R3KBNR w KQ - 0 5"
+            val newfen14 = "rnbq1bnr/pp1kp1pp/2p2p2/3p4/3P1B2/2NQ4/PPP1PPPP/2KR1BNR b - - 0 5"
+            ChessBoard.makeMove(oldfen14, (-2, -1)) should be(newfen14)
+
+            val oldfen15 = "rnbqk2r/pppp1ppp/5n2/2b1p3/4P3/3P1N2/PPP1QPPP/RNB1KB1R b KQkq - 0 4"
+            val newfen15 = "rnbq1rk1/pppp1ppp/5n2/2b1p3/4P3/3P1N2/PPP1QPPP/RNB1KB1R w KQ - 0 5"
+            ChessBoard.makeMove(oldfen15, (-3, -1)) should be(newfen15)
+
+            val oldfen16 = "r3kbnr/ppp1pppp/2nq4/3p1b2/4P3/N1PB1Q2/PP1P1PPP/R1B1K1NR b KQkq - 0 5"
+            val newfen16 = "2kr1bnr/ppp1pppp/2nq4/3p1b2/4P3/N1PB1Q2/PP1P1PPP/R1B1K1NR w KQ - 0 6"
+            ChessBoard.makeMove(oldfen16, (-4, -1)) should be(newfen16)
+
+            val oldfen17 = "rnbq1bnr/ppppkppp/8/4p3/4P3/2N5/PPPP1PPP/R1BQKBNR w KQ - 0 3"
+            val newfen17 = "rnbq1bnr/ppppkppp/8/4p3/4P3/2N5/PPPPKPPP/R1BQ1BNR b - - 0 3"
+            ChessBoard.makeMove(oldfen17, ChessBoard.moveToIndex("e1", "e2")) should be(newfen17)
+
+            val oldfen18 = "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 0 2"
+            val newfen18 = "rnbq1bnr/ppppkppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQ - 0 3"
+            ChessBoard.makeMove(oldfen18, ChessBoard.moveToIndex("e8", "e7")) should be(newfen18)
+
+            val oldfen19 = "r1b1kbnr/pppp1ppp/2n2q2/4p3/4P3/3P1N2/PPP1KPPP/RNBQ1B1R b kq - 0 4"
+            val newfen19 = "1rb1kbnr/pppp1ppp/2n2q2/4p3/4P3/3P1N2/PPP1KPPP/RNBQ1B1R w k - 0 5"
+            ChessBoard.makeMove(oldfen19, ChessBoard.moveToIndex("a8", "b8")) should be(newfen19)
+
+            val oldfen20 = "rnbqkb1r/pppppppp/5n2/8/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 0 2"
+            val newfen20 = "rnbqkbr1/pppppppp/5n2/8/4P3/5N2/PPPP1PPP/RNBQKB1R w KQq - 0 3"
+            ChessBoard.makeMove(oldfen20, ChessBoard.moveToIndex("h8", "g8")) should be(newfen20)
+
+            val oldfen21 = "rnbq1bnr/ppppkppp/8/4p3/8/2N2N2/PPPPPPPP/R1BQKB1R w KQ - 0 3"
+            val newfen21 = "rnbq1bnr/ppppkppp/8/4p3/8/2N2N2/PPPPPPPP/R1BQKBR1 b Q - 0 3"
+            ChessBoard.makeMove(oldfen21, ChessBoard.moveToIndex("h1", "g1")) should be(newfen21)
+
+            val oldfen22 = "rnbq1bnr/ppppkppp/8/4p3/8/2N2N2/PPPPPPPP/R1BQKB1R w KQ - 0 3"
+            val newfen22 = "rnbq1bnr/ppppkppp/8/4p3/8/2N2N2/PPPPPPPP/1RBQKB1R b K - 0 3"
+            ChessBoard.makeMove(oldfen22, ChessBoard.moveToIndex("a1", "b1")) should be(newfen22)
         }
     }
 

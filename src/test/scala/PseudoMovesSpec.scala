@@ -356,7 +356,14 @@ class PseudoMovesSpec extends AnyWordSpec {
             )
             PseudoMoves.pseudoVerticalMoves(List(), "1nbqk3/p1pp2pp/rp2pn2/2R1Bp2/1P5R/N2b1r1P/PQPPP1B1/3K2N1 b kq - 1 4") .sorted should be (correctVerticalMoves2.sorted)
         }
-        
+
+        "should return the correct black queen castleing move" in {
+             val correctMoves = List(
+                 ChessBoard.moveToIndex("e8", "d8"),
+                 (-4,-1)
+             )
+            PseudoMoves.pseudoKingMoves(List(), "r3kbnr/p1pqpppp/bpn5/3p4/4P3/N1PB1P2/PP1PQ1PP/R1B1K1NR b KQkq - 0 6").sorted should be (correctMoves.sorted)
+        }
     }
     
          
