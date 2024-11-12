@@ -1,3 +1,4 @@
+import PieceType.KING
 import scala.annotation.tailrec
 
 object ChessBoard {
@@ -185,6 +186,29 @@ object ChessBoard {
             ChessBoard.indexToCoordinates(from + 8 * ((to - from) / Math.abs(to - from)))
         } else {
             "-"
+        }
+    }
+
+    def translateCastle(board: Vector[Piece], move: (Int, Int)): (Int, Int) = {
+        val (from, to) = move;
+        if (board(from) == Piece(PieceType.KING, Color.BLACK)) {
+            if (move == (4, 2)) {
+                (-4, -1)
+            } else if (move == (4, 6)) {
+                (-3, -1)
+            } else {
+                move
+            }
+        } else if (board(from) == Piece(PieceType.KING, Color.WHITE)) {
+            if (move == (60, 62)) {
+                (-1, -1)
+            } else if (move == (60, 58)) {
+                (-2, -1)
+            } else {
+                move
+            }
+        } else {
+            move
         }
     }
 
