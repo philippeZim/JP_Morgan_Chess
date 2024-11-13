@@ -24,6 +24,8 @@ class ControllerSpec extends AnyWordSpec with Matchers {
             testOb.isUpdated should be (true)
             val correctFen = "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1"
             controller.fen should be (correctFen)
+            controller.remove(testOb)
+            controller.subscribers.isEmpty should be (true)
         }
         "detect a wrong move" in {
             val startingFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
