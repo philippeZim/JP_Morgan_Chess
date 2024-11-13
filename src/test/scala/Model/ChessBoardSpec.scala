@@ -210,7 +210,24 @@ class ChessBoardSpec extends AnyWordSpec {
             val newfen28 = "rnbq1bnr/ppp1kppp/3p4/4p3/8/2N2N2/PPPPPPPP/1RBQKBR1 b - - 0 4"
             ChessBoard.makeMove(oldfen28, ChessBoard.moveToIndex("a1", "b1")) should be(newfen28)
 
+        }
 
+        "return the correct moves for castling" in {
+            val move1 : (Int, Int) = (-1, -1)
+            val move2 : (Int, Int) = (-2,-1)
+            val move3 : (Int, Int) = (-3,-1)
+            val move4 : (Int, Int) = (-4,-1)
+            val move5 : (Int, Int) = (4,5)
+            val move6 : (Int, Int) = (60,61)
+            val move7 : (Int, Int) = (0,1)
+            val board = ChessBoard.fenToBoard("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+            ChessBoard.translateCastle(board, (60,62)) should be (move1)
+            ChessBoard.translateCastle(board, (60,58)) should be (move2)
+            ChessBoard.translateCastle(board, (4,6)) should be (move3)
+            ChessBoard.translateCastle(board, (4,2)) should be (move4)
+            ChessBoard.translateCastle(board, (4,5)) should be (move5)
+            ChessBoard.translateCastle(board, (60, 61)) should be(move6)
+            ChessBoard.translateCastle(board, (0,1)) should be (move7)
         }
     }
 
