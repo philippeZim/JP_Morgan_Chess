@@ -342,43 +342,7 @@ object PseudoMoves {
         sub1(sub2(result, fenSplit(2).toList), currentPiecePositions);
     }
 
-    /*
-    @tailrec def checkContinuingMoves(board: Vector[Piece], pos: Int, direction: (Int, Int), movelength: Int, acc: List[(Int, Int)], attackColor: Color): List[(Int, Int)] = {
 
-        val (rd, cd) = direction
-        if(pseudoLegalMove(board, pos, rd, cd, attackColor)){
-            checkContinuingMoves(board, pos + 8 * rd + cd, direction, movelength + 1, (pos, pos + rd * 8 * movelength + cd * movelength) :: acc, attackColor);
-        } else {
-            acc
-        }
-    }
-
-    def pseudoRookMoves(fen: String): List[(Int, Int)] = {
-        val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
-        val fenSplit: List[String] = fen.split(" ").toList;
-
-        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = extractColor(fenSplit(1));
-
-        val directions: List[(Int, Int)] = List((-1, 0), (1, 0), (0, 1), (0, -1));
-
-        val piecePos = piecePositions(board, Piece(PieceType.ROOK, moveColor));
-
-        @tailrec def rookMovesRecursive(acc: List[(Int, Int)], piecePos: List[Int], moveDirections: List[(Int, Int)]): List[(Int, Int)] = {
-            piecePos match {
-                case Nil => acc
-                case h :: t => {
-                    moveDirections match {
-                        case Nil => rookMovesRecursive(acc, t, directions)
-                        case k :: s => {
-                            rookMovesRecursive(checkContinuingMoves(board, h, k, 1, acc, attackColor) ::: acc, piecePos, s);
-                        }
-                    }
-                }
-            }
-        }
-        rookMovesRecursive(List(), piecePos, directions);
-    }
-    */
 
     def pseudoHorizontalMoves(res: List[(Int, Int)], fen: String): List[(Int, Int)] = {
         val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
