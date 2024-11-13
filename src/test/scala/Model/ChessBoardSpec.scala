@@ -1,7 +1,10 @@
+package Model
+
+import Model.ChessBoard.*
+import Model.Piece.*
+import Model.{ChessBoard, Color, Piece, PieceType}
+import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.matchers.should.Matchers._
-import ChessBoard._
-import Piece._
 
 class ChessBoardSpec extends AnyWordSpec {
 

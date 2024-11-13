@@ -1,3 +1,5 @@
+package Model
+
 enum Color:
     case BLACK, WHITE, EMPTY
 

@@ -1,5 +1,8 @@
+package Model
+
+import Model.{Color, Piece, PieceType}
+import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.matchers.should.Matchers._
 
 class PieceSpec extends AnyWordSpec {
     "Piece" should {

@@ -1,6 +1,9 @@
+package Model
+
+import Model.LegalMoves
+import Model.LegalMoves.*
+import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.matchers.should.Matchers._
-import LegalMoves._
 
 class LegalMovesSpec extends AnyWordSpec {
     "Legal Moves " should {

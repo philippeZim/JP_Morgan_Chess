@@ -1,4 +1,5 @@
 import Color.{BLACK, WHITE}
+import Model.ChessBoard
 import PieceType.{BISHOP, KING, KNIGHT, PAWN, QUEEN, ROOK}
 
 import scala.annotation.tailrec
@@ -200,10 +201,10 @@ enum Color:
 enum PieceType:
     case PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING, EMPTY
 
-final case class Piece(pieceType: PieceType, color: Color) {
+final case class Piece(pieceType: Model.PieceType, color: Model.Color) {
 
     override def toString(): String = {
-        val pieceMap: Map[(PieceType, Color), String] = Map((PieceType.PAWN, Color.WHITE) -> "P", (PieceType.PAWN, Color.BLACK) -> "p", (PieceType.ROOK, Color.WHITE) -> "R", (PieceType.ROOK, Color.BLACK) -> "r", (PieceType.KNIGHT, Color.WHITE) -> "N", (PieceType.KNIGHT, Color.BLACK) -> "n", (PieceType.BISHOP, Color.WHITE) -> "B", (PieceType.BISHOP, Color.BLACK) -> "b", (PieceType.QUEEN, Color.WHITE) -> "Q", (PieceType.QUEEN, Color.BLACK) -> "q", (PieceType.KING, Color.WHITE) -> "K", (PieceType.KING, Color.BLACK) -> "k", (PieceType.EMPTY, Color.EMPTY) -> ".");
+        val pieceMap: Map[(Model.PieceType, Model.Color), String] = Map((PieceType.PAWN, Color.WHITE) -> "P", (PieceType.PAWN, Color.BLACK) -> "p", (PieceType.ROOK, Color.WHITE) -> "R", (PieceType.ROOK, Color.BLACK) -> "r", (PieceType.KNIGHT, Color.WHITE) -> "N", (PieceType.KNIGHT, Color.BLACK) -> "n", (PieceType.BISHOP, Color.WHITE) -> "B", (PieceType.BISHOP, Color.BLACK) -> "b", (PieceType.QUEEN, Color.WHITE) -> "Q", (PieceType.QUEEN, Color.BLACK) -> "q", (PieceType.KING, Color.WHITE) -> "K", (PieceType.KING, Color.BLACK) -> "k", (PieceType.EMPTY, Color.EMPTY) -> ".");
         pieceMap.get((this.pieceType, this.color)) match {
             case None => "?"
             case Some(value) => value
@@ -215,11 +216,11 @@ def splitLine(): String = {
     "      " + "+-----" * 8 + "+\n"
 }
 
-def peaceLine(line: Vector[Piece], columnNumber: String): String = {
+def peaceLine(line: Vector[Model.Piece], columnNumber: String): String = {
     s"  $columnNumber   |" + line.map(el => s"  ${el.toString()}  |").mkString("") + "\n";
 }
 
-def getBoardString(board: Vector[Vector[Piece]]): String = {
+def getBoardString(board: Vector[Vector[Model.Piece]]): String = {
     def sub(ind: Int, acc: String): String = {
         if (ind == 8) {
             val letters = "abcdefgh";
@@ -232,58 +233,58 @@ def getBoardString(board: Vector[Vector[Piece]]): String = {
     sub(0, "")
 }
 
-def getDefaultBoard(): Vector[Vector[Piece]] = {
-    val p = Piece(PieceType.PAWN, Color.BLACK);
-    val r = Piece(PieceType.ROOK, Color.BLACK);
-    val n = Piece(PieceType.KNIGHT, Color.BLACK);
-    val b = Piece(PieceType.BISHOP, Color.BLACK);
-    val q = Piece(PieceType.QUEEN, Color.BLACK);
-    val k = Piece(PieceType.KING, Color.BLACK);
+def getDefaultBoard(): Vector[Vector[Model.Piece]] = {
+    val p = Model.Piece(PieceType.PAWN, Color.BLACK);
+    val r = Model.Piece(PieceType.ROOK, Color.BLACK);
+    val n = Model.Piece(PieceType.KNIGHT, Color.BLACK);
+    val b = Model.Piece(PieceType.BISHOP, Color.BLACK);
+    val q = Model.Piece(PieceType.QUEEN, Color.BLACK);
+    val k = Model.Piece(PieceType.KING, Color.BLACK);
 
-    val P = Piece(PieceType.PAWN, Color.WHITE);
-    val R = Piece(PieceType.ROOK, Color.WHITE);
-    val N = Piece(PieceType.KNIGHT, Color.WHITE);
-    val B = Piece(PieceType.BISHOP, Color.WHITE);
-    val Q = Piece(PieceType.QUEEN, Color.WHITE);
-    val K = Piece(PieceType.KING, Color.WHITE);
-    val point = Piece(PieceType.EMPTY, Color.EMPTY);
-    val board: Vector[Vector[Piece]] = Vector(Vector(r, n, b, q, k, b, n, r), Vector(p, p, p, p, p, p, p, p), Vector(point, point, point, point, point, point, point, point), Vector(point, point, point, point, point, point, point, point), Vector(point, point, point, point, point, point, point, point), Vector(point, point, point, point, point, point, point, point), Vector(P, P, P, P, P, P, P, P), Vector(R, N, B, Q, K, B, N, R))
+    val P = Model.Piece(PieceType.PAWN, Color.WHITE);
+    val R = Model.Piece(PieceType.ROOK, Color.WHITE);
+    val N = Model.Piece(PieceType.KNIGHT, Color.WHITE);
+    val B = Model.Piece(PieceType.BISHOP, Color.WHITE);
+    val Q = Model.Piece(PieceType.QUEEN, Color.WHITE);
+    val K = Model.Piece(PieceType.KING, Color.WHITE);
+    val point = Model.Piece(PieceType.EMPTY, Color.EMPTY);
+    val board: Vector[Vector[Model.Piece]] = Vector(Vector(r, n, b, q, k, b, n, r), Vector(p, p, p, p, p, p, p, p), Vector(point, point, point, point, point, point, point, point), Vector(point, point, point, point, point, point, point, point), Vector(point, point, point, point, point, point, point, point), Vector(point, point, point, point, point, point, point, point), Vector(P, P, P, P, P, P, P, P), Vector(R, N, B, Q, K, B, N, R))
     board
 }
 
 val e = getBoardString(getDefaultBoard());
 
 
-val res: Vector[List[Piece]] = Vector(List(), List(), List(), List(), List(), List(), List(), List())
+val res: Vector[List[Model.Piece]] = Vector(List(), List(), List(), List(), List(), List(), List(), List())
 
 val testFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 testFen.toList
-def fenToBoard(fen: String): Vector[Vector[Piece]] = {
-    @tailrec def sub2(acc: List[Piece], n: Int): List[Piece] = {
+def fenToBoard(fen: String): Vector[Vector[Model.Piece]] = {
+    @tailrec def sub2(acc: List[Model.Piece], n: Int): List[Model.Piece] = {
         n match {
-            case el if el > 0 => sub2(Piece(PieceType.EMPTY, Color.EMPTY) :: acc, n - 1)
+            case el if el > 0 => sub2(Model.Piece(PieceType.EMPTY, Color.EMPTY) :: acc, n - 1)
             case _ => acc
         }
     }
 
-    @tailrec def sub(fen: List[Char], cur: List[Piece], acc: List[List[Piece]]): List[List[Piece]] = {
+    @tailrec def sub(fen: List[Char], cur: List[Model.Piece], acc: List[List[Model.Piece]]): List[List[Model.Piece]] = {
         fen match {
             case Nil => cur.reverse :: acc
             case h :: t => {
                 h match {
                     case '/' => sub(t, List(), cur.reverse :: acc)
-                    case 'p' => sub(t, Piece(PieceType.PAWN, Color.BLACK) :: cur, acc)
-                    case 'r' => sub(t, Piece(PieceType.ROOK, Color.BLACK) :: cur, acc)
-                    case 'n' => sub(t, Piece(PieceType.KNIGHT, Color.BLACK) :: cur, acc)
-                    case 'b' => sub(t, Piece(PieceType.BISHOP, Color.BLACK) :: cur, acc)
-                    case 'q' => sub(t, Piece(PieceType.QUEEN, Color.BLACK) :: cur, acc)
-                    case 'k' => sub(t, Piece(PieceType.KING, Color.BLACK) :: cur, acc)
-                    case 'P' => sub(t, Piece(PieceType.PAWN, Color.WHITE) :: cur, acc)
-                    case 'R' => sub(t, Piece(PieceType.ROOK, Color.WHITE) :: cur, acc)
-                    case 'N' => sub(t, Piece(PieceType.KNIGHT, Color.WHITE) :: cur, acc)
-                    case 'B' => sub(t, Piece(PieceType.BISHOP, Color.WHITE) :: cur, acc)
-                    case 'Q' => sub(t, Piece(PieceType.QUEEN, Color.WHITE) :: cur, acc)
-                    case 'K' => sub(t, Piece(PieceType.KING, Color.WHITE) :: cur, acc)
+                    case 'p' => sub(t, Model.Piece(PieceType.PAWN, Color.BLACK) :: cur, acc)
+                    case 'r' => sub(t, Model.Piece(PieceType.ROOK, Color.BLACK) :: cur, acc)
+                    case 'n' => sub(t, Model.Piece(PieceType.KNIGHT, Color.BLACK) :: cur, acc)
+                    case 'b' => sub(t, Model.Piece(PieceType.BISHOP, Color.BLACK) :: cur, acc)
+                    case 'q' => sub(t, Model.Piece(PieceType.QUEEN, Color.BLACK) :: cur, acc)
+                    case 'k' => sub(t, Model.Piece(PieceType.KING, Color.BLACK) :: cur, acc)
+                    case 'P' => sub(t, Model.Piece(PieceType.PAWN, Color.WHITE) :: cur, acc)
+                    case 'R' => sub(t, Model.Piece(PieceType.ROOK, Color.WHITE) :: cur, acc)
+                    case 'N' => sub(t, Model.Piece(PieceType.KNIGHT, Color.WHITE) :: cur, acc)
+                    case 'B' => sub(t, Model.Piece(PieceType.BISHOP, Color.WHITE) :: cur, acc)
+                    case 'Q' => sub(t, Model.Piece(PieceType.QUEEN, Color.WHITE) :: cur, acc)
+                    case 'K' => sub(t, Model.Piece(PieceType.KING, Color.WHITE) :: cur, acc)
                     case el if el.isDigit => sub(t, sub2(cur, el.toInt - 48), acc)
                 }
             }

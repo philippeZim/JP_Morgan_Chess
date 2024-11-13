@@ -1,3 +1,5 @@
+import Model.{ChessBoard, LegalMoves}
+
 import scala.util.Random
 import scala.io.StdIn
 

@@ -1,4 +1,6 @@
-import PieceType.{KING, PAWN}
+package Model
+
+import Model.ChessBoard
 
 import scala.annotation.tailrec
 

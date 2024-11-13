@@ -1,4 +1,5 @@
-import PieceType.KING
+package Model
+
 import scala.annotation.tailrec
 
 object ChessBoard {

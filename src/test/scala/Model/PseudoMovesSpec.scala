@@ -1,7 +1,10 @@
+package Model
+
+import Model.ChessBoard.*
+import Model.PseudoMoves.*
+import Model.{ChessBoard, PseudoMoves}
+import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.matchers.should.Matchers._
-import PseudoMoves._
-import ChessBoard._
 
 class PseudoMovesSpec extends AnyWordSpec {
 
