@@ -26,5 +26,16 @@ jobs:
             - name: Run sbt clean coverage test
               run: sbt clean coverage test
 
-            - name: Run sbt coverageReport
+            - name: aggregate coverage
+              run: sbt coverageAggregate
+
+            - name: list coverage data
+              run: ls -R target/scala-*/scoverage-data
+
+            - name: generate coverage report
               run: sbt coverageReport
+
+            - name: Upload coverage data to Coveralls
+              run: sbt coveralls
+              env:
+                COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
