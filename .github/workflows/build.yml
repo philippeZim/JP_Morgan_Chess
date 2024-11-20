@@ -22,3 +22,9 @@ jobs:
                 java-version: '23'
             - name: Compile
               run: sbt compile
+
+            - name: Run tests
+              run: sbt clean coverage test
+
+            - name: Make Report
+              run: sbt coverageReport
