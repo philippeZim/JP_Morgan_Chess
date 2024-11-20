@@ -13,7 +13,7 @@ jobs:
             - name: Set up sbt
               uses: sbt/setup-sbt@v1
               with:
-                  sbt-version: 1.10.4
+                  sbt-version: 1.10.2
 
             - name: Set up JVM
               uses: actions/setup-java@v4
@@ -23,8 +23,8 @@ jobs:
             - name: Compile
               run: sbt compile
 
-            - name: Run tests
+            - name: Run sbt clean coverage test
               run: sbt clean coverage test
 
-            - name: Make Report
+            - name: Run sbt coverageReport
               run: sbt coverageReport
