@@ -1,10 +1,23 @@
-# Ignore everything
-*
+# Scala
+*.class
+*.tasty
+*.sc
 
-# Except the src directory
-!src/
+# sbt specific
+target/
+project/target/
+project/project/
+.history
+.cache
+.lib/
 
-# And everything inside src
-!src/**
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
 
-!README.md
+# IntelliJ IDEA specific
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
