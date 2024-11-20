@@ -8,3 +8,5 @@ def indexToCoordinates(index: Int): String = {
     s"$fileChar$rankChar"
 }
 
+print("testline")
+
