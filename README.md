@@ -1,5 +1,5 @@
 ## JP Morgan Chess
-[![Coverage Status](https://coveralls.io/repos/github/philippeZim/JP_Morgan_Chess/badge.svg?branch=main)](https://coveralls.io/github/philippeZim/JP_Morgan_Chess?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/philippeZim/JP_Morgan_Chess/badge.svg)](https://coveralls.io/github/philippeZim/JP_Morgan_Chess)
 
 ### Usage
 sbt
