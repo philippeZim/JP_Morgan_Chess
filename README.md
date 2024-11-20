@@ -4,6 +4,7 @@
 ![GitHub contributors](https://img.shields.io/github/contributors/philippeZim/JP_Morgan_Chess)
 ![GitHub Created At](https://img.shields.io/github/created-at/philippeZim/JP_Morgan_Chess)
 ![GitHub last commit](https://img.shields.io/github/last-commit/philippeZim/JP_Morgan_Chess)
+![GitHub repo size](https://img.shields.io/github/repo-size/philippeZim/JP_Morgan_Chess)
 
 ### General Describtion
 This repository marks the plane on which the glorious quest of phillipe and jakob takes place.
