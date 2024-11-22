@@ -273,8 +273,8 @@ class PseudoMovesSpec extends AnyWordSpec {
             'K' -> (-1, -1),
             'Q' -> (-2, -1),
             'k' -> (-3, -1),
-            'q' -> (-4, -1)
-             */ val correctKingMoves: List[(Int, Int)] = List(ChessBoard.moveToIndex("e1", "f1"), ChessBoard.moveToIndex("e1", "d1"), ChessBoard.moveToIndex("e1", "d2"), (-1, -1), (-2, -1))
+            'q' -> (-4, -1) */
+            val correctKingMoves: List[(Int, Int)] = List(ChessBoard.moveToIndex("e1", "f1"), ChessBoard.moveToIndex("e1", "d1"), ChessBoard.moveToIndex("e1", "d2"), (-1, -1), (-2, -1))
 
             val ourMoves1 = PseudoMoves.pseudoKingMoves(List(), "rnbqk2r/2p2ppp/1p1p4/p3p2n/2B1P3/NP1P1N2/PBP1QPPP/R3K2R w KQkq - 2 9");
             ourMoves1 should contain allElementsOf (correctKingMoves);
