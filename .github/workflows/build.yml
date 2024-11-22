@@ -3,7 +3,8 @@ name: Build and test
 on:
     push:
         branches: [ main, developer ]
-
+    merge:
+        branches: [main, developer]
 jobs:
     build:
         runs-on: ubuntu-latest
@@ -22,6 +23,9 @@ jobs:
                   distribution: 'temurin'
                   java-version: '23'
 
+            - name: Compile
+              run: sbt compile
+
             - name: Ensure SBT cache directories exist
               run: |
                     mkdir -p ~/.ivy2/cache
@@ -36,9 +40,6 @@ jobs:
                     key: sbt-dependencies-${{ runner.os }}-${{ hashFiles('/build.sbt') }}
                     restore-keys: |
                       sbt-dependencies-${{ runner.os }}-
-
-            - name: Compile
-              run: sbt compile
 
             - name: Run sbt clean coverage test
               run: sbt clean coverage test
