@@ -3,8 +3,7 @@ name: Build and test
 on:
     push:
         branches: [ main, developer ]
-    merge:
-        branches: [main, developer]
+
 jobs:
     build:
         runs-on: ubuntu-latest
