@@ -365,7 +365,7 @@ class PseudoMovesSpec extends AnyWordSpec {
                  ChessBoard.moveToIndex("e8", "d8"),
                  (-4,-1)
              )
-            PseudoMoves.pseudoKingMoves(List(), "r3kbnr/p1pqpppp/bpn5/3p4/4P3/N1PB1P2/PP1PQ1PP/R1B1K1NR b KQkq - 0 6").sorted should be (correctMoves.sorted)
+             PseudoMoves.pseudoKingMoves(List(), "r3kbnr/p1pqpppp/bpn5/3p4/4P3/N1PB1P2/PP1PQ1PP/R1B1K1NR b KQkq - 0 6").sorted should be (correctMoves.sorted)
         }
     }
     
