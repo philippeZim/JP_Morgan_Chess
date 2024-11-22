@@ -2,6 +2,7 @@
 *.class
 *.tasty
 *.sc
+.bsp/*
 
 # sbt specific
 target/
@@ -10,7 +11,6 @@ project/project/
 .history
 .cache
 .lib/
-.bsp/
 
 
 # Scala-IDE specific
