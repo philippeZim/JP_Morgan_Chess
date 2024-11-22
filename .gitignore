@@ -2,7 +2,7 @@
 *.class
 *.tasty
 *.sc
-.bsp/*
+.bsp/
 
 # sbt specific
 target/

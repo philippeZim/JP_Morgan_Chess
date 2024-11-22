@@ -17,7 +17,18 @@ Find yourselves in our comfy repository on a regular basis to see their latest a
 ### How to play Chess yourself
 
 To play Chess with our glorious implementation. Follow these steps, young lad':
-(to be added later)
+
+First, one must download the scala programming language from it's source.
+Look here:
+https://www.scala-lang.org/download/
+
+Secondly, one must install the SBT! The Scala Build Tool!
+This is used to actually run our code in a virtual machine?
+
+As a third step one should create a new folder to save our little chess game files.
+
+And as a fourth step: 
+go to your created folder
 sbt
 
 compile

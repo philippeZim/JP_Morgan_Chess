@@ -2,7 +2,7 @@ name: Build and test
 
 on:
     push:
-        branches: [ main, developer]
+        branches: [ main, developer ]
 
 jobs:
     build:
@@ -19,8 +19,19 @@ jobs:
             - name: Set up JVM
               uses: actions/setup-java@v4
               with:
-                distribution: 'temurin'
-                java-version: '23'
+                  distribution: 'temurin'
+                  java-version: '23'
+
+            - name: Cache SBT dependencies
+              uses: actions/cache@v3
+              with:
+                    path: |
+                      ~/.ivy2/cache
+                      ~/.sbt
+                    key: sbt-dependencies-${{ runner.os }}-${{ hashFiles('/build.sbt') }}
+                    restore-keys: |
+                      sbt-dependencies-${{ runner.os }}-
+
             - name: Compile
               run: sbt compile
 
@@ -39,4 +50,4 @@ jobs:
             - name: Upload coverage data to Coveralls
               run: sbt coveralls
               env:
-                COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+                  COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
