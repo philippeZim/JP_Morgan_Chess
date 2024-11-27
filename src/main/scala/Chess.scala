@@ -1,11 +1,10 @@
 import scala.io.StdIn.readLine
-
-import Controller.Controller
+import Controller.{ChessContext, Controller}
 import Model.ChessBoard
 import aView.Tui
 
 object Chess {
-    val controller = new Controller("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+    val controller = new Controller("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", new ChessContext(), ChessBoard.getBoardString(ChessBoard.getDefaultBoard()));
     val tui = new Tui(controller)
     controller.notifyObservers
 
