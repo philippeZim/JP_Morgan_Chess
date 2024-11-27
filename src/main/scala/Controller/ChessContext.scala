@@ -17,14 +17,14 @@ class ChessContext {
             color match {
                 case "w" => {
                     if (event.noMoves) {
-                        state = State.whiteWonState
+                        state = State.blackWonState
                     } else {
                         state = State.blackPlayingState
                     }
                 }
                 case "b" => {
                     if (event.noMoves) {
-                        state = State.blackWonState
+                        state = State.whiteWonState
                     } else {
                         state = State.whitePlayingState
                     }
