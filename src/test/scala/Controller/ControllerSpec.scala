@@ -51,7 +51,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         }
 
         "detect a Remis" in {
-            val remisFen = "K3k3/8/1q6/8/8/8/8/8 w KQkq - 0 1"
+            val remisFen = "K3k3/8/1q6/8/8/8/8/8 w - - 0 1"
             val controller = new Controller(remisFen, new ChessContext(), "")
             controller.play("a8a7")
             controller.context.state should be (Controller.State.remisState)
