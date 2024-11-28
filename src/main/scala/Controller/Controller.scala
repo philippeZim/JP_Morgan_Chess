@@ -25,6 +25,9 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
                     output = "Das kannste nicht machen Bro (kein legaler Zug)"
                 } else {
                     fen = ChessBoard.makeMove(fen, move)
+                    if(canPomote(fen)) {
+                        ringOverservers
+                    }
                     output = boardToString()
                 }
         }
@@ -39,6 +42,10 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
         } else{ */
         //fen = ChessBoard.makeMove(fen, move)
         notifyObservers
+    }
+    
+    def promotePawn(pieceKind : String) : Unit = {
+        fen = ChessBoard.promote(pieceKind);
     }
 }
 

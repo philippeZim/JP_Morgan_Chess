@@ -2,6 +2,8 @@ package util
 
 trait Observer {
     def update: Unit
+    
+    def specialCase : Unit
 }
 
 class Observable {
@@ -12,4 +14,6 @@ class Observable {
     def remove(s: Observer): Unit = subscribers = subscribers.filterNot(o => o == s)
 
     def notifyObservers: Unit = subscribers.foreach(o => o.update)
+    
+    def ringOverservers : Unit = subscribers.foreach(o => o.specialCase)
 }
