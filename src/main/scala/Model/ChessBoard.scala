@@ -223,5 +223,18 @@ object ChessBoard {
             ChessBoard.boardToFen(newBoard) + " w " + updateCastleing(fenSplit(2), move) + " " + updateEnpassant(fen, move) + " " + fenSplit(4) + " " + (fenSplit(5).toInt+1).toString
         }
     }
+    
+    def canPromote(fen: String): Int = {
+        val bf = fen.split(" ")(0);
+        val first_row = bf.substring(0, 8);
+        val last_row = bf.substring(56, 64);
+        if (first_row.contains("P")) {
+            return first_row.indexOf('P');
+        }
+        if (last_row.contains("p")) {
+            return 56 + last_row.indexOf('p')
+        }
+        -1
+    }
 
 }

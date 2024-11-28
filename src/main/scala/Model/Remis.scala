@@ -11,7 +11,7 @@ object Remis {
             val fenSplit: List[String] = fen.split(" ").toList;
 
             val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = PseudoMoves.extractColor(fenSplit(1));
-            val kingPos: Int = PseudoMoves.piecePositions(board, Piece(PieceType.KING, moveColor)).head
+                val kingPos: Int = PseudoMoves.piecePositions(board, Piece(PieceType.KING, moveColor)).head
             if (!LegalMoves.isPosAttacked(fen, kingPos)) {
                 return true
             }
