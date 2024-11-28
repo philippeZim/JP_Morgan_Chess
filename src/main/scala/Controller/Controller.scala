@@ -25,27 +25,17 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
                     output = "Das kannste nicht machen Bro (kein legaler Zug)"
                 } else {
                     fen = ChessBoard.makeMove(fen, move)
-                    if(canPomote(fen)) {
-                        ringOverservers
+                    if(ChessBoard.canPromote(fen) != -1) {
+                        ringObservers
                     }
                     output = boardToString()
                 }
         }
-        /*if(legalMoves.isEmpty) {
-            fen.split(" ")(1) match {
-                case "w" => println("Spiel ist vorbei. Schwarz hat gewonnen")
-                case "b" => println("Spiel ist vorbei. Weiß hat gewonnen")
-            }
-        }*/
-        /*if (!legalMoves.contains(move)) {
-            println("Das kannste nicht machen Bro (kein legaler Zug)")
-        } else{ */
-        //fen = ChessBoard.makeMove(fen, move)
         notifyObservers
     }
     
     def promotePawn(pieceKind : String) : Unit = {
-        fen = ChessBoard.promote(pieceKind);
+        fen = ChessBoard.promote(pieceKind, fen, ChessBoard.canPromote(fen));
     }
 }
 

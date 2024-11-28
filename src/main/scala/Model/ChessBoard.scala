@@ -1,5 +1,7 @@
 package Model
 
+import Model.PieceType.QUEEN
+
 import scala.annotation.tailrec
 
 object ChessBoard {
@@ -226,8 +228,8 @@ object ChessBoard {
     
     def canPromote(fen: String): Int = {
         val bf = fen.split(" ")(0);
-        val first_row = bf.substring(0, 8);
-        val last_row = bf.substring(56, 64);
+        val first_row = bf.split("/")(0);
+        val last_row = bf.split("/")(7);
         if (first_row.contains("P")) {
             return first_row.indexOf('P');
         }
@@ -237,4 +239,21 @@ object ChessBoard {
         -1
     }
 
+    def promote(pieceName: String, fen : String, position : Int) : String = {
+        val board = ChessBoard.fenToBoard(fen)
+        val fensplit = fen.split(" ")
+        val colors = PseudoMoves.extractColor(fensplit(1))
+
+        def pieceFactory(pieceName1: String, color: Color) = pieceName1 match {
+            case "Q" => Piece(PieceType.QUEEN, color)
+            case "q" => Piece(PieceType.QUEEN, color)
+            case "B" => Piece(PieceType.BISHOP, color)
+            case "b" => Piece(PieceType.BISHOP, color)
+            case "N" => Piece(PieceType.KNIGHT, color)
+            case "n" => Piece(PieceType.KNIGHT, color)
+            case "R" => Piece(PieceType.ROOK, color)
+            case "r" => Piece(PieceType.ROOK, color)
+        }
+        ChessBoard.boardToFen(board.updated(position, pieceFactory(pieceName, colors._3))) + " " + fensplit(1) + " " + fensplit(2) + " " + fensplit (3) + " " + fensplit(4) + " " + fensplit(5);
+    }
 }

@@ -45,7 +45,9 @@ object PseudoMoves {
      * @return true if the piece can move there (not considering blocking pieces), false if it can't
      */
     def pseudoLegalMove(board: Vector[Piece], piecePosition: Int, rowDirection: Int, columdirection: Int, attackColor: Color): Boolean = {
-        onBoard(piecePosition, rowDirection, columdirection) && (board(piecePosition + rowDirection * 8 + columdirection).color == Color.EMPTY || board(piecePosition + rowDirection * 8 + columdirection).color == attackColor)
+        //onBoard(piecePosition, rowDirection, columdirection) && (board(piecePosition + rowDirection * 8 + columdirection).color == Color.EMPTY || board(piecePosition + rowDirection * 8 + columdirection).color == attackColor)
+        val Handler = new OnBoardHandler(new EmptySquareHandler(new EnemySquareHandler(null)))
+        Handler.handle(piecePosition, rowDirection, columdirection, board, attackColor)
     }
 
     /**
@@ -434,9 +436,9 @@ object PseudoMoves {
         verticalMovesRecursive(res, piecePos);
     }
 
-    def getAllPseudoLegalMoves(fen: String): List[(Int, Int)] = {
+   /* def getAllPseudoLegalMoves(fen: String): List[(Int, Int)] = {
         pseudoVerticalMoves(pseudoHorizontalMoves(pseudoKingMoves(pseudoKnightMoves(pseudoPawnMoves(fen), fen), fen), fen), fen);
-    }
+    }*/
 
 
 }

@@ -20,10 +20,10 @@ class Tui(controller: Controller) extends Observer{
     override def update: Unit =  println(controller.createOutput())
 
     override def specialCase: Unit = {
-        println("Welche Beförderung soll der Bauer erhalten? (Syntaxbeispiel: Knight)")
+        println("Welche Beförderung soll der Bauer erhalten? (Eingabemöglichkeiten: Q,q,N,n,B,b,R,r)")
         var input : String = readLine()
-        while(!input.matches("^(Queen|Rook|Bishop|Knight)$")) {
-            println("Das Piece gibt's net du Honk")
+        while(!input.matches("^(Q|R|B|N|q|r|b|n)$")) {
+            println("Alter, da steht sogar, was du eingeben kannst!!!")
             input = readLine()
         }
         controller.promotePawn(input)

@@ -234,7 +234,8 @@ object LegalMoves {
                 }
             }
         }
-        filterLegal(List(), PseudoMoves.getAllPseudoLegalMoves(fen));
+        //filterLegal(List(), PseudoMoves.getAllPseudoLegalMoves(fen));
+        filterLegal(List(), PseudoMovesFacade.subSystemOperation(fen));
     }
 
 }

@@ -367,6 +367,11 @@ class PseudoMovesSpec extends AnyWordSpec {
              )
              PseudoMoves.pseudoKingMoves(List(), "r3kbnr/p1pqpppp/bpn5/3p4/4P3/N1PB1P2/PP1PQ1PP/R1B1K1NR b KQkq - 0 6").sorted should be (correctMoves.sorted)
         }
+
+        "test the BaseHandler interpretation as well" in {
+            val handler = new BaseHandler(null)
+            handler.handle(0,0,0, ChessBoard.fenToBoard("r3kbnr/p1pqpppp/bpn5/3p4/4P3/N1PB1P2/PP1PQ1PP/R1B1K1NR b KQkq - 0 6"), Color.BLACK) should be (true)
+        }
     }
     
          

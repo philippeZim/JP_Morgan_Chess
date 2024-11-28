@@ -15,5 +15,5 @@ class Observable {
 
     def notifyObservers: Unit = subscribers.foreach(o => o.update)
     
-    def ringOverservers : Unit = subscribers.foreach(o => o.specialCase)
+    def ringObservers : Unit = subscribers.foreach(o => o.specialCase)
 }

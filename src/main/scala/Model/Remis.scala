@@ -26,7 +26,7 @@ object Remis {
         @tailrec
         def sub1(li: List[Char], hadBishop: Boolean, hasWhiteExtra: Option[Boolean]): Boolean = {
             li match {
-                case Nil => false;
+                case Nil => true; //Changed to true
                 case h::t => h match {
                     case 'p' => false
                     case 'P' => false
@@ -62,18 +62,10 @@ object Remis {
                                 if (a) {
                                     false
                                 } else {
-                                    if (hadBishop) {
-                                        false
-                                    } else {
-                                        sub1(t, true, Some(false))
-                                    }
-                                }
-                            case None =>
-                                if (hadBishop) {
                                     false
-                                } else {
-                                    sub1(t, true, Some(false))
                                 }
+                            case None => sub1(t, true, Some(false))
+
                         }
                     case 'B' =>
                         hasWhiteExtra match {
@@ -81,18 +73,10 @@ object Remis {
                                 if (!a) {
                                     false
                                 } else {
-                                    if (hadBishop) {
-                                        false
-                                    } else {
-                                        sub1(t, true, Some(true))
-                                    }
+                                    false
                                 }
                             case None =>
-                                if (hadBishop) {
-                                    false
-                                } else {
                                     sub1(t, true, Some(true))
-                                }
                         }
                     case _ => sub1(t, hadBishop, hasWhiteExtra)
                 }
