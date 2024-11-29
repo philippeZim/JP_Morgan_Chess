@@ -83,12 +83,12 @@ object PseudoMoves {
     }
 
     /**
-     * this method extracts all indices from a given board on which the given PieceType stands
+     * this method extracts all indices from a given board on which the given Piece stands
      * @param board current board state
      * @param piece PieceType if which the position is to be determined
      * @return List of all indices of the board on which the given Piecetype stands
      */
-    def piecePositions(board: Vector[Piece], piece: Piece): List[Int] = {
+    /*def piecePositions(board: Vector[Piece], piece: Piece): List[Int] = {
         @tailrec def sub(board: List[Piece], accumulator: List[Int], index: Int): List[Int] = {
             board match {
                 case Nil => accumulator
@@ -103,15 +103,18 @@ object PseudoMoves {
         }
 
         sub(board.toList, List(), 0);
-    }
+    }*/
 
     /**
-     * this method determines all positions of a given pieceType (considering color)
+     * this method determines all positions of a given pieces
      * @param board current board state
      * @param pieces pieceType that is the be searched
      * @return List of indices of the current positions of the given piece
      */
     def piecesPositions(board: Vector[Piece], pieces: List[Piece]): List[Int] = {
+
+
+
         @tailrec def sub(board: List[Piece], acc: List[Int], ind: Int): List[Int] = {
             board match {
                 case Nil => acc
@@ -126,6 +129,23 @@ object PseudoMoves {
         }
 
         sub(board.toList, List(), 0);
+    }
+
+    def piecePositions(board: Vector[Piece], piece: Piece): List[Int] = {
+        val bm = BoardMonad(board)
+        var index = -1
+        val bm_index = bm.map(e =>
+            index += 1
+            (e, index)
+        )
+        val correct_pieces_with_index = bm_index.filter(
+            (e, i) => e match {
+                case None => false
+                case Some(a) if a.pieceType == piece.pieceType && a.color == piece.color => true
+                case _ => false
+            }
+        )
+        correct_pieces_with_index.map((e, i) => i).toList
     }
 
     /**
