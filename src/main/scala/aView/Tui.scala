@@ -10,8 +10,12 @@ class Tui(controller: Controller) extends Observer{
     controller.add(this)
 
     def processInputLine(input: String):Unit = {
-        if (!input.matches("[a-h][1-8][a-h][1-8]")) {
+        if (!input.matches("(([a-h][1-8][a-h][1-8])|undo|redo)")) {
             println("Denk nochmal nach Bro")
+        } else if(input == "undo"){
+            controller.undo()
+        } else if(input == "redo") {
+            controller.redo()
         } else {
             controller.play(input)
         }

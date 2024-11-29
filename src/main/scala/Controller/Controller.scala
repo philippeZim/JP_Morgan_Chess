@@ -1,11 +1,12 @@
 package Controller
 
-import Model.{ChessBoard, Event, LegalMoves, PseudoMoves, Remis}
+import Model.{ChessBoard, Event, LegalMoves, PseudoMoves, Remis, SetCommand, UndoInvoker}
 import util.Observable
 import Controller.ChessContext
 import Controller.State
 
 class Controller(var fen : String, var context : ChessContext, var output : String) extends Observable{
+    val invoker : UndoInvoker = new UndoInvoker
 
     def boardToString() : String = {ChessBoard.getBoardString(ChessBoard.fenToBoard(fen))}
 
@@ -24,7 +25,7 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
                 if (!legalMoves.contains(move)) {
                     output = "Das kannste nicht machen Bro (kein legaler Zug)"
                 } else {
-                    fen = ChessBoard.makeMove(fen, move)
+                    invoker.doStep(new SetCommand(ChessBoard.makeMove(fen, move), fen , this))
                     if(ChessBoard.canPromote(fen) != -1) {
                         ringObservers
                     }
@@ -36,6 +37,18 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
     
     def promotePawn(pieceKind : String) : Unit = {
         fen = ChessBoard.promote(pieceKind, fen, ChessBoard.canPromote(fen));
+    }
+
+    def undo(): Unit = {
+        invoker.undoStep
+        output = boardToString()
+        notifyObservers
+    }
+
+    def redo() : Unit = {
+        invoker.redoStep
+        output = boardToString()
+        notifyObservers
     }
 }
 
