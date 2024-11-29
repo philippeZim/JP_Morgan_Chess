@@ -46,8 +46,8 @@ object PseudoMoves {
      */
     def pseudoLegalMove(board: Vector[Piece], piecePosition: Int, rowDirection: Int, columdirection: Int, attackColor: Color): Boolean = {
         //onBoard(piecePosition, rowDirection, columdirection) && (board(piecePosition + rowDirection * 8 + columdirection).color == Color.EMPTY || board(piecePosition + rowDirection * 8 + columdirection).color == attackColor)
-        val Handler = new OnBoardHandler(new EmptySquareHandler(new EnemySquareHandler(null)))
-        Handler.handle(piecePosition, rowDirection, columdirection, board, attackColor)
+        val handler = new OnBoardHandler(Some(new EmptySquareHandler(Some(new EnemySquareHandler(None)))))
+        handler.handle(piecePosition, rowDirection, columdirection, board, attackColor)
     }
 
     /**
