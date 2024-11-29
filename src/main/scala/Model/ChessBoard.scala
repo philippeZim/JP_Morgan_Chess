@@ -1,6 +1,6 @@
 package Model
 
-import Model.PieceType.QUEEN
+import Model.PieceType.{QUEEN}
 
 import scala.annotation.tailrec
 
@@ -244,7 +244,7 @@ object ChessBoard {
         val fensplit = fen.split(" ")
         val colors = PseudoMoves.extractColor(fensplit(1))
 
-        def pieceFactory(pieceName1: String, color: Color) = pieceName1 match {
+       /* def pieceFactory(pieceName1: String, color: Color) = pieceName1 match {
             case "Q" => Piece(PieceType.QUEEN, color)
             case "q" => Piece(PieceType.QUEEN, color)
             case "B" => Piece(PieceType.BISHOP, color)
@@ -253,7 +253,20 @@ object ChessBoard {
             case "n" => Piece(PieceType.KNIGHT, color)
             case "R" => Piece(PieceType.ROOK, color)
             case "r" => Piece(PieceType.ROOK, color)
+        } */
+
+        def pieceFactory(pieceName1: String, color: Color) = pieceName1 match {
+            case "Q" => new WhiteQueen()
+            case "q" => new BlackQueen()
+            case "B" => new WhiteBishop()
+            case "b" => new BlackBishop()
+            case "N" => new WhiteKnight()
+            case "n" => new BlackKnight()
+            case "R" => new WhiteRook()
+            case "r" => new BlackRook()
         }
-        ChessBoard.boardToFen(board.updated(position, pieceFactory(pieceName, colors._3))) + " " + fensplit(1) + " " + fensplit(2) + " " + fensplit (3) + " " + fensplit(4) + " " + fensplit(5);
+        
+        ChessBoard.boardToFen(board.updated(position, pieceFactory(pieceName, colors._3).piece)) + " " + fensplit(1) + " " + fensplit(2) + " " + fensplit (3) + " " + fensplit(4) + " " + fensplit(5);
     }
+
 }
