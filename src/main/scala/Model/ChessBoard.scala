@@ -253,7 +253,7 @@ object ChessBoard {
             case "n" => Piece(PieceType.KNIGHT, color)
             case "R" => Piece(PieceType.ROOK, color)
             case "r" => Piece(PieceType.ROOK, color)
-        } */
+        }*/
 
         def pieceFactory(pieceName1: String, color: Color) = pieceName1 match {
             case "Q" => new WhiteQueen()
@@ -265,7 +265,7 @@ object ChessBoard {
             case "R" => new WhiteRook()
             case "r" => new BlackRook()
         }
-        
+
         ChessBoard.boardToFen(board.updated(position, pieceFactory(pieceName, colors._3).piece)) + " " + fensplit(1) + " " + fensplit(2) + " " + fensplit (3) + " " + fensplit(4) + " " + fensplit(5);
     }
 
