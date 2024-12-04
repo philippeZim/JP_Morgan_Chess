@@ -1,15 +1,17 @@
-def indexToCoordinates(index: Int): String = {
-    val file = (index % 8)
-    val rank = 7 - (index / 8)
+val pawnPosW: Vector[Double] = Vector(
+    -0.50, -0.40, -0.30, -0.30, -0.30, -0.30, -0.40, -0.50,
+    -0.40, -0.20, 0,    0,    0,    0,   -0.20, -0.40,
+    -0.30, 0,    0.10, 0.15, 0.15, 0.10, 0,    -0.30,
+    -0.30, 0.05, 0.15, 0.20, 0.20, 0.15, 0.05, -0.30,
+    -0.30, 0,    0.15, 0.20, 0.20, 0.15, 0,    -0.30,
+    -0.30, 0.05, 0.10, 0.15, 0.15, 0.10, 0.05, -0.30,
+    -0.40, -0.20, 0,    0.05, 0.05, 0,   -0.20, -0.40,
+    -0.50, -0.40, -0.30, -0.30, -0.30, -0.30, -0.40, -0.50
 
-    val fileChar = (file + 97).toChar
-    val rankChar = (rank + 49).toChar
+)
 
-    s"$fileChar$rankChar"
+print(pawnPosW.reverse)
+
+pawnPosW.reverse.grouped(8).foreach { chunk =>
+    println(chunk.mkString(", ") + ",")
 }
-
-print("this is a little change to test our .yml file)")
-//hallo
-//geht's schneller?
-//änderung
-

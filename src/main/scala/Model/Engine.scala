@@ -3,7 +3,7 @@ package Model
 import scala.annotation.tailrec
 import scala.util.control.Breaks._
 
-class Engine {
+object Engine {
 
 
     def material(fen: String): Double = {
@@ -190,45 +190,11 @@ class Engine {
         }
         false
     }
-
+    var see = 0
 
     def minimax(fen: String, depth: Int): Double = {
-        val moves = LegalMoves.getAllLegalMoves(fen);
-
-        if (game_over(fen, moves) || depth == 0) {
-            return evaluate(fen)
-        }
-
-        val fenSplit = fen.split(" ")
-        var best = 0.0
-        var lFen = fen
-        fenSplit(1) match {
-            case "w" => {
-                best = -10000.0
-                for (move <- moves) {
-                    lFen = ChessBoard.makeMove(lFen, move)
-                    val tempVal = minimax(lFen, depth - 1)
-                    if (tempVal < best) {
-                        best = tempVal
-                    }
-                }
-
-            }
-            case "b" => {
-                best = 10000.0
-                for (move <- moves) {
-                    lFen = ChessBoard.makeMove(lFen, move)
-                    val tempVal = minimax(lFen, depth - 1)
-                    if (tempVal < best) {
-                        best = tempVal
-                    }
-                }
-            }
-        }
-        best
-    }
-
-    def minimaxFunctional(fen: String, depth: Int): Double = {
+        //see += 1
+        //println(see + " " + depth)
         val moves = LegalMoves.getAllLegalMoves(fen)
 
         if (game_over(fen, moves) || depth == 0) {
@@ -236,63 +202,29 @@ class Engine {
         }
 
         val fenSplit = fen.split(" ")
-        val playerTurn = fenSplit(1)
-        val initialBest = if (playerTurn == "w") -10000.0 else 10000.0
-
-        val newBest = moves.foldLeft(initialBest) { (best, move) =>
-            val newFen = ChessBoard.makeMove(fen, move)
-            val tempVal = minimaxFunctional(newFen, depth - 1)
-
-            playerTurn match {
-                case "w" => Math.max(best, tempVal)
-                case "b" => Math.min(best, tempVal)
-            }
-        }
-
-        newBest
-    }
-
-
-    // called with alpha = -Double.MaxValue and beta = Double.MaxValue
-    def alphabeta(fen: String, alpha: Double, beta: Double, depth: Int): Double = {
-        val moves = LegalMoves.getAllLegalMoves(fen);
-
-        if (game_over(fen, moves) || depth == 0) {
-            return evaluate(fen)
-        }
-
-        val fenSplit = fen.split(" ")
         var best = 0.0
-        var lFen = fen
-        var currentAlpha = alpha
-        var currentBeta = beta
-
         fenSplit(1) match {
             case "w" => {
                 best = -10000.0
-                breakable {
-                    for (move <- moves) {
-                        lFen = ChessBoard.makeMove(lFen, move)
-                        val tempVal = alphabeta(lFen, currentAlpha, currentBeta, depth - 1)
-                        best = Math.max(best, tempVal)
-                        currentAlpha = Math.max(currentAlpha, best)
-                        if (currentBeta <= currentAlpha) {
-                            break
-                        }
+                for (move <- moves) {
+                    val originalFen = fen // Copy the FEN string
+                    val lFen = ChessBoard.makeMove(originalFen, move) // Make move on the copy
+                    val tempVal = minimax(lFen, depth - 1)
+                    // No need to undo, we just use the originalFen in the next iteration
+                    if (tempVal > best) {
+                        best = tempVal
                     }
                 }
             }
             case "b" => {
                 best = 10000.0
-                breakable {
-                    for (move <- moves) {
-                        lFen = ChessBoard.makeMove(lFen, move)
-                        val tempVal = alphabeta(lFen, currentAlpha, currentBeta, depth - 1)
-                        best = Math.min(best, tempVal)
-                        currentBeta = Math.min(currentBeta, best)
-                        if (currentBeta <= currentAlpha) {
-                            break
-                        }
+                for (move <- moves) {
+                    val originalFen = fen // Copy the FEN string
+                    val lFen = ChessBoard.makeMove(originalFen, move) // Make move on the copy
+                    val tempVal = minimax(lFen, depth - 1)
+                    // No need to undo, we just use the originalFen in the next iteration
+                    if (tempVal < best) {
+                        best = tempVal
                     }
                 }
             }
@@ -300,46 +232,75 @@ class Engine {
         best
     }
 
-    def alphabetaFunctional(fen: String, depth: Int, alpha: Double, beta: Double): Double = {
+    def minimaxAB(fen: String, depth: Int, alpha: Double, beta: Double): Double = {
+        see += 1
+        println(see + " " + depth)
         val moves = LegalMoves.getAllLegalMoves(fen)
 
-        // Base case: either game over or we've reached the maximum depth
         if (game_over(fen, moves) || depth == 0) {
             return evaluate(fen)
         }
 
         val fenSplit = fen.split(" ")
-        val playerTurn = fenSplit(1)
-        var best = if (playerTurn == "w") -10000.0 else 10000.0
-
-        playerTurn match {
-            case "w" => // White's turn (maximize the score)
-                moves.foldLeft(alpha) { (currentAlpha, move) =>
-                    val newFen = ChessBoard.makeMove(fen, move)
-                    val tempVal = alphabetaFunctional(newFen, depth - 1, currentAlpha, beta)
-
-                    // Update the best score and prune if necessary
-                    best = Math.max(best, tempVal)
-                    if (best >= beta) return best // Beta cut-off
-
-                    // Update alpha for pruning
-                    Math.max(currentAlpha, best)
+        fenSplit(1) match {
+            case "w" => { // Maximizing player (White)
+                var a = alpha
+                var best = -10000.0
+                for (move <- moves) {
+                    val originalFen = fen
+                    val lFen = ChessBoard.makeMove(originalFen, move)
+                    val tempVal = minimaxAB(lFen, depth - 1, a, beta)
+                    if (tempVal > best) {
+                        best = tempVal
+                    }
+                    a = Math.max(a, best) // Update alpha
+                    if (beta <= a) {
+                        return best // Beta cutoff
+                    }
                 }
-            case "b" => // Black's turn (minimize the score)
-                moves.foldLeft(beta) { (currentBeta, move) =>
-                    val newFen = ChessBoard.makeMove(fen, move)
-                    val tempVal = alphabetaFunctional(newFen, depth - 1, alpha, currentBeta)
-
-                    // Update the best score and prune if necessary
-                    best = Math.min(best, tempVal)
-                    if (best <= alpha) return best // Alpha cut-off
-
-                    // Update beta for pruning
-                    Math.min(currentBeta, best)
+                best
+            }
+            case "b" => { // Minimizing player (Black)
+                var b = beta
+                var best = 10000.0
+                for (move <- moves) {
+                    val originalFen = fen
+                    val lFen = ChessBoard.makeMove(originalFen, move)
+                    val tempVal = minimaxAB(lFen, depth - 1, alpha, b)
+                    if (tempVal < best) {
+                        best = tempVal
+                    }
+                    b = Math.min(b, best) // Update beta
+                    if (b <= alpha) {
+                        return best // Alpha cutoff
+                    }
                 }
+                best
+            }
         }
+    }
 
-        best
+    def find_min(li: List[((Int, Int), Double)]): ((Int, Int), Double) = {
+        @tailrec
+        def sub1(sub_li: List[((Int, Int), Double)], res: ((Int, Int), Double)): ((Int, Int), Double) = {
+            sub_li match {
+                case Nil => res
+                case (x, v)::t =>
+                    if (v < res._2) {
+                        sub1(t, (x, v))
+                    } else {
+                        sub1(t, res)
+                    }
+            }
+        }
+        sub1(li, ((-1, -1), Double.MaxValue))
+    }
+
+    def play(fen: String): (Int, Int) = {
+        val moves = LegalMoves.getAllLegalMoves(fen)
+        val search_depth = 2
+        val ranked_moves = moves.map(x => (x, minimaxAB(ChessBoard.makeMove(fen, x), search_depth, Double.MinValue, Double.MaxValue)))
+        find_min(ranked_moves)._1
     }
 
 
