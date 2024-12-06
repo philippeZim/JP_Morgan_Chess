@@ -16,18 +16,16 @@ import javafx.stage.Screen
 import scalafx.scene.layout.Priority.Always
 
 class GuiBoard(controlololol: Option[Controller]) extends StackPane {
-    //style = "-fx.background-color: lightgr;"
+
     val controller : Controller = controlololol match {
         case Some(a) => a
-        case _ => new Controller("", new Controller.ChessContext(this),"");
+        case _ => new Controller("", new Controller.ChessContext(),"");
     }
     val screenBounds = Screen.getPrimary.getVisualBounds
     val screenHeight = screenBounds.getHeight
     val gridBoard = new GridPane()
     val wrapperPane = new BorderPane {
         center = gridBoard
-        //prefWidth = screenBounds.getHeight * 0.9
-        //prefHeight = screenBounds.getHeight * 0.9
     }
     val imageBoard = new ImageView("C:\\Software_Enginieering\\chess_IntelliJ\\bsp_chess_board_clipped_Again.jpg");
     imageBoard.fitWidth = screenHeight
@@ -43,7 +41,7 @@ class GuiBoard(controlololol: Option[Controller]) extends StackPane {
             button.visible = false
             button.maxWidth = Double.PositiveInfinity
             button.maxHeight = Double.PositiveInfinity
-            button.onAction = controller.squareClicked(row*8 + col)
+            button.onAction = _ => {controller.squareClicked(row*8 + col)}
             gridBoard.add(button, col, row)
         }
     }
