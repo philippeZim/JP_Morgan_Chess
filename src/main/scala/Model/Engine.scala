@@ -298,7 +298,7 @@ object Engine {
 
     def play(fen: String): (Int, Int) = {
         val moves = LegalMoves.getAllLegalMoves(fen)
-        val search_depth = 2
+        val search_depth = 1
         val ranked_moves = moves.map(x => (x, minimaxAB(ChessBoard.makeMove(fen, x), search_depth, Double.MinValue, Double.MaxValue)))
         find_min(ranked_moves)._1
     }

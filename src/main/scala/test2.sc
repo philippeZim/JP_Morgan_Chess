@@ -1,17 +1,18 @@
-val pawnPosW: Vector[Double] = Vector(
-    -0.50, -0.40, -0.30, -0.30, -0.30, -0.30, -0.40, -0.50,
-    -0.40, -0.20, 0,    0,    0,    0,   -0.20, -0.40,
-    -0.30, 0,    0.10, 0.15, 0.15, 0.10, 0,    -0.30,
-    -0.30, 0.05, 0.15, 0.20, 0.20, 0.15, 0.05, -0.30,
-    -0.30, 0,    0.15, 0.20, 0.20, 0.15, 0,    -0.30,
-    -0.30, 0.05, 0.10, 0.15, 0.15, 0.10, 0.05, -0.30,
-    -0.40, -0.20, 0,    0.05, 0.05, 0,   -0.20, -0.40,
-    -0.50, -0.40, -0.30, -0.30, -0.30, -0.30, -0.40, -0.50
 
-)
+val f2 = (x: Int) => x + 1
 
-print(pawnPosW.reverse)
-
-pawnPosW.reverse.grouped(8).foreach { chunk =>
-    println(chunk.mkString(", ") + ",")
+def f(x: Int): Int = {
+    x + 1
 }
+
+f{1}
+
+// Higher order Functions, has a function a parameter e.g. map
+
+val numbers = List(1, 2, 3);
+
+numbers foreach print
+
+numbers map f
+
+// bonus punkt ideen mit css arbeiten, theme chooser
