@@ -15,6 +15,10 @@ import scalafx.scene.text.{Font, Text}
 import javafx.stage.Screen
 import scalafx.scene.layout.Priority.Always
 
+import java.nio.file.Paths
+import java.nio.file.Paths.*
+import scala.annotation.tailrec
+
 class GuiBoard(controlololol: Option[Controller]) extends StackPane {
 
     val controller : Controller = controlololol match {
@@ -27,7 +31,9 @@ class GuiBoard(controlololol: Option[Controller]) extends StackPane {
     val wrapperPane = new BorderPane {
         center = gridBoard
     }
-    val imageBoard = new ImageView("C:\\Software_Enginieering\\chess_IntelliJ\\bsp_chess_board_clipped_Again.jpg");
+    val currentPath = get("").toAbsolutePath.toString
+    println(s"Current folder: $currentPath")
+    val imageBoard = new ImageView("file:src\\images\\bsp_chess_board_clipped_Again.jpg");
     imageBoard.fitWidth = screenHeight
     imageBoard.fitHeight = screenHeight * 0.95
     val button = new Button("Cklick me") {
@@ -37,14 +43,38 @@ class GuiBoard(controlololol: Option[Controller]) extends StackPane {
     }
     for (row <- 0 until 8) {
         for (col <- 0 until 8) {
+            val stackP = new StackPane()
             val button = new Button(s"Button $row,$col")
             button.visible = false
             button.maxWidth = Double.PositiveInfinity
             button.maxHeight = Double.PositiveInfinity
             button.onAction = _ => {controller.squareClicked(row*8 + col)}
-            gridBoard.add(button, col, row)
+            stackP.children += button
+            gridBoard.add(stackP, col, row)
         }
     }
+    val testImg = ImageView("file:src\\images\\pieces\\rook-b.svg")
+    
+    def addImage(grid: GridPane, cell: Int, path: String): GridPane = {
+        val cl = grid.children.toList
+        
+        @tailrec
+        def loopChildren(li: List[Node], acc: List[Node]): List[Node] = {
+            li match {
+                case Nil => acc
+                case h :: t => h match {
+                    case e: StackPane => {
+                        e.children += ImageView("file:src\\images\\pieces\\rook-b.svg")
+                        loopChildren(t, e::acc)
+                    }
+                    case _ => loopChildren(t, h::acc)
+                }
+            }
+        }
+        grid.children = loopChildren(cl, List())
+        grid
+    }
+
     //gridBoard.setPrefSize(screenBounds.getHeight, screenBounds.getHeight)
     for (row <- 0 until 8)
     {
