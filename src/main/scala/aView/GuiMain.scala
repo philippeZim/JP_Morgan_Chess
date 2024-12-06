@@ -11,10 +11,15 @@ import scalafx.scene.paint.*
 import scalafx.scene.text.Text
 import scalafx.scene.shape.Rectangle
 
-object GUIMain extends JFXApp3 {
+object GuiMain extends JFXApp3 {
     var controller : Option[Controller]= None
     def start(): Unit = {
         stage = new JFXApp3.PrimaryStage {
+            
+            
+            
+            
+            
             title = "JP Morgan chess"
             scene = new Scene() {
                 root = new BorderPane {
@@ -27,7 +32,7 @@ object GUIMain extends JFXApp3 {
     }
 
     def setController(controller: Controller) : Unit = {
-        GUIMain.controller = Some(controller)
+        this.controller = Some(controller)
     }
 
 
