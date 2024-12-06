@@ -22,7 +22,7 @@ class BoardMonad[T](board: Vector[Piece]) {
     }
 }
 
-def piecePositions(board: Vector[Piece], piece: Piece): List[Int] = {
+/*def piecePositions(board: Vector[Piece], piece: Piece): List[Int] = {
     val bm = BoardMonad(board)
     var index = -1
     val bm_index = bm.map(e =>
@@ -36,5 +36,5 @@ def piecePositions(board: Vector[Piece], piece: Piece): List[Int] = {
         }
     )
     correct_pieces_with_index.map((e, i) => i).toList
-}
+} */
 

@@ -13,8 +13,7 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
 
     def createOutput() : String = {output}
 
-    def play(input : String) : Unit = {
-        val move = ChessBoard.translateCastle(ChessBoard.fenToBoard(fen), ChessBoard.moveToIndex(input.substring(0, 2), input.substring(2, 4)));
+    def play(move : (Int, Int)) : Unit = {
         val legalMoves = LegalMoves.getAllLegalMoves(fen);
         val event : Event = Event(legalMoves.isEmpty, fen, Remis.isRemis(fen, legalMoves))
         context.handle(event)
@@ -75,10 +74,12 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
     }
 
     def squareClicked(clickedSquare: Int) : Boolean = {
-        if(LegalMoves.isLegalMove(activeSquare, clickedSquare)) {
-            play()
+        if(LegalMoves.isLegalMove(fen, (activeSquare, clickedSquare))) {
+            play(activeSquare, clickedSquare)
+            true
         } else {
             activeSquare = clickedSquare
+            false
         }
     }
 }
