@@ -12,7 +12,7 @@ object Chess {
 
     def main(args: Array[String]): Unit = {
         GuiMain.setController(controller)
-        GuiMain.start()
+        GuiMain.main(args)
 
         var input: String = "";
         while (input != "end") {
