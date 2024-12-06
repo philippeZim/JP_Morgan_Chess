@@ -1,46 +1,22 @@
 package aView
 
 import Controller.Controller
+import Model.ChessBoard
 import util.Observer
 
 import scala.io.StdIn.readLine
-import scala.util.{Try, Success, Failure}
+import scala.util.{Failure, Success, Try}
 
 class Tui(controller: Controller) extends Observer{
 
     controller.add(this)
 
-   /* def processInputLine(input: String):Unit = {
-        if (!input.matches("(([a-h][1-8][a-h][1-8])|undo|redo)")) {
-            println("Denk nochmal nach Bro")
-        } else if(input == "undo"){
-            controller.undo()
-        } else if(input == "redo") {
-            controller.redo()
-        } else {
-            controller.play(input)
-        }
-    } */
-
-    def processInputLine(input: String): Unit = {
-        if (input == "undo") {
-            controller.undo()
-        } else if (input == "redo") {
-            controller.redo()
-        } else {
-            def getTryInput(local_input: String): String = {
-                if (!input.matches("(([a-h][1-8][a-h][1-8])|undo|redo)")) {
-                    throw new IllegalArgumentException("Denk nochmal nach Bro")
-                } else {
-                    local_input
-                }
-            }
-            Try(getTryInput(input)) match {
-                case Success(s) => controller.play(s)
-                case Failure(e: Exception) => println(e.getMessage)
-                case _ => println("?")
-            }
-
+    def processInputLine(input: String):Unit = {
+        input match {
+            case "undo" => controller.undo();
+            case "redo" => controller.redo();
+            case move if move.matches("(([a-h][1-8][a-h][1-8])|undo|redo)") => controller.play(ChessBoard.translateCastle(ChessBoard.fenToBoard(controller.fen), ChessBoard.moveToIndex(input.substring(0, 2), input.substring(2, 4))))
+            case _ => println("Denk nochmal nach Bro")
         }
     }
 
