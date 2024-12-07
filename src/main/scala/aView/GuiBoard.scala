@@ -1,6 +1,7 @@
 package aView
 
 import Controller.{ChessContext, Controller}
+import Model.{Piece, PieceType, ChessBoard}
 import scalafx.stage.Stage
 import scalafx.application.JFXApp3
 import scalafx.geometry.Insets
@@ -27,7 +28,7 @@ class GuiBoard(controlololol: Option[Controller]) extends StackPane {
     }
     val screenBounds = Screen.getPrimary.getVisualBounds
     val screenHeight = screenBounds.getHeight
-    val gridBoard = new GridPane()
+    val gridBoard = updateGrid()
     val wrapperPane = new BorderPane {
         center = gridBoard
     }
@@ -36,11 +37,8 @@ class GuiBoard(controlololol: Option[Controller]) extends StackPane {
     val imageBoard = new ImageView("file:src\\images\\bsp_chess_board_clipped_Again.jpg");
     imageBoard.fitWidth = screenHeight
     imageBoard.fitHeight = screenHeight * 0.95
-    val button = new Button("Cklick me") {
-        layoutX = 350
-        layoutY = 250
-        visible = false
-    }
+
+    /*
     for (row <- 0 until 8) {
         for (col <- 0 until 8) {
             val stackP = new StackPane()
@@ -53,26 +51,77 @@ class GuiBoard(controlololol: Option[Controller]) extends StackPane {
             gridBoard.add(stackP, col, row)
         }
     }
-    val testImg = ImageView("file:src\\images\\pieces\\rook-b.svg")
-    
-    def addImage(grid: GridPane, cell: Int, path: String): GridPane = {
-        val cl = grid.children.toList
-        
+
+     */
+
+    def updateGrid(): GridPane = {
+
+
+        val pieceMap = Map(
+            "p" -> "black-pawn",
+            "r" -> "black-rook",
+            "n" -> "black-knight",
+            "b" -> "black-bishop",
+            "q" -> "black-queen",
+            "k" -> "black-king",
+            "P" -> "white-pawn",
+            "R" -> "white-rook",
+            "N" -> "white-knight",
+            "B" -> "white-bishop",
+            "Q" -> "white-queen",
+            "K" -> "white-king"
+
+        )
+
         @tailrec
-        def loopChildren(li: List[Node], acc: List[Node]): List[Node] = {
+        def loopChildren(li: List[(Piece, Int)], acc: List[Node]): List[Node] = {
             li match {
                 case Nil => acc
                 case h :: t => h match {
-                    case e: StackPane => {
-                        e.children += ImageView("file:src\\images\\pieces\\rook-b.svg")
-                        loopChildren(t, e::acc)
+                    case (e: Piece, i: Int) => {
+                        val sp: StackPane = new StackPane {
+                            val button = new Button()
+                            button.visible = false
+                            button.maxWidth = Double.PositiveInfinity
+                            button.maxHeight = Double.PositiveInfinity
+                            button.onAction = _ => {
+                                controller.squareClicked(i)
+                            }
+                            if (e.toString() == ".") {
+                                children = button
+                            } else {
+                                val path = "file:src\\images\\pieces\\" + pieceMap(e.toString()) + ".png"
+                                val img = ImageView(path)
+                                children = List(button, img)
+                            }
+
+
+                        }
+                        loopChildren(t, sp::acc)
                     }
-                    case _ => loopChildren(t, h::acc)
+                    case _ => loopChildren(t, acc)
                 }
             }
         }
-        grid.children = loopChildren(cl, List())
-        grid
+        val new_children = loopChildren(ChessBoard.fenToBoard(controller.fen).toList.zipWithIndex, List())
+
+
+        @tailrec
+        def addAllToGrid(li: List[(Node, Int)], grid: GridPane): GridPane = {
+            li match {
+                case Nil => grid
+                case h :: t => h match {
+                    case (e: Node, i: Int) =>
+                        val row: Int = i / 8
+                        val col: Int = i % 8
+                        grid.add(e, col, row)
+                        addAllToGrid(t, grid)
+                    case _ => addAllToGrid(t, grid)
+                }
+            }
+        }
+
+        addAllToGrid(new_children.zipWithIndex, new GridPane())
     }
 
     //gridBoard.setPrefSize(screenBounds.getHeight, screenBounds.getHeight)
