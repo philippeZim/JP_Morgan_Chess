@@ -10,21 +10,23 @@ import scalafx.scene.paint.Color.*
 import scalafx.scene.paint.*
 import scalafx.scene.text.Text
 import scalafx.scene.shape.Rectangle
+import util.Observer
 
 object GuiMain extends JFXApp3 {
+
     var controller : Option[Controller]= None
     def start(): Unit = {
+
         stage = new JFXApp3.PrimaryStage {
-            
-            
-            
-            
             
             title = "JP Morgan chess"
             scene = new Scene() {
+
                 root = new BorderPane {
                     //padding
+                    style = "-fx-background-color:BLACK"
                     left = new GuiBoard(controller)
+
                 }
             }
             fullScreen = true
