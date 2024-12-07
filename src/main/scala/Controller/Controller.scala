@@ -7,7 +7,7 @@ import Controller.State
 
 class Controller(var fen : String, var context : ChessContext, var output : String) extends Observable{
     val invoker : UndoInvoker = new UndoInvoker
-    var activeSquare : Int = -1;
+    var activeSquare : Int = 0;
 
     def boardToString() : String = {ChessBoard.getBoardString(ChessBoard.fenToBoard(fen))}
 
@@ -74,7 +74,7 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
     }
 
     def squareClicked(clickedSquare: Int) : Boolean = {
-        if(LegalMoves.isLegalMove(fen, (activeSquare, clickedSquare))) {
+        if(LegalMoves.getAllLegalMoves(fen).contains((activeSquare, clickedSquare))) {
             play(activeSquare, clickedSquare)
             true
         } else {
