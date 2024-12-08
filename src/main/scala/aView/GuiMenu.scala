@@ -15,14 +15,11 @@ import scalafx.scene.layout.BackgroundFill
 import scalafx.scene.input.MouseEvent
 import scalafx.geometry.{Insets, Pos}
 
-class GuiMenu(option_controller: Option[Controller]) extends VBox, Observer{
+class GuiMenu(option_controller: Option[Controller]) extends VBox{
     val controller: Controller = option_controller match {
         case Some(a) => a
         case _ => new Controller("", new Controller.ChessContext(), "");
     }
-    override def update: Unit = ()
-
-    override def specialCase: Unit = ()
 
     val screenBounds = Screen.getPrimary.getVisualBounds
     val vw = screenBounds.getWidth
