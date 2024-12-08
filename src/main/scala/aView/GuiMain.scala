@@ -26,6 +26,7 @@ object GuiMain extends JFXApp3 {
                     //padding
                     style = "-fx-background-color:BLACK"
                     left = new GuiBoard(controller)
+                    right = new GuiMenu(controller)
 
                 }
             }

@@ -8,6 +8,7 @@ import Controller.State
 class Controller(var fen : String, var context : ChessContext, var output : String) extends Observable{
     val invoker : UndoInvoker = new UndoInvoker
     var activeSquare : Int = 0;
+    var current_theme: Int = 0;
 
     def boardToString() : String = {ChessBoard.getBoardString(ChessBoard.fenToBoard(fen))}
 
@@ -59,6 +60,11 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
             activeSquare = clickedSquare
             false
         }
+    }
+
+    def nextTheme(): Unit = {
+        current_theme = (current_theme + 1) % 19
+        notifyObservers
     }
 }
 
