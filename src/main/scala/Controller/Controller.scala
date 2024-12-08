@@ -74,14 +74,9 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
         notifyObservers
     }
 
-    def squareClicked(clickedSquare: Int) : Boolean = {
-        if(LegalMoves.getAllLegalMoves(fen).contains((activeSquare, clickedSquare))) {
-            play(activeSquare, clickedSquare)
-            true
-        } else {
-            activeSquare = clickedSquare
-            false
-        }
+    def squareClicked(clickedSquare: Int) : Unit = {
+        play(ChessBoard.translateCastle(ChessBoard.fenToBoard(fen), (activeSquare, clickedSquare)))
+        activeSquare = clickedSquare
     }
 
     def nextTheme(): Unit = {

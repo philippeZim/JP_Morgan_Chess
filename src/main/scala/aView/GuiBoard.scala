@@ -41,7 +41,6 @@ class GuiBoard(option_controller: Option[Controller]) extends GridPane, Observer
 
     val color_pallets: Vector[(String, String, String)] = Vector(
         ("#cb9df0", "#F0C1E1", "#FFF9BF"),
-        ("#A7D477", "#F72C5B", "#FF748B"),
         ("#9AA6B2", "#BCCCDC", "#D9EAFD"),
         ("#493628", "#AB886D", "#D6C0B3"),
         ("#FFB0B0", "#FFD09B", "#FFECC8"),
@@ -51,6 +50,7 @@ class GuiBoard(option_controller: Option[Controller]) extends GridPane, Observer
         ("#F19ED2", "#E8C5E5", "#F7F9F2"),
         ("#55AD9B", "#95D2B3", "#D8EFD3"),
         ("#FF7D29", "#FFBF78", "#FFEEA9"),
+        ("#A7D477", "#F72C5B", "#FF748B"),
         ("#481E14", "#9B3922", "#F2613F"),
         ("#D20062", "#D6589F", "#D895DA"),
         ("#41C9E2", "#ACE2E1", "#F7EEDD"),
@@ -62,22 +62,6 @@ class GuiBoard(option_controller: Option[Controller]) extends GridPane, Observer
     )
 
     updateGrid()
-
-    /*
-    for (row <- 0 until 8) {
-        for (col <- 0 until 8) {
-            val stackP = new StackPane()
-            val button = new Button(s"Button $row,$col")
-            button.visible = false
-            button.maxWidth = Double.PositiveInfinity
-            button.maxHeight = Double.PositiveInfinity
-            button.onAction = _ => {controller.squareClicked(row*8 + col)}
-            stackP.children += button
-            gridBoard.add(stackP, col, row)
-        }
-    }
-
-     */
 
     def updateGrid(): Unit = {
 
@@ -174,7 +158,7 @@ class GuiBoard(option_controller: Option[Controller]) extends GridPane, Observer
                 }
             }
         }
-
+        children = Seq()
         addAllToGrid(new_children.zipWithIndex)
         val lcol3 = color_pallets(controller.current_theme)._1
         this.style = s"-fx-background-color:$lcol3"
