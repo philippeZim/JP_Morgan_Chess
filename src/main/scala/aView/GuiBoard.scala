@@ -24,13 +24,13 @@ import java.nio.file.Paths
 import java.nio.file.Paths.*
 import scala.annotation.tailrec
 
-class GuiBoard(controlololol: Option[Controller]) extends GridPane, Observer{
+class GuiBoard(option_controller: Option[Controller]) extends GridPane, Observer{
     override def update: Unit = {
         updateGrid()
     }
 
     override def specialCase: Unit = ()
-    val controller : Controller = controlololol match {
+    val controller : Controller = option_controller match {
         case Some(a) => a
         case _ => new Controller("", new Controller.ChessContext(),"");
     }
@@ -38,6 +38,29 @@ class GuiBoard(controlololol: Option[Controller]) extends GridPane, Observer{
     val screenBounds = Screen.getPrimary.getVisualBounds
     val vw = screenBounds.getWidth
     val vh = screenBounds.getHeight
+
+    val color_pallets: Vector[(String, String, String)] = Vector(
+        ("#cb9df0", "#F0C1E1", "#FFF9BF"),
+        ("#A7D477", "#F72C5B", "#FF748B"),
+        ("#9AA6B2", "#BCCCDC", "#D9EAFD"),
+        ("#493628", "#AB886D", "#D6C0B3"),
+        ("#FFB0B0", "#FFD09B", "#FFECC8"),
+        ("#7E60BF", "#E4B1F0", "#FFE1FF"),
+        ("#921A40", "#C75B7A", "#F4D9D0"),
+        ("#508D4E", "#80AF81", "#D6EFD8"),
+        ("#F19ED2", "#E8C5E5", "#F7F9F2"),
+        ("#55AD9B", "#95D2B3", "#D8EFD3"),
+        ("#FF7D29", "#FFBF78", "#FFEEA9"),
+        ("#481E14", "#9B3922", "#F2613F"),
+        ("#D20062", "#D6589F", "#D895DA"),
+        ("#41C9E2", "#ACE2E1", "#F7EEDD"),
+        ("#31363F", "#76ABAE", "#EEEEEE"),
+        ("#503C3C", "#7E6363", "#A87C7C"),
+        ("#424769", "#7077A1", "#F6B17A"),
+        ("#DC84F3", "#E9A8F2", "#F3CCF3"),
+        ("#5C5470", "#B9B4C7", "#FAF0E6")
+    )
+
     updateGrid()
 
     /*
@@ -84,13 +107,17 @@ class GuiBoard(controlololol: Option[Controller]) extends GridPane, Observer{
                         val sp: StackPane = new StackPane {
                             val rect_bg = new Rectangle() {
                                 if ((i + (i / 8)) % 2 == 0) {
-                                    fill = Paint.valueOf("#F0C1E1")
+                                    val lcol1 = color_pallets(controller.current_theme)._3
+                                    fill = Paint.valueOf(lcol1)
                                 } else {
-                                    fill = Paint.valueOf("FFF9BF")
+                                    val lcol2 = color_pallets(controller.current_theme)._2
+                                    fill = Paint.valueOf(lcol2)
                                 }
 
                                 width = vh * 0.1
                                 height = vh * 0.1
+                                arcWidth = vh * 0.02
+                                arcHeight = vh * 0.02
                             }
                             val button1: Button = new Button() {
                                 style = "-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;"
@@ -111,6 +138,8 @@ class GuiBoard(controlololol: Option[Controller]) extends GridPane, Observer{
                                     fitWidth = vh * 0.07
                                     preserveRatio = true
                                     alignmentInParent = Center
+                                    val lcol3 = color_pallets(controller.current_theme)._1
+                                    style = s"-fx-effect: dropshadow(gaussian, $lcol3, 10, 0.8, 0, 0);"
                                     effect = new DropShadow {
                                         color = Color.Black
                                         radius = 10
@@ -147,6 +176,8 @@ class GuiBoard(controlololol: Option[Controller]) extends GridPane, Observer{
         }
 
         addAllToGrid(new_children.zipWithIndex)
+        val lcol3 = color_pallets(controller.current_theme)._1
+        this.style = s"-fx-background-color:$lcol3"
     }
 
     //gridBoard.setPrefSize(screenBounds.getHeight, screenBounds.getHeight)
@@ -168,5 +199,5 @@ class GuiBoard(controlololol: Option[Controller]) extends GridPane, Observer{
     this.setPrefSize(vh * 0.9, vh)
     val marginScreenHeight = vh *0.05
     BorderPane.setMargin(this, Insets(marginScreenHeight, marginScreenHeight * 3, marginScreenHeight, marginScreenHeight * 3))
-    style = "-fx-background-color:rgb(203, 157, 240)"
+
 }
