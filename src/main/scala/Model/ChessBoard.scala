@@ -260,4 +260,14 @@ object ChessBoard {
         }
         ChessBoard.boardToFen(board.updated(position, pieceFactory(pieceName, colors._3))) + " " + fensplit(1) + " " + fensplit(2) + " " + fensplit (3) + " " + fensplit(4) + " " + fensplit(5);
     }
+
+    def isColorPiece(fen : String, position : Int) : Boolean = {
+        val board = ChessBoard.fenToBoard(fen)
+        val colourToMove = fen.split(" ")(1) match {
+            case "w" => Color.WHITE
+            case "b" => Color.BLACK
+            case _ => "error"
+        }
+        board(position).color == colourToMove
+    }
 }

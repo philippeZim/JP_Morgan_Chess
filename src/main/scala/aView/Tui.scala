@@ -20,7 +20,10 @@ class Tui(controller: Controller) extends Observer{
         }
     }
 
-    override def update: Unit =  println(controller.createOutput())
+    override def update: Unit =  {
+        println(controller.createOutput())
+        println("Bitte gib einen Zug ein: (Format z.B. von a1 nach c3 = a1c3)")
+    }
 
     override def specialCase: Unit = {
         println("Welche Beförderung soll der Bauer erhalten? (Eingabemöglichkeiten: Q,q,N,n,B,b,R,r)")

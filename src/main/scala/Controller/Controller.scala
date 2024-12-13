@@ -61,8 +61,12 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
     }
 
     def squareClicked(clickedSquare: Int) : Unit = {
-        play(ChessBoard.translateCastle(ChessBoard.fenToBoard(fen), (activeSquare, clickedSquare)))
-        activeSquare = clickedSquare
+        if(ChessBoard.isColorPiece(fen, clickedSquare)) {
+            activeSquare = clickedSquare
+        } else if (!ChessBoard.isColorPiece(fen, clickedSquare) && activeSquare != -5) {
+            play(ChessBoard.translateCastle(ChessBoard.fenToBoard(fen), (activeSquare, clickedSquare)))
+            activeSquare = -5
+        }
     }
 
     def nextTheme(): Unit = {

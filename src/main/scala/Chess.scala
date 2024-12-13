@@ -22,7 +22,6 @@ object Chess {
 
         var input: String = ""
         while (input != "end") {
-            println("Bitte gib einen Zug ein: (Format z.B. von a1 nach c3 = a1c3)")
             input = readLine()
             tui.processInputLine(input)
         }
