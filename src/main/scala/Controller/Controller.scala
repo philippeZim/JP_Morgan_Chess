@@ -9,6 +9,7 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
     val invoker : UndoInvoker = new UndoInvoker
     var activeSquare : Int = 0;
     var current_theme: Int = 0;
+    //val stockfish = new Stockfish()
 
     def boardToString() : String = {ChessBoard.getBoardString(ChessBoard.fenToBoard(fen))}
 
@@ -34,6 +35,13 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
                 }
         }
         notifyObservers
+        if (!output.contains("Das")) {
+
+        }
+
+        //val bestMove = Stockfish.bestMove(fen, 15)
+        //println(bestMove)
+        //playEngineMove(ChessBoard.translateMoveStringToInt(fen, bestMove))
     }
     
     def promotePawn(pieceKind : String) : Unit = {

@@ -214,6 +214,10 @@ object ChessBoard {
             move
         }
     }
+    
+    def translateMoveStringToInt(fen: String, move: String): (Int, Int) = {
+        ChessBoard.translateCastle(ChessBoard.fenToBoard(fen), ChessBoard.moveToIndex(move.substring(0, 2), move.substring(2, 4)))
+    }
 
     def makeMove(fen: String, move: (Int, Int)): String = {
         val fenSplit = fen.split(" ")

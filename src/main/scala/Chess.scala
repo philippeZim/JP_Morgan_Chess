@@ -3,6 +3,7 @@ import Controller.{ChessContext, Controller}
 import Model.ChessBoard
 import aView.Tui
 import aView.GuiMain
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
@@ -19,7 +20,7 @@ object Chess {
             GuiMain.main(args)
         }
 
-        var input: String = "";
+        var input: String = ""
         while (input != "end") {
             println("Bitte gib einen Zug ein: (Format z.B. von a1 nach c3 = a1c3)")
             input = readLine()

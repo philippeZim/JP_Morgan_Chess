@@ -15,7 +15,7 @@ class Tui(controller: Controller) extends Observer{
         input match {
             case "undo" => controller.undo();
             case "redo" => controller.redo();
-            case move if move.matches("(([a-h][1-8][a-h][1-8])|undo|redo)") => controller.play(ChessBoard.translateCastle(ChessBoard.fenToBoard(controller.fen), ChessBoard.moveToIndex(input.substring(0, 2), input.substring(2, 4))))
+            case move if move.matches("(([a-h][1-8][a-h][1-8])|undo|redo)") => controller.play(ChessBoard.translateMoveStringToInt(controller.fen, move))
             case _ => println("Denk nochmal nach Bro")
         }
     }
