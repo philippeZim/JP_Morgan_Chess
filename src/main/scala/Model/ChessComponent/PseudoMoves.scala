@@ -1,8 +1,8 @@
-package Model
+package Model.ChessComponent
 
-import Model.Color.WHITE
-import Model.PieceType.EMPTY
-import Model.{ChessBoard, Color, Piece, PieceType}
+import Color.WHITE
+import PieceType.EMPTY
+import Model.*
 
 import scala.annotation.tailrec
 

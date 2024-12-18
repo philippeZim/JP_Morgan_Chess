@@ -1,4 +1,4 @@
-package Model
+package Model.UndoRedoComponent
 
 import Controller.Controller
 

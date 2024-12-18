@@ -1,9 +1,8 @@
-package Model
+package ModelTests.ChessComponentTests
 
-import Model.ChessBoard.*
-import Model.PseudoMoves.*
-import Model.Remis
-import Model.{ChessBoard, PseudoMoves}
+import Model.ChessComponent.ChessBoard.*
+import Model.ChessComponent.PseudoMoves.*
+import Model.ChessComponent.{ChessBoard, PseudoMoves, Remis, LegalMoves}
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -40,5 +39,9 @@ class RemisSpec extends AnyWordSpec {
 
         Remis.isMaterial("8/5k2/8/8/8/8/4K3/8 b KQkq - 0 1") should be (true)
 
+    }
+
+    "realise a Patt correctly" in {
+        Remis.isPatt("k7/8/1Q6/8/8/8/8/4K3 b - - 0 1", LegalMoves.getAllLegalMoves("k7/8/1Q6/8/8/8/8/4K3 b - - 0 1")) should be (true)
     }
 }

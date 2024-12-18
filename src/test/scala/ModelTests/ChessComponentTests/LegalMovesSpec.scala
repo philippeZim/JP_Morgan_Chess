@@ -1,7 +1,7 @@
-package Model
+package ModelTests.ChessComponentTests
 
-import Model.LegalMoves
-import Model.LegalMoves.*
+import Model.ChessComponent.LegalMoves
+import Model.ChessComponent.LegalMoves.*
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.wordspec.AnyWordSpec
 

@@ -1,7 +1,7 @@
 package aView
 
 import Controller.Controller
-import Model.ChessBoard
+import Model.ChessComponent.ChessBoard
 import util.Observer
 
 import scala.io.StdIn.readLine

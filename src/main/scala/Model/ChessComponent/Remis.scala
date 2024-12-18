@@ -1,4 +1,6 @@
-package Model
+package Model.ChessComponent
+
+import Model.ChessComponent.{LegalMoves, PseudoMoves}
 
 import scala.annotation.tailrec
 

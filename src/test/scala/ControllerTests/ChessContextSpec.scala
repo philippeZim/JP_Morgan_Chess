@@ -1,9 +1,9 @@
-package Controller;
+package ControllerTests
 
-import Model.{ChessBoard, LegalMoves, PseudoMoves, Event}
 import aView.Tui
 import util.Observer
-import Controller.ChessContext
+import Controller.{ChessContext, Event, State}
+import Model.ChessComponent.{ChessBoard, LegalMoves, PseudoMoves}
 
 import scala.language.reflectiveCalls
 import org.scalatest.matchers.should.Matchers

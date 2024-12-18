@@ -1,7 +1,7 @@
 package aView
 
 import Controller.{ChessContext, Controller}
-import Model.{ChessBoard, Piece, PieceType}
+import Model.ChessComponent.{ChessBoard, Piece, PieceType}
 import scalafx.stage.Stage
 import scalafx.application.JFXApp3
 import scalafx.geometry.Insets

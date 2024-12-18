@@ -1,6 +1,6 @@
 package Controller
 
-import Model.{Event, Remis}
+import Model.ChessComponent.Remis
 import util.Observable;
 
 enum State:

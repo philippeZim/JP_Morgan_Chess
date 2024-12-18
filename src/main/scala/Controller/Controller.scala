@@ -1,23 +1,24 @@
 package Controller
 
-import Model.{ChessBoard, Event, LegalMoves, PseudoMoves, Remis, SetCommand, UndoInvoker}
 import util.Observable
 import Controller.ChessContext
 import Controller.State
+import Model.ChessComponent.ChessConcrete
+import Model.UndoRedoComponent.UndoInvoker
 
 class Controller(var fen : String, var context : ChessContext, var output : String) extends Observable{
     val invoker : UndoInvoker = new UndoInvoker
-    var activeSquare : Int = 0;
+    var activeSquare : Int = -5;
     var current_theme: Int = 0;
     //val stockfish = new Stockfish()
 
-    def boardToString() : String = {ChessBoard.getBoardString(ChessBoard.fenToBoard(fen))}
+    def boardToString() : String = {ChessConcrete.getBoardString(ChessConcrete.fenToBoard(fen))}
 
     def createOutput() : String = {output}
 
     def play(move : (Int, Int)) : Unit = {
-        val legalMoves = LegalMoves.getAllLegalMoves(fen);
-        val event : Event = Event(legalMoves.isEmpty, fen, Remis.isRemis(fen, legalMoves))
+        val legalMoves = ChessConcrete.getAllLegalMoves(fen);
+        val event : Event = Event(legalMoves.isEmpty, fen, ChessConcrete.isRemis(fen, legalMoves))
         context.handle(event)
         context.state match {
             case State.remisState => output = "Remis"
@@ -27,8 +28,8 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
                 if (!legalMoves.contains(move)) {
                     output = "Das kannste nicht machen Bro (kein legaler Zug)"
                 } else {
-                    invoker.doStep(new SetCommand(ChessBoard.makeMove(fen, move), fen , this))
-                    if(ChessBoard.canPromote(fen) != -1) {
+                    invoker.doStep(invoker.newCommand(ChessConcrete.makeMove(fen, move), fen , this))
+                    if(ChessConcrete.canPromote(fen) != -1) {
                         ringObservers
                     }
                     output = boardToString()
@@ -45,7 +46,7 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
     }
     
     def promotePawn(pieceKind : String) : Unit = {
-        fen = ChessBoard.promote(pieceKind, fen, ChessBoard.canPromote(fen));
+        fen = ChessConcrete.promote(pieceKind, fen, ChessConcrete.canPromote(fen));
     }
 
     def undo(): Unit = {
@@ -61,10 +62,10 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
     }
 
     def squareClicked(clickedSquare: Int) : Unit = {
-        if(ChessBoard.isColorPiece(fen, clickedSquare)) {
+        if(ChessConcrete.isColorPiece(fen, clickedSquare)) {
             activeSquare = clickedSquare
-        } else if (!ChessBoard.isColorPiece(fen, clickedSquare) && activeSquare != -5) {
-            play(ChessBoard.translateCastle(ChessBoard.fenToBoard(fen), (activeSquare, clickedSquare)))
+        } else if (!ChessConcrete.isColorPiece(fen, clickedSquare) && activeSquare != -5) {
+            play(ChessConcrete.translateCastle(ChessConcrete.fenToBoard(fen), (activeSquare, clickedSquare)))
             activeSquare = -5
         }
     }

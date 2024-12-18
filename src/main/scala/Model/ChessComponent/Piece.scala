@@ -1,4 +1,4 @@
-package Model
+package Model.ChessComponent
 
 enum Color:
     case BLACK, WHITE, EMPTY
