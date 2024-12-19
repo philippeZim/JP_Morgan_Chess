@@ -1,6 +1,6 @@
 package util
 
-import aView.GuiBoard
+import aView.UIComponent.GuiBoard
 import scalafx.application.Platform
 
 trait Observer {

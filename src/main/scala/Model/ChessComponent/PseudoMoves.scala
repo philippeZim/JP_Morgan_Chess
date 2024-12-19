@@ -88,7 +88,7 @@ object PseudoMoves {
      * @param piece PieceType if which the position is to be determined
      * @return List of all indices of the board on which the given Piecetype stands
      */
-    def piecePositions(board: Vector[Piece], piece: Piece): List[Int] = {
+    /*def piecePositions(board: Vector[Piece], piece: Piece): List[Int] = {
         @tailrec def sub(board: List[Piece], accumulator: List[Int], index: Int): List[Int] = {
             board match {
                 case Nil => accumulator
@@ -103,7 +103,7 @@ object PseudoMoves {
         }
 
         sub(board.toList, List(), 0);
-    }
+    } */
 
     /**
      * this method determines all positions of a given pieces
@@ -112,8 +112,6 @@ object PseudoMoves {
      * @return List of indices of the current positions of the given piece
      */
     def piecesPositions(board: Vector[Piece], pieces: List[Piece]): List[Int] = {
-
-
 
         @tailrec def sub(board: List[Piece], acc: List[Int], ind: Int): List[Int] = {
             board match {
@@ -131,7 +129,7 @@ object PseudoMoves {
         sub(board.toList, List(), 0);
     }
 
-  /* def piecePositions(board: Vector[Piece], piece: Piece): List[Int] = {
+    def piecePositions(board: Vector[Piece], piece: Piece): List[Int] = {
         val bm = BoardMonad(board)
         var index = -1
         val bm_index = bm.map(e =>
@@ -146,7 +144,7 @@ object PseudoMoves {
             }
         )
         correct_pieces_with_index.map((e, i) => i).toList
-    }  */
+    }
 
     /**
      * this method collects all pseudo legal pawn moves of a given pawn

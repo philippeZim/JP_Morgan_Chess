@@ -40,5 +40,11 @@ class ChessConcreteSpec extends AnyWordSpec {
             controllerFake.play(8, 1)
             controllerFake.fen should be ("rQbqkbnr/1pppppp1/8/8/8/8/P1PPPPpP/RNBQKBNR b KQkq - 0 5") //Hard  coded, dass es ne Queen werden soll
         }
+
+        "return false if isColorPiece gets a wrong string" in {
+            val controllerFake = new ControllerFakeStub("rQbqkbnr/1pppppp1/8/8/8/8/P1PPPPpP/RNBQKBNR k KQkq - 0 5")
+            controllerFake.squareClicked(60)
+            controllerFake.activeSquare should be (-5)
+        }
     }
 }

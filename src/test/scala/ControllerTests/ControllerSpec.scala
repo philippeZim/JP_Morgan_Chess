@@ -1,10 +1,10 @@
 package ControllerTests
 
-import aView.Tui
 import util.Observer
-import Controller.ChessContext
-import Controller.Controller
-import Model.ChessComponent.{ChessBoard, LegalMoves, PseudoMoves}
+import Controller.ControllerComponent
+import _root_.Controller.ControllerComponent.{ChessContext, Controller, State}
+import Model.ChessComponent.ChessBoard
+import ModelTests.ChessComponentTests.ControllerFakeStub
 
 import scala.language.reflectiveCalls
 import org.scalatest.matchers.should.Matchers
@@ -64,14 +64,14 @@ class ControllerSpec extends AnyWordSpec with Matchers {
             val remisFen = "K3k3/8/1q6/8/8/8/8/8 w - - 0 1"
             val controller = new Controller(remisFen, new ChessContext(), "")
             controller.play(ChessBoard.moveToIndex("a8", "a7"))
-            controller.context.state should be (Controller.State.remisState)
+            controller.context.state should be (State.remisState)
         }
 
         "detect a possible Promotion and ringObservers" in {
             val promotionFen = "rnbqkbnr/Ppppppp1/8/8/8/8/P1PPPPpP/RNBQKBNR w KQkq - 0 5"
             val controller = new Controller(promotionFen, new ChessContext(), "")
             controller.play(ChessBoard.moveToIndex("a7", "b8"))
-            controller.context.state should be (Controller.State.blackPlayingState)
+            controller.context.state should be (ControllerComponent.State.blackPlayingState)
         }
 
         "outsource promoting a pawn correctly" in {
@@ -115,6 +115,68 @@ class ControllerSpec extends AnyWordSpec with Matchers {
                     "1   |  R  |  N  |  B  |  Q  |  K  |  B  |  N  |  R  |\n" +
                     "    +-----+-----+-----+-----+-----+-----+-----+-----+\n" +
                     "       a     b     c     d     e     f     g     h     ")
+        }
+
+        "return correct outputs based on the game state" in {
+            val controller = new Controller("rnbqkbnr/ppppp2p/5p2/6pQ/4P3/3P4/PPP2PPP/RNB1KBNR b KQkq - 1 3", new ChessContext(), "")
+            controller.play(7,15)
+            controller.output should be ("Schwarz wurde vernichtend geschlagen")
+
+            val controller2 = new Controller("rnb1kbnr/pppp1ppp/8/4p3/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 1 3", new ChessContext(), "")
+            controller2.play(59, 8)
+            controller2.output should be ("Weiß wurde vernichtend geschlagen")
+
+            val controller3 = new Controller("8/8/8/8/8/1q1k4/8/K7 w - - 0 1", new ChessContext(), "")
+            controller3.play(1,0)
+            controller3.output should be ("Remis")
+        }
+
+        "detect a non valid Move" in {
+            val controller = new Controller("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", new ChessContext(), "")
+            controller.play(0,1)
+            controller.output should be ("Das kannste nicht machen Bro (kein legaler Zug)")
+        }
+
+        "promote correctly" in {
+            val controller = new Controller("rPbqkbnr/1pppppp1/8/8/8/8/P1PPPPpP/RNBQKBNR w KQkq - 0 5", new ChessContext(), "")
+            controller.promotePawn("Q")
+            controller.fen should be ("rqbqkbnr/1pppppp1/8/8/8/8/P1PPPPpP/RNBQKBNR w KQkq - 0 5")
+
+            val controller2 = new Controller("rnbqkbnr/Ppppppp1/8/8/8/8/P1PPPPpP/RNBQKBNR w KQkq - 0 5", new ChessContext(), "")
+            controller2.play(8,1)
+            controller2.fen should be ("rPbqkbnr/1pppppp1/8/8/8/8/P1PPPPpP/RNBQKBNR b KQkq - 0 5")
+        }
+
+        "do redo and undo correctly" in {
+            val controller = new Controller("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", new ChessContext(), "")
+            controller.play(ChessBoard.moveToIndex("e2","e4"))
+            controller.fen should be ("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1")
+
+            controller.undo()
+            controller.fen should be ("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+
+            controller.redo()
+            controller.fen should be("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1")
+        }
+
+        "implement squareClicked correctly" in {
+            val controller = new Controller("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", new ChessContext(), "")
+            controller.squareClicked(7)
+            controller.activeSquare should be(-5)
+
+            controller.squareClicked(60)
+            controller.activeSquare should be(60)
+
+            controller.fen = "r3k2r/pppq1ppp/2np1n2/2b1pb2/2B1PB2/2NP1N2/PPPQ1PPP/R3K2R w KQkq - 6 8"
+            controller.squareClicked(60)
+            controller.squareClicked(62)
+            controller.fen should be("r3k2r/pppq1ppp/2np1n2/2b1pb2/2B1PB2/2NP1N2/PPPQ1PPP/R4RK1 b kq - 6 8")
+        }
+
+        "switch themes correctly" in {
+            val controller = new Controller("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", new ChessContext(), "")
+            controller.nextTheme()
+            controller.current_theme = 1
         }
     }
 }

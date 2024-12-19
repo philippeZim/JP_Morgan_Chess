@@ -1,6 +1,6 @@
 package Model.UndoRedoComponent
 
-import Controller.Controller
+import Controller.ControllerComponent.{Controller, ControllerTrait}
 
 class UndoInvoker extends UndoRedoTrait {
     private var undoStack: List[Command]= Nil
@@ -10,7 +10,7 @@ class UndoInvoker extends UndoRedoTrait {
         redoStack = Nil
         command.doStep
     }
-    def undoStep  = {
+    def undoStep() : Unit = {
         undoStack match {
             case  Nil =>
             case head::stack => {
@@ -21,7 +21,7 @@ class UndoInvoker extends UndoRedoTrait {
         }
     }
     
-    def redoStep = {
+    def redoStep() : Unit= {
         redoStack match {
             case Nil =>
             case head :: stack => {
@@ -32,8 +32,8 @@ class UndoInvoker extends UndoRedoTrait {
         }
     }
 
-    def newCommand(fen : String, exFen : String, controller: Controller) : Command = {
-        new SetCommand(fen : String, exFen : String, controller: Controller)
+    def newCommand(fen : String, exFen : String, controller: ControllerTrait) : Command = {
+        new SetCommand(fen, exFen, controller)
     }
 }
 

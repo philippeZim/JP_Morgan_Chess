@@ -1,20 +1,21 @@
-package aView
+package aView.UIComponent
 
-import Controller.Controller
+import Controller.ControllerComponent.{Controller, ControllerTrait}
+import aView.UIComponent.{GuiBoard, GuiMenu}
 import scalafx.application.JFXApp3
 import scalafx.geometry.Insets
-import scalafx.scene.{Node, Scene}
 import scalafx.scene.effect.DropShadow
-import scalafx.scene.layout.{Background, BorderPane, FlowPane, HBox, Pane}
-import scalafx.scene.paint.Color.*
+import scalafx.scene.layout.*
 import scalafx.scene.paint.*
-import scalafx.scene.text.Text
+import scalafx.scene.paint.Color.*
 import scalafx.scene.shape.Rectangle
+import scalafx.scene.text.Text
+import scalafx.scene.{Node, Scene}
 import util.Observer
 
 object GuiMain extends JFXApp3 {
 
-    var controller : Option[Controller]= None
+    var controller : Option[ControllerTrait]= None
     def start(): Unit = {
 
         stage = new JFXApp3.PrimaryStage {
@@ -25,7 +26,7 @@ object GuiMain extends JFXApp3 {
                 root = new BorderPane {
                     //padding
                     style = "-fx-background-color:BLACK"
-                    left = new GuiBoard(controller)
+                    left  = new GuiBoard(controller)
                     right = new GuiMenu(controller)
 
                 }
@@ -34,7 +35,7 @@ object GuiMain extends JFXApp3 {
         }
     }
 
-    def setController(controller: Controller) : Unit = {
+    def setController(controller: ControllerTrait) : Unit = {
         this.controller = Some(controller)
     }
 

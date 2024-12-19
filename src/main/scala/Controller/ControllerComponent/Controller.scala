@@ -1,13 +1,12 @@
-package Controller
+package Controller.ControllerComponent
 
-import util.Observable
-import Controller.ChessContext
-import Controller.State
+import Controller.ControllerComponent.{ChessContext, State}
 import Model.ChessComponent.ChessConcrete
-import Model.UndoRedoComponent.UndoInvoker
+import Model.UndoRedoComponent.{UndoInvoker, UndoRedoTrait}
+import util.Observable
 
-class Controller(var fen : String, var context : ChessContext, var output : String) extends Observable{
-    val invoker : UndoInvoker = new UndoInvoker
+class Controller(override var fen : String, var context : ChessContext, var output : String) extends Observable with ControllerTrait {
+    val invoker : UndoRedoTrait = new UndoInvoker
     var activeSquare : Int = -5;
     var current_theme: Int = 0;
     //val stockfish = new Stockfish()
@@ -36,13 +35,13 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
                 }
         }
         notifyObservers
-        if (!output.contains("Das")) {
+        /*if (!output.contains("Das")) {
 
         }
 
-        //val bestMove = Stockfish.bestMove(fen, 15)
-        //println(bestMove)
-        //playEngineMove(ChessBoard.translateMoveStringToInt(fen, bestMove))
+        val bestMove = Stockfish.bestMove(fen, 15)
+        println(bestMove)
+        playEngineMove(ChessBoard.translateMoveStringToInt(fen, bestMove)) */
     }
     
     def promotePawn(pieceKind : String) : Unit = {
@@ -50,13 +49,13 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
     }
 
     def undo(): Unit = {
-        invoker.undoStep
+        invoker.undoStep()
         output = boardToString()
         notifyObservers
     }
 
     def redo() : Unit = {
-        invoker.redoStep
+        invoker.redoStep()
         output = boardToString()
         notifyObservers
     }

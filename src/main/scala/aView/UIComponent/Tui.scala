@@ -1,6 +1,6 @@
-package aView
+package aView.UIComponent
 
-import Controller.Controller
+import Controller.ControllerComponent.Controller
 import Model.ChessComponent.ChessBoard
 import util.Observer
 

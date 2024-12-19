@@ -3,9 +3,8 @@ package aViewTests
 import scala.language.reflectiveCalls
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import Controller.Controller
-import Controller.ChessContext
-import aView.Tui
+import Controller.ControllerComponent.{ChessContext, Controller}
+import aView.UIComponent.Tui
 
 class TuiSpec  extends AnyWordSpec with Matchers{
 

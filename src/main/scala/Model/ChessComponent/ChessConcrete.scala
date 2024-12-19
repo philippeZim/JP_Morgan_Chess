@@ -1,6 +1,6 @@
 package Model.ChessComponent
 
-import Controller.Event
+import Controller.ControllerComponent.Event
 
 object ChessConcrete extends ChessTrait {
     def getBoardString(board: Vector[Piece]): String = {

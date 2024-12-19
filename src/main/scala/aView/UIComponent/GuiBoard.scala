@@ -1,38 +1,38 @@
-package aView
+package aView.UIComponent
 
-import Controller.{ChessContext, Controller}
+import Controller.ControllerComponent.{ChessContext, Controller, ControllerTrait}
 import Model.ChessComponent.{ChessBoard, Piece, PieceType}
-import scalafx.stage.Stage
+import javafx.stage.Screen
 import scalafx.application.JFXApp3
+import scalafx.event.ActionEvent
 import scalafx.geometry.Insets
+import scalafx.geometry.Pos.Center
 import scalafx.scene.control.{Button, Label}
-import scalafx.scene.{Node, Scene}
 import scalafx.scene.effect.DropShadow
 import scalafx.scene.image.{Image, ImageView}
-import scalafx.scene.layout.{BorderPane, ColumnConstraints, GridPane, HBox, Pane, Priority, RowConstraints, StackPane}
-import scalafx.scene.paint.Color.*
-import scalafx.scene.paint.*
-import scalafx.scene.text.{Font, Text}
-import javafx.stage.Screen
-import scalafx.event.ActionEvent
-import scalafx.geometry.Pos.Center
 import scalafx.scene.layout.Priority.Always
+import scalafx.scene.layout.*
+import scalafx.scene.paint.*
+import scalafx.scene.paint.Color.*
 import scalafx.scene.shape.Rectangle
+import scalafx.scene.text.{Font, Text}
+import scalafx.scene.{Node, Scene}
+import scalafx.stage.Stage
 import util.Observer
 
 import java.nio.file.Paths
 import java.nio.file.Paths.*
 import scala.annotation.tailrec
 
-class GuiBoard(option_controller: Option[Controller]) extends GridPane, Observer{
+class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Observer{
     override def update: Unit = {
         updateGrid()
     }
 
     override def specialCase: Unit = ()
-    val controller : Controller = option_controller match {
+    val controller : ControllerTrait = option_controller match {
         case Some(a) => a
-        case _ => new Controller("", new Controller.ChessContext(),"");
+        case _ => new Controller("", new ChessContext(),"");
     }
     controller.add(this)
     val screenBounds = Screen.getPrimary.getVisualBounds

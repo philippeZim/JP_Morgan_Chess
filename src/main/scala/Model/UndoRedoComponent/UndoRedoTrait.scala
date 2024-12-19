@@ -1,15 +1,13 @@
 package Model.UndoRedoComponent
 
-import Controller.Controller
+import Controller.ControllerComponent.ControllerTrait
 
 trait UndoRedoTrait {
     def doStep(command: Command) : Unit
-    
-    def undoStep : Unit
 
-    def redoStep : Unit
+    def undoStep() : Unit
     
-    def newCommand(fen : String, exFen : String, controller: Controller) : Command
+    def redoStep() : Unit
+
+    def newCommand(fen : String, exFen : String, controller: ControllerTrait) : Command
 }
-
-

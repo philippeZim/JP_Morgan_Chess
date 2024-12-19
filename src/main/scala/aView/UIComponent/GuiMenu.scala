@@ -1,24 +1,20 @@
-package aView
+package aView.UIComponent
 
-import Controller.Controller
+import _root_.Controller.ControllerComponent.{ChessContext, Controller, ControllerTrait}
 import javafx.stage.Screen
+import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.control.Button
-import scalafx.scene.layout.VBox
-import util.Observer
-import scalafx.scene.control.Button
+import scalafx.scene.effect.DropShadow
+import scalafx.scene.input.MouseEvent
+import scalafx.scene.layout.{Background, BackgroundFill, CornerRadii, VBox}
 import scalafx.scene.paint.Color
 import scalafx.scene.text.Font
-import scalafx.scene.effect.DropShadow
-import scalafx.scene.layout.CornerRadii
-import scalafx.scene.layout.Background
-import scalafx.scene.layout.BackgroundFill
-import scalafx.scene.input.MouseEvent
-import scalafx.geometry.{Insets, Pos}
+import util.Observer
 
-class GuiMenu(option_controller: Option[Controller]) extends VBox{
-    val controller: Controller = option_controller match {
+class GuiMenu(option_controller: Option[ControllerTrait]) extends VBox{
+    val controller: ControllerTrait = option_controller match {
         case Some(a) => a
-        case _ => new Controller("", new Controller.ChessContext(), "");
+        case _ => new Controller("", new ChessContext(), "");
     }
 
     val screenBounds = Screen.getPrimary.getVisualBounds
