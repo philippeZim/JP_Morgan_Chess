@@ -1,6 +1,6 @@
 package Controller
 
-import Model.{ChessBoard, Event, LegalMoves, PseudoMoves, Remis, SetCommand, UndoInvoker}
+import Model.{ChessApiClient, ChessBoard, Event, LegalMoves, PseudoMoves, Remis, SetCommand, UndoInvoker}
 import util.Observable
 import Controller.ChessContext
 import Controller.State
@@ -36,12 +36,27 @@ class Controller(var fen : String, var context : ChessContext, var output : Stri
         }
         notifyObservers
         if (!output.contains("Das")) {
-
+            val bestMove = ChessApiClient.getBestMove(fen, 22)
+            playEngineMove(ChessBoard.translateMoveStringToInt(fen, bestMove))
         }
+    }
 
-        //val bestMove = Stockfish.bestMove(fen, 15)
-        //println(bestMove)
-        //playEngineMove(ChessBoard.translateMoveStringToInt(fen, bestMove))
+    def playEngineMove(move: (Int, Int)): Unit = {
+        val legalMoves = LegalMoves.getAllLegalMoves(fen);
+        val event: Event = Event(legalMoves.isEmpty, fen, Remis.isRemis(fen, legalMoves))
+        context.handle(event)
+        context.state match {
+            case State.remisState => output = "Remis"
+            case State.whiteWonState => output = "Schwarz wurde vernichtend geschlagen"
+            case State.blackWonState => output = "Weiß wurde vernichtend geschlagen"
+            case _ =>
+                invoker.doStep(new SetCommand(ChessBoard.makeMove(fen, move), fen, this))
+                if (ChessBoard.canPromote(fen) != -1) {
+                    ringObservers
+                }
+                output = boardToString()
+        }
+        notifyObservers
     }
     
     def promotePawn(pieceKind : String) : Unit = {
