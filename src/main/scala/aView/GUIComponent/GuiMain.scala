@@ -1,7 +1,7 @@
-package aView.UIComponent
+package aView.GUIComponent
 
 import Controller.ControllerComponent.{Controller, ControllerTrait}
-import aView.UIComponent.{GuiBoard, GuiMenu}
+import aView.GUIComponent.{GuiBoard, GuiMenu}
 import scalafx.application.JFXApp3
 import scalafx.geometry.Insets
 import scalafx.scene.effect.DropShadow
@@ -13,7 +13,7 @@ import scalafx.scene.text.Text
 import scalafx.scene.{Node, Scene}
 import util.Observer
 
-object GuiMain extends JFXApp3 {
+object GuiMain extends JFXApp3 with GuiTrait {
 
     var controller : Option[ControllerTrait]= None
     def start(): Unit = {

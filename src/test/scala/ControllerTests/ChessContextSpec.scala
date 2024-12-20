@@ -3,7 +3,7 @@ package ControllerTests
 import Controller.ControllerComponent.{ChessContext, Event, State}
 import util.Observer
 import Model.ChessComponent.{ChessBoard, LegalMoves, PseudoMoves}
-import aView.UIComponent.Tui
+import aView.TUIComponent.Tui
 
 import scala.language.reflectiveCalls
 import org.scalatest.matchers.should.Matchers

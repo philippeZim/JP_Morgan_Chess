@@ -4,7 +4,7 @@ import scala.language.reflectiveCalls
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import Controller.ControllerComponent.{ChessContext, Controller}
-import aView.UIComponent.Tui
+import aView.TUIComponent.Tui
 
 class TuiSpec  extends AnyWordSpec with Matchers{
 

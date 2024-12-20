@@ -1,7 +1,8 @@
 import scala.io.StdIn.readLine
 import Controller.ControllerComponent.{ChessContext, Controller}
 import Model.ChessComponent.ChessBoard
-import aView.UIComponent.{GuiMain, Tui}
+import aView.GUIComponent.GuiMain
+import aView.TUIComponent.Tui
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

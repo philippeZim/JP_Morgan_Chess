@@ -1,4 +1,4 @@
-package aView.UIComponent
+package aView.GUIComponent
 
 import Controller.ControllerComponent.{ChessContext, Controller, ControllerTrait}
 import Model.ChessComponent.{ChessBoard, Piece, PieceType}

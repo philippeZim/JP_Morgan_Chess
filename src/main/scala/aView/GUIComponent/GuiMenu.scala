@@ -1,4 +1,4 @@
-package aView.UIComponent
+package aView.GUIComponent
 
 import _root_.Controller.ControllerComponent.{ChessContext, Controller, ControllerTrait}
 import javafx.stage.Screen
