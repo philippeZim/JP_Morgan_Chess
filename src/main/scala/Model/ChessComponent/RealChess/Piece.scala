@@ -1,4 +1,4 @@
-package Model.ChessComponent
+package Model.ChessComponent.RealChess
 
 enum Color:
     case BLACK, WHITE, EMPTY

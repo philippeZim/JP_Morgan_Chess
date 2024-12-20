@@ -1,4 +1,4 @@
-package Model.ChessComponent
+package Model.ChessComponent.RealChess
 
 class BoardMonad[T](board: Vector[Piece]) {
     val state: Vector[Option[Piece]] = board.map {
@@ -12,7 +12,7 @@ class BoardMonad[T](board: Vector[Piece]) {
 
     //def map[T](f: Nothing => T): Vector[T] = state.map(f)
 
-    def flatMap(f: Option[Piece] => Vector[T]): Vector[T] = {
+    def flatMap[T](f: Option[Piece] => Vector[T]): Vector[T] = {
         state.flatMap(f)
     }
 

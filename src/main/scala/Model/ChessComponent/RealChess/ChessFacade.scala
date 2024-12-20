@@ -1,8 +1,10 @@
-package Model.ChessComponent
+package Model.ChessComponent.RealChess
 
-import Controller.ControllerComponent.Event
+import Controller.ControllerComponent.RealChessController.Event
+import Model.ChessComponent.ChessTrait
+import Model.ChessComponent.RealChess.{ChessBoard, LegalMoves, Piece, Remis}
 
-object ChessConcrete extends ChessTrait {
+object ChessFacade extends ChessTrait {
     def getBoardString(board: Vector[Piece]): String = {
         ChessBoard.getBoardString(board)
     }

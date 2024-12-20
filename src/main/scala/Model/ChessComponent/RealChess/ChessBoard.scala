@@ -1,7 +1,6 @@
-package Model.ChessComponent
+package Model.ChessComponent.RealChess
 
-import Model.ChessComponent.{LegalMoves, PseudoMoves}
-import PieceType.QUEEN
+import Model.ChessComponent.*
 
 import scala.annotation.tailrec
 

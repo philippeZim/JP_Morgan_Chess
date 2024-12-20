@@ -1,7 +1,6 @@
-package Controller.ControllerComponent
+package Controller.ControllerComponent.RealChessController
 
-
-import Model.ChessComponent.Remis
+import Model.ChessComponent.RealChess.Remis
 import util.Observable;
 
 enum State:

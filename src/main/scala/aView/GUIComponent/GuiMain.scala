@@ -1,6 +1,7 @@
 package aView.GUIComponent
 
-import Controller.ControllerComponent.{Controller, ControllerTrait}
+import Controller.ControllerComponent.ControllerTrait
+import Controller.ControllerComponent.RealChessController.Controller
 import aView.GUIComponent.{GuiBoard, GuiMenu}
 import scalafx.application.JFXApp3
 import scalafx.geometry.Insets
@@ -13,9 +14,9 @@ import scalafx.scene.text.Text
 import scalafx.scene.{Node, Scene}
 import util.Observer
 
-object GuiMain extends JFXApp3 with GuiTrait {
+object GuiMain extends JFXApp3{
 
-    var controller : Option[ControllerTrait]= None
+    var controller : Option[ControllerTrait] = None
     def start(): Unit = {
 
         stage = new JFXApp3.PrimaryStage {
@@ -38,7 +39,7 @@ object GuiMain extends JFXApp3 with GuiTrait {
     def setController(controller: ControllerTrait) : Unit = {
         this.controller = Some(controller)
     }
-
+}
 
 
     /*override def start(): Unit = {
@@ -75,4 +76,3 @@ object GuiMain extends JFXApp3 with GuiTrait {
             }
         }
     } */
-}

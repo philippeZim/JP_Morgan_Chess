@@ -1,13 +1,13 @@
 package ModelTests.ChessComponentTests
 
-import Model.ChessComponent.{ChessBoard, ChessConcrete}
+import Model.ChessComponent.RealChess.{ChessBoard, ChessFacade}
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.wordspec.AnyWordSpec
 
 class ChessConcreteSpec extends AnyWordSpec {
     "ChessConcreteSpec" should {
         "return the correct Boolean depending on if on a certain Square is a Piece of the Color to move and return correct castling Moves" in {
-            val controllerFake = new ControllerFakeStub("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+            val controllerFake = new ControllerFakeSpy("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
             controllerFake.squareClicked(7)
             controllerFake.activeSquare should be (-5)
 
@@ -36,15 +36,22 @@ class ChessConcreteSpec extends AnyWordSpec {
         }
 
         "return a correct fen if asked to promote" in {
-            val controllerFake = new ControllerFakeStub("rnbqkbnr/Ppppppp1/8/8/8/8/P1PPPPpP/RNBQKBNR w KQkq - 0 5")
+            val controllerFake = new ControllerFakeSpy("rnbqkbnr/Ppppppp1/8/8/8/8/P1PPPPpP/RNBQKBNR w KQkq - 0 5")
             controllerFake.play(8, 1)
             controllerFake.fen should be ("rQbqkbnr/1pppppp1/8/8/8/8/P1PPPPpP/RNBQKBNR b KQkq - 0 5") //Hard  coded, dass es ne Queen werden soll
         }
 
         "return false if isColorPiece gets a wrong string" in {
-            val controllerFake = new ControllerFakeStub("rQbqkbnr/1pppppp1/8/8/8/8/P1PPPPpP/RNBQKBNR k KQkq - 0 5")
+            val controllerFake = new ControllerFakeSpy("rQbqkbnr/1pppppp1/8/8/8/8/P1PPPPpP/RNBQKBNR k KQkq - 0 5")
             controllerFake.squareClicked(60)
             controllerFake.activeSquare should be (-5)
+        }
+
+        "return detect non-Legal moves" in {
+            val controllerFake = new ControllerFakeSpy("rQbqkbnr/1pppppp1/8/8/8/8/P1PPPPpP/RNBQKBNR b KQkq - 0 5")
+            controllerFake.play(30,33)
+            controllerFake.play(31,32)
+            controllerFake.counter should be (2)
         }
     }
 }

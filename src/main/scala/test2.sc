@@ -1,4 +1,4 @@
-import Model.ChessComponent.{ChessBoard, Color, Piece, PieceType}
+import Model.ChessComponent.RealChess.{ChessBoard, Color, Piece, PieceType}
 
 
 class BoardMonad[T](board: Vector[Piece]) {

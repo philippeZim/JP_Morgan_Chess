@@ -1,6 +1,7 @@
 package Model.UndoRedoComponent
 
 import Controller.ControllerComponent.ControllerTrait
+import Model.UndoRedoComponent.StackSolution.Command
 
 trait UndoRedoTrait {
     def doStep(command: Command) : Unit

@@ -1,7 +1,8 @@
 package aView.GUIComponent
 
-import Controller.ControllerComponent.{ChessContext, Controller, ControllerTrait}
-import Model.ChessComponent.{ChessBoard, Piece, PieceType}
+import Controller.ControllerComponent.ControllerTrait
+import Controller.ControllerComponent.RealChessController.{ChessContext, Controller}
+import Model.ChessComponent.RealChess.{ChessBoard, Piece, PieceType}
 import javafx.stage.Screen
 import scalafx.application.JFXApp3
 import scalafx.event.ActionEvent

@@ -1,8 +1,9 @@
-package Model.ChessComponent
+package Model.ChessComponent.RealChess
 
-import Color.WHITE
-import PieceType.EMPTY
 import Model.*
+import Model.ChessComponent.RealChess.Color.WHITE
+import Model.ChessComponent.RealChess.PieceType.EMPTY
+import Model.ChessComponent.RealChess.{BoardMonad, ChessBoard, EmptySquareHandler, EnemySquareHandler, OnBoardHandler}
 
 import scala.annotation.tailrec
 

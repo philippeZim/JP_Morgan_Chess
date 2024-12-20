@@ -1,6 +1,4 @@
-package Model.ChessComponent
-
-import Model.ChessComponent.PseudoMoves
+package Model.ChessComponent.RealChess
 
 object PseudoMovesFacade {
     val moveObject = PseudoMoves

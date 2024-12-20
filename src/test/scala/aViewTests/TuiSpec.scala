@@ -3,7 +3,7 @@ package aViewTests
 import scala.language.reflectiveCalls
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import Controller.ControllerComponent.{ChessContext, Controller}
+import Controller.ControllerComponent.RealChessController.{ChessContext, Controller}
 import aView.TUIComponent.Tui
 
 class TuiSpec  extends AnyWordSpec with Matchers{

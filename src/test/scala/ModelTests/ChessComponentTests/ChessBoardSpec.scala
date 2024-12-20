@@ -1,8 +1,8 @@
 package ModelTests.ChessComponentTests
 
-import Model.ChessComponent.ChessBoard.*
-import Model.ChessComponent.Piece.*
-import Model.ChessComponent.{ChessBoard, Color, Piece, PieceType}
+import Model.ChessComponent.RealChess.ChessBoard.*
+import Model.ChessComponent.RealChess.Piece.*
+import Model.ChessComponent.RealChess.{ChessBoard, Color, Piece, PieceType}
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.wordspec.AnyWordSpec
 

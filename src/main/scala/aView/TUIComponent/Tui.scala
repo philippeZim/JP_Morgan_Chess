@@ -1,13 +1,13 @@
 package aView.TUIComponent
 
-import Controller.ControllerComponent.Controller
-import Model.ChessComponent.ChessBoard
+import Controller.ControllerComponent.RealChessController.Controller
+import Model.ChessComponent.RealChess.ChessBoard
 import util.Observer
 
 import scala.io.StdIn.readLine
 import scala.util.{Failure, Success, Try}
 
-class Tui(controller: Controller) extends Observer with TuiTrait {
+class Tui(controller: Controller) extends Observer {
 
     controller.add(this)
 

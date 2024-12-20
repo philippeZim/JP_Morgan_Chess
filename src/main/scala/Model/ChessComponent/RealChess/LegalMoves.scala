@@ -1,7 +1,8 @@
-package Model.ChessComponent
+package Model.ChessComponent.RealChess
 
-import Model.ChessComponent.PseudoMoves
 import Model.*
+import Model.ChessComponent.RealChess.ChessBoard
+import Model.ChessComponent.*
 
 import scala.annotation.tailrec
 

@@ -1,6 +1,7 @@
 package aView.GUIComponent
 
-import _root_.Controller.ControllerComponent.{ChessContext, Controller, ControllerTrait}
+import Controller.ControllerComponent.RealChessController.{ChessContext, Controller}
+import _root_.Controller.ControllerComponent.ControllerTrait
 import javafx.stage.Screen
 import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.control.Button

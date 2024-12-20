@@ -1,8 +1,8 @@
 package ControllerTests
 
-import Controller.ControllerComponent.{ChessContext, Event, State}
+import Controller.ControllerComponent.RealChessController.{ChessContext, Event, State}
+import Model.ChessComponent.RealChess.{ChessBoard, LegalMoves, PseudoMoves}
 import util.Observer
-import Model.ChessComponent.{ChessBoard, LegalMoves, PseudoMoves}
 import aView.TUIComponent.Tui
 
 import scala.language.reflectiveCalls

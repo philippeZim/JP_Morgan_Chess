@@ -2,9 +2,11 @@ package ControllerTests
 
 import util.Observer
 import Controller.ControllerComponent
-import _root_.Controller.ControllerComponent.{ChessContext, Controller, State}
-import Model.ChessComponent.ChessBoard
-import ModelTests.ChessComponentTests.ControllerFakeStub
+import Controller.ControllerComponent.RealChessController.{ChessContext, Controller, State}
+import _root_.Controller.ControllerComponent.RealChessController
+import Model.ChessComponent.RealChess.ChessBoard
+import Model.UndoRedoComponent.UndoRedoTrait
+import ModelTests.ChessComponentTests.ControllerFakeSpy
 
 import scala.language.reflectiveCalls
 import org.scalatest.matchers.should.Matchers
@@ -71,7 +73,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
             val promotionFen = "rnbqkbnr/Ppppppp1/8/8/8/8/P1PPPPpP/RNBQKBNR w KQkq - 0 5"
             val controller = new Controller(promotionFen, new ChessContext(), "")
             controller.play(ChessBoard.moveToIndex("a7", "b8"))
-            controller.context.state should be (ControllerComponent.State.blackPlayingState)
+            controller.context.state should be (RealChessController.State.blackPlayingState)
         }
 
         "outsource promoting a pawn correctly" in {

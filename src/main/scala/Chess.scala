@@ -1,6 +1,6 @@
 import scala.io.StdIn.readLine
-import Controller.ControllerComponent.{ChessContext, Controller}
-import Model.ChessComponent.ChessBoard
+import Controller.ControllerComponent.RealChessController.{ChessContext, Controller}
+import Model.ChessComponent.RealChess.ChessBoard
 import aView.GUIComponent.GuiMain
 import aView.TUIComponent.Tui
 

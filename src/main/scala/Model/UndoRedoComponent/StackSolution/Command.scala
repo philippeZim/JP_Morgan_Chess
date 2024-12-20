@@ -1,7 +1,6 @@
-package Model.UndoRedoComponent
+package Model.UndoRedoComponent.StackSolution
 
 import Controller.ControllerComponent.ControllerTrait
-import Model.UndoRedoComponent.Command
 
 trait Command {
     def doStep:Unit

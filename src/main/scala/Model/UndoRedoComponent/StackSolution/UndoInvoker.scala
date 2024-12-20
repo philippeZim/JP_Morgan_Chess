@@ -1,6 +1,9 @@
-package Model.UndoRedoComponent
+package Model.UndoRedoComponent.StackSolution
 
-import Controller.ControllerComponent.{Controller, ControllerTrait}
+import Controller.ControllerComponent.ControllerTrait
+import Controller.ControllerComponent.RealChessController.Controller
+import Model.UndoRedoComponent.StackSolution.{Command, SetCommand}
+import Model.UndoRedoComponent.UndoRedoTrait
 
 class UndoInvoker extends UndoRedoTrait {
     private var undoStack: List[Command]= Nil

@@ -1,10 +1,11 @@
 package ModelTests.UndoRedoComponentTests
 
 import Controller.ControllerComponent.ControllerTrait
-import Model.UndoRedoComponent.{Command, SetCommand, UndoInvoker}
+import Model.UndoRedoComponent.StackSolution.{Command, SetCommand, UndoInvoker}
+import Model.UndoRedoComponent.UndoRedoTrait
 
 class ControllerStub(override var fen : String) extends ControllerTrait {
-    val invoker : UndoInvoker = new UndoInvoker
+    val invoker : UndoRedoTrait = new UndoInvoker
     override var current_theme: Int = 0
 
     def play(move: (Int, Int)): Unit = {invoker.doStep(new SetCommand(move.productIterator.mkString("-"), fen, this))}

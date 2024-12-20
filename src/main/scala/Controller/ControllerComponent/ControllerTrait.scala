@@ -1,7 +1,8 @@
 package Controller.ControllerComponent
 
-import Controller.ControllerComponent.Controller
-import Model.UndoRedoComponent.Command
+import Controller.ControllerComponent.RealChessController.Controller
+import Model.UndoRedoComponent.StackSolution.Command
+import Model.UndoRedoComponent.UndoRedoTrait
 import util.{Observable, Observer}
 
 trait ControllerTrait extends Observable {
@@ -12,14 +13,14 @@ trait ControllerTrait extends Observable {
     def current_theme: Int
 
     def current_theme_=(value: Int): Unit
+    
+    def invoker: UndoRedoTrait
 
     def play(move : (Int, Int)) : Unit
     
     def undo() : Unit
 
     def redo() : Unit
-    
-    def boardToString() : String
 
     def createOutput() : String
 
