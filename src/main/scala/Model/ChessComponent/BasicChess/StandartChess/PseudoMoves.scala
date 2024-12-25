@@ -1,32 +1,19 @@
-package Model.ChessComponent.RealChess
+package Model.ChessComponent.BasicChess.StandartChess
 
 import Model.*
-import Model.ChessComponent.RealChess.Color.WHITE
-import Model.ChessComponent.RealChess.PieceType.EMPTY
-import Model.ChessComponent.RealChess.{BoardMonad, ChessBoard, EmptySquareHandler, EnemySquareHandler, OnBoardHandler}
+import Model.ChessComponent.BasicChess.StandartChess.Color.WHITE
+import Model.ChessComponent.BasicChess.StandartChess.PieceType.EMPTY
+import Model.ChessComponent.BasicChess.StandartChess.{EmptySquareHandler, EnemySquareHandler, OnBoardHandler}
+import Model.ChessComponent.RealChess.*
 
 import scala.annotation.tailrec
 
 object PseudoMoves {
-    /**
-     * this method determines if a pawn attack is a pseudo legal pawn attack
-     * @param board          current board state
-     * @param piecePosition  current position of the pawn
-     * @param rowDirection   the number of rows the piece should be moved. A negative number stands for upward movement. A positive Number stands for downward movement.
-     * @param columDirection the number of colums the piece should be moved. A negative number stands for leftward movement. A positive Number stands for rightward movement
-     * @return true if the piece can attack there, false if it can't */
+    
     def pseudoLegalPawnAttack(board: Vector[Piece], piecePosition: Int, rowDirection: Int, columDirection: Int, attackColor: Color): Boolean = {
         onBoard(piecePosition, rowDirection, columDirection) && board(piecePosition + rowDirection * 8 + columDirection).color == attackColor
     }
-
-    /**
-     * this method determines if a pawn move is a pseudo legal pawn move
-     * @param board current board state
-     * @param piecePosition current position of the pawn
-     * @param rowDirection the number of rows the piece should be moved. A negative number stands for upward movement. A positive Number stands for downward movement.
-     * @param columDirection the number of colums the piece should be moved. A negative number stands for leftward movement. A positive Number stands for rightward movement
-     * @return true if the piece can move there, false if it can't
-     */
+    
     def pseudoLegalPawnMove(board: Vector[Piece], piecePosition: Int, rowDirection: Int, columDirection: Int): Boolean = {
         if (Math.abs(rowDirection) == 2) {
             onBoard(piecePosition, rowDirection, columDirection) && board(piecePosition + rowDirection * 8 + columDirection).color == Color.EMPTY && board(piecePosition + (rowDirection/2) * 8 + columDirection).color == Color.EMPTY
@@ -34,42 +21,20 @@ object PseudoMoves {
             onBoard(piecePosition, rowDirection, columDirection) && board(piecePosition + rowDirection * 8 + columDirection).color == Color.EMPTY
         }
     }
-
-    /**
-     * this method checks if the given move (given by row- and columdirection) is a correct pseudomove, meaning if the target square is
-     * on the board and if it's empty or taken by an enemy piece. If that's the case it will return true. Blocking pieces will not be taken into account.
-     * @param board current board
-     * @param piecePosition the current position of the piece, who's move is to be checked
-     * @param rowDirection the number of rows the piece should be moved. A negative number stands for upward movement. A positive Number stands for downward movement.
-     * @param columdirection the number of colums the piece should be moved. A negative number stands for leftward movement. A positive Number stands for rightward movement
-     * @param attackColor the color that isn't moving next
-     * @return true if the piece can move there (not considering blocking pieces), false if it can't
-     */
+    
     def pseudoLegalMove(board: Vector[Piece], piecePosition: Int, rowDirection: Int, columdirection: Int, attackColor: Color): Boolean = {
         //onBoard(piecePosition, rowDirection, columdirection) && (board(piecePosition + rowDirection * 8 + columdirection).color == Color.EMPTY || board(piecePosition + rowDirection * 8 + columdirection).color == attackColor)
         val handler = new OnBoardHandler(Some(new EmptySquareHandler(Some(new EnemySquareHandler(None)))))
         handler.handle(piecePosition, rowDirection, columdirection, board, attackColor)
     }
-
-    /**
-     * this determines which color is to move on the current board
-     * @param color the part of the fen String giving information about which color is to move
-     * @return Int = the general direction these pieces move to attack (is used for pawns and Kings), Color 1 = the color to move, Color 2 = the color that is not to move
-     */
+    
     def extractColor(color: String): (Int, Color, Color) = {
         color match {
             case "w" => (-1, Color.WHITE, Color.BLACK);
             case "b" => (1, Color.BLACK, Color.WHITE);
         }
     }
-
-    /**
-     * on Board determines if a move from a starting position is still on the board
-     * @param beginningPosition the current position of the piece that is to be moved
-     * @param rowDirection the number of rows the piece should be moved. A negative number stands for upward movement. A positive Number stands for downward movement.
-     * @param columDirection the number of colums the piece should be moved. A negative number stands for leftward movement. A positive Number stands for rightward movement
-     * @return true = the endposition is still on the board. false = the endposition isn't on the board
-     */
+    
     def onBoard(beginningPosition: Int, rowDirection: Int, columDirection: Int): Boolean = {
         val newRow = beginningPosition + rowDirection * 8
         if (newRow < 0 || newRow > 63) {
@@ -82,13 +47,7 @@ object PseudoMoves {
         }
         true
     }
-
-    /**
-     * this method extracts all indices from a given board on which the given Piece stands
-     * @param board current board state
-     * @param piece PieceType if which the position is to be determined
-     * @return List of all indices of the board on which the given Piecetype stands
-     */
+    
     /*def piecePositions(board: Vector[Piece], piece: Piece): List[Int] = {
         @tailrec def sub(board: List[Piece], accumulator: List[Int], index: Int): List[Int] = {
             board match {
@@ -105,13 +64,7 @@ object PseudoMoves {
 
         sub(board.toList, List(), 0);
     } */
-
-    /**
-     * this method determines all positions of a given pieces
-     * @param board current board state
-     * @param pieces pieceType that is the be searched
-     * @return List of indices of the current positions of the given piece
-     */
+        
     def piecesPositions(board: Vector[Piece], pieces: List[Piece]): List[Int] = {
 
         @tailrec def sub(board: List[Piece], acc: List[Int], ind: Int): List[Int] = {
@@ -146,17 +99,7 @@ object PseudoMoves {
         )
         correct_pieces_with_index.map((e, i) => i).toList
     }
-
-    /**
-     * this method collects all pseudo legal pawn moves of a given pawn
-     * @param board current board
-     * @param pawnPostion Postion of the pawn, who's move is to be checked
-     * @param moves List of the possible pawn moves (so 1 or 2 forward)
-     * @param attacks List of the possible attack moves (so either left or right vertical)
-     * @param accumulator this List gathers all possible moves
-     * @param attackColor the color whos pieces could be taken this turn
-     * @return List of all possible moves of this pawn
-     */
+    
     @tailrec def checkPawnMoves(board: Vector[Piece], pawnPostion: Int, moves: List[(Int, Int)], attacks: List[(Int, Int)], accumulator: List[(Int, Int)], attackColor: Color): List[(Int, Int)] = {
         attacks match {
             case Nil => {
@@ -181,15 +124,7 @@ object PseudoMoves {
         }
 
     }
-
-    /**
-     * this method gathers all possible en passant moves of a given pawn piece
-     * @param board current board
-     * @param enPassantPosition Position of position that hos been jumped over
-     * @param attackColorNumber 1 if it's black's turn and the pawns move down, -1 if it's white's turn and the pawns move up
-     * @param moveColor the color that is to move on the board
-     * @return all possible en passant moves for the given pawn
-     */
+    
     def checkEnPassant(board: Vector[Piece], enPassantPosition: Int, attackColorNumber: Int, moveColor: Color): List[(Int, Int)] = {
         val toCheck = List((attackColorNumber * -1, attackColorNumber * -1), (attackColorNumber * -1, attackColorNumber))
 
@@ -209,11 +144,6 @@ object PseudoMoves {
         sub1(toCheck, List());
     }
 
-    /**
-     * this method gathers all possible pawn moves on a given board
-     * @param fen the current board state as fen
-     * @return List of all possible pawn moves on the current board (only for the color that is to move)
-     */
     def pseudoPawnMoves(fen: String): List[(Int, Int)] = {
         val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;
@@ -247,16 +177,7 @@ object PseudoMoves {
         }
 
     }
-
-    /**
-     * this method checks if given moves for a given piece are pseudo legal moves and returns all that are as a List (used for Kings and Knights)
-     * @param board current board state
-     * @param piecePosition the position of the piece, who's moves are to be checked
-     * @param moves List of all possible moves of this piece (not considering the board state)
-     * @param accumulator gathers the pseudo legal moves
-     * @param attackColor the color that is not to move
-     * @return all pseudo legal moves for the given piece
-     */
+    
     @tailrec def checkMoves(board: Vector[Piece], piecePosition: Int, moves: List[(Int, Int)], accumulator: List[(Int, Int)], attackColor: Color): List[(Int, Int)] = {
         moves match {
             case Nil => accumulator;
@@ -270,13 +191,7 @@ object PseudoMoves {
         }
 
     }
-
-    /**
-     * this method gathers all pseudo legal Knight moves on the current board
-     * @param result this List will gather all pseudo legal moves
-     * @param fen current board state
-     * @return List of all pseudo legal Knight moves
-     */
+    
     def pseudoKnightMoves(result: List[(Int, Int)], fen: String): List[(Int, Int)] = {
         val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;
@@ -298,13 +213,7 @@ object PseudoMoves {
         }
         sub1(result, piecePos);
     }
-
-    /**
-     * this method gathers all pseudo legal King moves on the current board
-     * @param result this List will gather all pseudo legal moves
-     * @param fen current board state
-     * @return List of all pseudo legal King moves
-     */
+    
     def pseudoKingMoves(result: List[(Int, Int)], fen: String): List[(Int, Int)] = {
         val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;

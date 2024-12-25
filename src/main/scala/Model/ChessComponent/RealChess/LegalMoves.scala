@@ -1,8 +1,8 @@
 package Model.ChessComponent.RealChess
 
 import Model.*
-import Model.ChessComponent.RealChess.ChessBoard
 import Model.ChessComponent.*
+import Model.ChessComponent.BasicChess.StandartChess.{BasicChessFacade, Color, Piece, PieceType}
 
 import scala.annotation.tailrec
 
@@ -10,14 +10,14 @@ object LegalMoves {
 
 
     def isAttacker(board: Vector[Piece], attacker: Piece, pos: Int, row: Int, col: Int): Boolean = {
-        PseudoMoves.onBoard(pos, row, col) && board(pos + 8 * row + col) == attacker
+        BasicChessFacade.onBoard(pos, row, col) && board(pos + 8 * row + col) == attacker
     }
 
     def pawnAttack(fen: String, pos: Int): Boolean = {
-        val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
+        val board: Vector[Piece] = BasicChessFacade.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;
 
-        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = PseudoMoves.extractColor(fenSplit(1));
+        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = BasicChessFacade.extractColor(fenSplit(1));
 
         val attacks: List[(Int, Int)] = List((attackColorNum, attackColorNum), (attackColorNum, attackColorNum * -1))
 
@@ -38,10 +38,10 @@ object LegalMoves {
     }
 
     def knightAttack(fen: String, pos: Int): Boolean = {
-        val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
+        val board: Vector[Piece] = BasicChessFacade.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;
 
-        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = PseudoMoves.extractColor(fenSplit(1));
+        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = BasicChessFacade.extractColor(fenSplit(1));
 
         val attacks: List[(Int, Int)] = List((-2, 1), (-2, -1), (-1, 2), (1, 2), (2, 1), (2, -1), (1, -2), (-1, -2))
 
@@ -63,16 +63,16 @@ object LegalMoves {
 
 
     def horizontalAttack(fen: String, pos: Int): Boolean = {
-        val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
+        val board: Vector[Piece] = BasicChessFacade.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;
 
-        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = PseudoMoves.extractColor(fenSplit(1));
+        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = BasicChessFacade.extractColor(fenSplit(1));
 
         val attacks: List[(Int, Int)] = List((-1, 0), (1, 0), (0, 1), (0, -1))
 
         @tailrec
         def sub2(lr: Int, lc: Int, pos: Int): Boolean = {
-            if (!PseudoMoves.onBoard(pos, lr, lc)) {
+            if (!BasicChessFacade.onBoard(pos, lr, lc)) {
                 return false;
             }
 
@@ -102,16 +102,16 @@ object LegalMoves {
     }
 
     def verticalAttack(fen: String, pos: Int): Boolean = {
-        val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
+        val board: Vector[Piece] = BasicChessFacade.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;
 
-        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = PseudoMoves.extractColor(fenSplit(1));
+        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = BasicChessFacade.extractColor(fenSplit(1));
 
         val attacks: List[(Int, Int)] = List((1, 1), (-1, 1), (-1, -1), (1, -1))
 
         @tailrec
         def sub2(lr: Int, lc: Int, pos: Int): Boolean = {
-            if (!PseudoMoves.onBoard(pos, lr, lc)) {
+            if (!BasicChessFacade.onBoard(pos, lr, lc)) {
                 return false;
             }
 
@@ -142,10 +142,10 @@ object LegalMoves {
 
     def kingAttack(fen: String, pos: Int): Boolean = {
 
-        val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
+        val board: Vector[Piece] = BasicChessFacade.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;
 
-        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = PseudoMoves.extractColor(fenSplit(1));
+        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = BasicChessFacade.extractColor(fenSplit(1));
 
         val attacks: List[(Int, Int)] = List((1, 1), (-1, 1), (-1, -1), (1, -1), (-1, 0), (1, 0), (0, 1), (0, -1))
 
@@ -208,13 +208,13 @@ object LegalMoves {
     }
 
     def isLegalMove(fen: String, move: (Int, Int)): Boolean = {
-        val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
+        val board: Vector[Piece] = BasicChessFacade.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;
 
-        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = PseudoMoves.extractColor(fenSplit(1));
+        val (attackColorNum, moveColor, attackColor): (Int, Color, Color) = BasicChessFacade.extractColor(fenSplit(1));
         val (from, to) = move;
-        val kingPos: Int = PseudoMoves.piecePositions(board, Piece(PieceType.KING, moveColor)).head
-        val moveFen = ChessBoard.boardToFen(makeMove(board, move)) + " " + fenSplit.tail.mkString(" ")
+        val kingPos: Int = BasicChessFacade.piecePositions(board, Piece(PieceType.KING, moveColor)).head
+        val moveFen = BasicChessFacade.boardToFen(makeMove(board, move)) + " " + fenSplit.tail.mkString(" ")
         if (from == kingPos) {
             !isPosAttacked(moveFen, to)
         } else {
@@ -237,7 +237,7 @@ object LegalMoves {
             }
         }
         //filterLegal(List(), PseudoMoves.getAllPseudoLegalMoves(fen));
-        filterLegal(List(), PseudoMovesFacade.subSystemOperation(fen));
+        filterLegal(List(), BasicChessFacade.getAllPseudoLegalMoves(fen));
     }
 
 }

@@ -3,8 +3,8 @@ package ControllerTests
 import util.Observer
 import Controller.ControllerComponent
 import Controller.ControllerComponent.RealChessController.{ChessContext, Controller, State}
+import Model.ChessComponent.BasicChess.StandartChess.ChessBoard
 import _root_.Controller.ControllerComponent.RealChessController
-import Model.ChessComponent.RealChess.ChessBoard
 import Model.UndoRedoComponent.UndoRedoTrait
 import ModelTests.ChessComponentTests.ControllerFakeSpy
 

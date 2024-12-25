@@ -1,7 +1,7 @@
 package Controller.ControllerComponent.RealChessController
 
 import Controller.ControllerComponent.ControllerTrait
-import Model.ChessComponent.RealChess.ChessFacade
+import Model.ChessComponent.DevourChess.ChessFacade
 import Model.UndoRedoComponent.StackSolution.UndoInvoker
 import Model.UndoRedoComponent.UndoRedoTrait
 import util.Observable

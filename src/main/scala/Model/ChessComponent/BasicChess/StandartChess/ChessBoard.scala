@@ -1,6 +1,9 @@
-package Model.ChessComponent.RealChess
+package Model.ChessComponent.BasicChess.StandartChess
 
 import Model.ChessComponent.*
+import Model.ChessComponent.BasicChess.StandartChess.Color.EMPTY
+import Model.ChessComponent.BasicChess.StandartChess.{Color, Piece, PieceType, PseudoMoves}
+import Model.ChessComponent.RealChess.LegalMoves
 
 import scala.annotation.tailrec
 
@@ -269,5 +272,15 @@ object ChessBoard {
             case _ => "error"
         }
         board(position).color == colourToMove
+    }
+
+    def isDifferentColorPiece(fen: String, position: Int): Boolean = {
+        val board = ChessBoard.fenToBoard(fen)
+        val colourToMove = fen.split(" ")(1) match {
+            case "w" => Color.WHITE
+            case "b" => Color.BLACK
+            case _ => "error"
+        }
+        board(position).color != EMPTY && board(position).color != colourToMove
     }
 }

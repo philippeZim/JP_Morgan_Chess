@@ -1,4 +1,4 @@
-package Model.ChessComponent.RealChess
+package Model.ChessComponent.DevourChess
 
 import Model.ChessComponent.BasicChess.StandartChess.{BasicChessFacade, Piece}
 import Model.ChessComponent.ChessTrait
@@ -36,7 +36,7 @@ object ChessFacade extends ChessTrait {
         BasicChessFacade.translateCastle(board, move)
     }
 
-    def isRemis(fen: String, legalMoves: List[(Int, Int)]) : Boolean = {
-        Remis.isRemis(fen, legalMoves)
+    def isRemis(fen: String, legalMoves: List[(Int, Int)]): Boolean = {
+        Remis.isRemis(fen)
     }
 }

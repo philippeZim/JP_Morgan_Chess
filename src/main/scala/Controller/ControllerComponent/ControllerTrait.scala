@@ -1,6 +1,5 @@
 package Controller.ControllerComponent
 
-import Controller.ControllerComponent.RealChessController.Controller
 import Model.UndoRedoComponent.StackSolution.Command
 import Model.UndoRedoComponent.UndoRedoTrait
 import util.{Observable, Observer}

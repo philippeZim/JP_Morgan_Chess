@@ -1,7 +1,8 @@
 package ControllerTests
 
 import Controller.ControllerComponent.RealChessController.{ChessContext, Event, State}
-import Model.ChessComponent.RealChess.{ChessBoard, LegalMoves, PseudoMoves}
+import Model.ChessComponent.BasicChess.StandartChess.{ChessBoard, PseudoMoves}
+import Model.ChessComponent.RealChess.LegalMoves
 import util.Observer
 import aView.TUIComponent.Tui
 

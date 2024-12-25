@@ -1,4 +1,4 @@
-package Model.ChessComponent.RealChess
+package Model.ChessComponent.BasicChess.StandartChess
 
 class BoardMonad[T](board: Vector[Piece]) {
     val state: Vector[Option[Piece]] = board.map {
