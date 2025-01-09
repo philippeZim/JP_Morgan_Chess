@@ -39,4 +39,16 @@ class RealChessFacade extends ChessTrait {
     def isRemis(fen: String, legalMoves: List[(Int, Int)]) : Boolean = {
         Remis.isRemis(fen, legalMoves)
     }
+
+    def getBestMove(fen: String, depth : Int): String = {
+        ChessApiClient.getBestMove(fen, depth)
+    }
+
+    def moveToIndex(from: String, to: String): (Int, Int) = {
+        BasicChessFacade.moveToIndex(from, to)
+    }
+
+    def getDefaultFen(): String = {
+        BasicChessFacade.getDefaultFen()
+    }
 }

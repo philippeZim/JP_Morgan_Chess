@@ -1,7 +1,7 @@
 package aView.TUIComponent
 
 import Model.ChessComponent.BasicChess.StandartChess.ChessBoard
-import cController.ControllerComponent.RealChessController.Controller
+import cController.ControllerComponent.DuoChessController.Controller
 import util.Observer
 
 import scala.io.StdIn.readLine

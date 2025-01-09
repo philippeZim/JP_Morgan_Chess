@@ -1,11 +1,12 @@
 package aView.GUIComponent
 
-import Model.ChessComponent.Default.given
+import Model.ChessComponent.DefaultChessRules.given
 import Model.ChessComponent.BasicChess.StandartChess.{ChessBoard, Piece, PieceType}
 import Model.ChessComponent.ChessTrait
 import Model.ChessComponent.RealChess.RealChessFacade
 import cController.ControllerComponent.ControllerTrait
-import cController.ControllerComponent.RealChessController.{ChessContext, Controller}
+import cController.ControllerComponent.Extra.ChessContext
+import cController.ControllerComponent.DuoChessController.Controller
 import javafx.stage.Screen
 import scalafx.application.JFXApp3
 import scalafx.event.ActionEvent

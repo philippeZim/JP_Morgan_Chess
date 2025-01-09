@@ -1,4 +1,6 @@
-package cController.ControllerComponent.RealChessController
+package cController.ControllerComponent.Extra
+
+import cController.ControllerComponent.ControllerTrait
 
 trait Command {
     def doStep:Unit
@@ -7,7 +9,7 @@ trait Command {
 }
 
 
-class SetCommand(fen : String, exFen : String, controller: Controller) extends Command {
+class SetCommand(fen : String, exFen : String, controller: ControllerTrait) extends Command {
     override def doStep: Unit = controller.fen = fen
     override def undoStep: Unit = controller.fen = exFen
     override def redoStep: Unit =  controller.fen = fen

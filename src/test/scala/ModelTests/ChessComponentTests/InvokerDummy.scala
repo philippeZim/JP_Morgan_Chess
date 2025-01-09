@@ -2,7 +2,7 @@ package ModelTests.ChessComponentTests
 
 import Model.UndoRedoComponent.UndoRedoTrait
 import cController.ControllerComponent.ControllerTrait
-import cController.ControllerComponent.RealChessController.Command
+import cController.ControllerComponent.Extra.Command
 
 class InvokerDummy extends UndoRedoTrait {
     def doStep(command: Command): Unit = ???

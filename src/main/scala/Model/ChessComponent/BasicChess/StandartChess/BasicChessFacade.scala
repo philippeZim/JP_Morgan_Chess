@@ -58,4 +58,12 @@ object BasicChessFacade extends BasicChessTrait {
     def isDifferentColorPiece(fen: String, position: Int): Boolean = {
         ChessBoard.isDifferentColorPiece(fen, position)
     }
+
+    def moveToIndex(from: String, to: String): (Int, Int) ={
+        ChessBoard.moveToIndex(from, to)
+    }
+
+    def getDefaultFen(): String = {
+        ChessBoard.boardToFen(ChessBoard.getDefaultBoard())
+    }
 }

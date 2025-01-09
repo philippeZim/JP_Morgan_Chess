@@ -3,7 +3,7 @@ package ModelTests.ChessComponentTests
 import Model.ChessComponent.RealChess.ChessFacade
 import Model.UndoRedoComponent.UndoRedoTrait
 import cController.ControllerComponent.ControllerTrait
-import cController.ControllerComponent.RealChessController.UndoInvoker
+import cController.ControllerComponent.Extra.UndoInvoker
 import util.Observable
 
 class ControllerFakeSpy(var fen : String) extends Observable with ControllerTrait {

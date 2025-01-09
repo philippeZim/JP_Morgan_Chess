@@ -6,7 +6,8 @@ import Model.ChessComponent.BasicChess.StandartChess.ChessBoard
 import _root_.Controller.ControllerComponent.RealChessController
 import Model.UndoRedoComponent.UndoRedoTrait
 import ModelTests.ChessComponentTests.ControllerFakeSpy
-import cController.ControllerComponent.RealChessController.{ChessContext, Controller, State}
+import cController.ControllerComponent.Extra.{ChessContext, State}
+import cController.ControllerComponent.DuoChessController.Controller
 
 import scala.language.reflectiveCalls
 import org.scalatest.matchers.should.Matchers

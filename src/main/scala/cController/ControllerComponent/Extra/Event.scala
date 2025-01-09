@@ -1,3 +1,3 @@
-package cController.ControllerComponent.RealChessController
+package cController.ControllerComponent.Extra
 
 case class Event(noMoves: Boolean, fen: String, remis: Boolean)

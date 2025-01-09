@@ -30,4 +30,8 @@ trait BasicChessTrait {
     def boardToFen(board: Vector[Piece]): String
 
     def isDifferentColorPiece(fen: String, position: Int): Boolean
+
+    def moveToIndex(from: String, to: String): (Int, Int)
+
+    def getDefaultFen() : String
 }

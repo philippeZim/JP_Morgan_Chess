@@ -1,7 +1,8 @@
-package cController.ControllerComponent.RealChessController
+package cController.ControllerComponent.DuoChessController
 
 import Model.ChessComponent.ChessTrait
 import cController.ControllerComponent.ControllerTrait
+import cController.ControllerComponent.Extra.{ChessContext, Event, SetCommand, State, UndoInvoker}
 import util.Observable
 
 class Controller(using val gameMode : ChessTrait, override var fen : String, var context : ChessContext, var output : String) extends Observable with ControllerTrait {
@@ -14,23 +15,30 @@ class Controller(using val gameMode : ChessTrait, override var fen : String, var
 
     def play(move : (Int, Int)) : Unit = {
         val legalMoves = gameMode.getAllLegalMoves(fen);
+        if (!legalMoves.contains(move)) {
+                output = "Das kannste nicht machen Bro (kein legaler Zug)"
+        } else {
+            UndoInvoker.doStep(new SetCommand(gameMode.makeMove(fen, move), fen, this))
+            if (gameMode.canPromote(fen) != -1) {
+                ringObservers
+            }
+            output = boardToString()
+        }
+        notifyObservers
+    }
+
+    def checkGameState(legalMoves: List[(Int, Int)]): Boolean = {
         val event: Event = Event(legalMoves.isEmpty, fen, gameMode.isRemis(fen, legalMoves))
         context.handle(event)
         context.state match {
-            case State.remisState => output = "Remis"
-            case State.whiteWonState => output = "Schwarz wurde vernichtend geschlagen"
-            case State.blackWonState => output = "Weiß wurde vernichtend geschlagen"
-            case _ => if (!legalMoves.contains(move)) {
-                output = "Das kannste nicht machen Bro (kein legaler Zug)"
-            } else {
-                UndoInvoker.doStep(new SetCommand(gameMode.makeMove(fen, move), fen, this))
-                if (gameMode.canPromote(fen) != -1) {
-                    ringObservers
-                }
-                output = boardToString()
-            }
+            case State.remisState => output += "\n \nRemis"
+                false
+            case State.whiteWonState => output += "\n \nSchwarz wurde vernichtend geschlagen"
+                false
+            case State.blackWonState => output += "\n \nWeiß wurde vernichtend geschlagen"
+                false
+            case _ => true
         }
-        notifyObservers
     }
     
     def promotePawn(pieceKind : String) : Unit = {
