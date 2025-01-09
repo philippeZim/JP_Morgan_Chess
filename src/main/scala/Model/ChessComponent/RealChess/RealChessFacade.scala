@@ -3,7 +3,7 @@ package Model.ChessComponent.RealChess
 import Model.ChessComponent.BasicChess.StandartChess.{BasicChessFacade, Piece}
 import Model.ChessComponent.ChessTrait
 
-object ChessFacade extends ChessTrait {
+class RealChessFacade extends ChessTrait {
     def getBoardString(board: Vector[Piece]): String = {
         BasicChessFacade.getBoardString(board)
     }

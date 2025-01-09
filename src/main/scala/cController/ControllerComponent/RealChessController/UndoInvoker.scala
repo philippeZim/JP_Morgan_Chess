@@ -1,7 +1,5 @@
 package cController.ControllerComponent.RealChessController
 
-import Model.UndoRedoComponent.UndoRedoTrait
-
 object UndoInvoker {
     private var undoStack: List[Command]= Nil
     private var redoStack: List[Command]= Nil
