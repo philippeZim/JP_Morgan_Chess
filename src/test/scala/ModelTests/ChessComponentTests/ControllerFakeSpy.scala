@@ -1,10 +1,10 @@
 package ModelTests.ChessComponentTests
 
+import JP_Morgan_Chess.ControllerComponent.ControllerTrait
+import JP_Morgan_Chess.ControllerComponent.Extra.UndoInvoker
+import JP_Morgan_Chess.util.Observable
 import Model.ChessComponent.RealChess.ChessFacade
 import Model.UndoRedoComponent.UndoRedoTrait
-import cController.ControllerComponent.ControllerTrait
-import cController.ControllerComponent.RealChessController.UndoInvoker
-import util.Observable
 
 class ControllerFakeSpy(var fen : String) extends Observable with ControllerTrait {
     var activeSquare : Int = -5;

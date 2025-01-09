@@ -1,12 +1,13 @@
 package ControllerTests
 
-import util.Observer
+import JP_Morgan_Chess.ChessComponent.Model.DevourChess.BasicChessComponent.StandartChess.ChessBoard
+import JP_Morgan_Chess.ControllerComponent.DuoChessController.Controller
+import JP_Morgan_Chess.ControllerComponent.Extra.{ChessContext, State}
+import JP_Morgan_Chess.util.Observer
 import Controller.ControllerComponent
-import Model.ChessComponent.BasicChess.StandartChess.ChessBoard
 import _root_.Controller.ControllerComponent.RealChessController
 import Model.UndoRedoComponent.UndoRedoTrait
 import ModelTests.ChessComponentTests.ControllerFakeSpy
-import cController.ControllerComponent.RealChessController.{ChessContext, Controller, State}
 
 import scala.language.reflectiveCalls
 import org.scalatest.matchers.should.Matchers

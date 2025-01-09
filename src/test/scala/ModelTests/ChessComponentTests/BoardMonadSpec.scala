@@ -1,6 +1,6 @@
 package ModelTests.ChessComponentTests
 
-import Model.ChessComponent.BasicChess.StandartChess.{BoardMonad, ChessBoard, Color, Piece, PieceType}
+import JP_Morgan_Chess.ChessComponent.Model.DevourChess.BasicChessComponent.StandartChess.{BoardMonad, ChessBoard, Color, Piece, PieceType}
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.wordspec.AnyWordSpec
 

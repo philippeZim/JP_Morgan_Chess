@@ -1,9 +1,11 @@
+import JP_Morgan_Chess.ChessComponent.ChessTrait
+import JP_Morgan_Chess.ChessComponent.Model.DevourChess.BasicChessComponent.StandartChess.ChessBoard
+import JP_Morgan_Chess.ControllerComponent.ControllerTrait
+import JP_Morgan_Chess.ControllerComponent.DuoChessController.Controller
+import JP_Morgan_Chess.ControllerComponent.Extra.ChessContext
+import JP_Morgan_Chess.aView.GUIComponent.GuiMain
+import JP_Morgan_Chess.aView.TUIComponent.Tui
 import scala.io.StdIn.readLine
-import Model.ChessComponent.BasicChess.StandartChess.ChessBoard
-import Model.ChessComponent.ChessTrait
-import aView.GUIComponent.GuiMain
-import aView.TUIComponent.Tui
-import cController.ControllerComponent.RealChessController.{ChessContext, Controller}
 import Model.ChessComponent.Default.given
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -11,7 +13,7 @@ import scala.concurrent.Future
 
 object Chess {
     val gameMode: ChessTrait = summon[ChessTrait]
-    val controller = new Controller(using gameMode, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", new ChessContext(), ChessBoard.getBoardString(ChessBoard.getDefaultBoard()));
+    val controller : ControllerTrait = summon[ControllerTrait]
     val tui = new Tui(controller)
     controller.notifyObservers
 

@@ -1,10 +1,11 @@
 package aViewTests
 
+import JP_Morgan_Chess.ControllerComponent.DuoChessController.Controller
+import JP_Morgan_Chess.ControllerComponent.Extra.ChessContext
+import JP_Morgan_Chess.aView.TUIComponent.Tui
 import scala.language.reflectiveCalls
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import aView.TUIComponent.Tui
-import cController.ControllerComponent.RealChessController.{ChessContext, Controller}
 
 class TuiSpec  extends AnyWordSpec with Matchers{
 

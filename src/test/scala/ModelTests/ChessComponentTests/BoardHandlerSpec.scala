@@ -1,7 +1,7 @@
 package ModelTests.ChessComponentTests
 
+import JP_Morgan_Chess.ChessComponent.Model.DevourChess.BasicChessComponent.StandartChess.{ChessBoard, Color, EmptySquareHandler, EnemySquareHandler, OnBoardHandler, Piece, PseudoMoves}
 import Model.ChessComponent
-import Model.ChessComponent.BasicChess.StandartChess.{ChessBoard, Color, EmptySquareHandler, EnemySquareHandler, OnBoardHandler, Piece, PseudoMoves}
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.wordspec.AnyWordSpec
 

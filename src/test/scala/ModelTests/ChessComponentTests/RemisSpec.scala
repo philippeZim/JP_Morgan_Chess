@@ -1,9 +1,7 @@
 package ModelTests.ChessComponentTests
 
-import Model.ChessComponent.BasicChess.StandartChess.ChessBoard.*
-import Model.ChessComponent.BasicChess.StandartChess.PseudoMoves.*
-import Model.ChessComponent.BasicChess.StandartChess.{ChessBoard, PseudoMoves}
-import Model.ChessComponent.RealChess.{LegalMoves, Remis}
+import JP_Morgan_Chess.ChessComponent.RealChess.{LegalMoves, Remis}
+import JP_Morgan_Chess.ChessComponent.Model.DevourChess.BasicChessComponent.StandartChess.{ChessBoard, PseudoMoves}
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.wordspec.AnyWordSpec
 
