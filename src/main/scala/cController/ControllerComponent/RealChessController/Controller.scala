@@ -3,9 +3,8 @@ package cController.ControllerComponent.RealChessController
 import Model.ChessComponent.ChessTrait
 import cController.ControllerComponent.ControllerTrait
 import util.Observable
-import Model.ChessComponent.Default.{given}
 
-class Controller(override var fen : String, var context : ChessContext, var output : String, using gameMode : ChessTrait) extends Observable with ControllerTrait {
+class Controller(using val gameMode : ChessTrait, override var fen : String, var context : ChessContext, var output : String) extends Observable with ControllerTrait {
     var activeSquare : Int = -5;
     var current_theme: Int = 0;
     

@@ -26,8 +26,8 @@ object Remis {
     def isMaterial(fen: String): Boolean = {
         
         @tailrec
-        def sub1(li: List[Char], hadBishop: Boolean, hasWhiteExtra: Option[Boolean]): Boolean = {
-            li match {
+        def searchPieces(pieceList: List[Char], hadBishop: Boolean, hasWhiteExtra: Option[Boolean]): Boolean = {
+            pieceList match {
                 case Nil => true; //Changed to true
                 case h::t => h match {
                     case 'p' => false
@@ -42,9 +42,9 @@ object Remis {
                                 if (a) {
                                     false
                                 } else {
-                                    sub1(t, hadBishop, Some(false));
+                                    searchPieces(t, hadBishop, Some(false));
                                 }
-                            case None => sub1(t, hadBishop, Some(false));
+                            case None => searchPieces(t, hadBishop, Some(false));
                         }
                         
                     case 'N' =>
@@ -53,9 +53,9 @@ object Remis {
                                 if (!a) {
                                     false
                                 } else {
-                                    sub1(t, hadBishop, Some(true));
+                                    searchPieces(t, hadBishop, Some(true));
                                 }
-                            case None => sub1(t, hadBishop, Some(true));
+                            case None => searchPieces(t, hadBishop, Some(true));
                         }
                         
                     case 'b' =>
@@ -66,7 +66,7 @@ object Remis {
                                 } else {
                                     false
                                 }
-                            case None => sub1(t, true, Some(false))
+                            case None => searchPieces(t, true, Some(false))
 
                         }
                     case 'B' =>
@@ -78,13 +78,13 @@ object Remis {
                                     false
                                 }
                             case None =>
-                                    sub1(t, true, Some(true))
+                                    searchPieces(t, true, Some(true))
                         }
-                    case _ => sub1(t, hadBishop, hasWhiteExtra)
+                    case _ => searchPieces(t, hadBishop, hasWhiteExtra)
                 }
             }
         }
-        sub1(fen.split(" ")(0).toList, false, None);
+        searchPieces(fen.split(" ")(0).toList, false, None);
     }
 
     def isRemis(fen: String, legalMoves: List[(Int, Int)]) : Boolean = {

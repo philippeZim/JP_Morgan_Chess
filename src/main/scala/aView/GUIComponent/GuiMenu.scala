@@ -1,5 +1,7 @@
 package aView.GUIComponent
 
+import Model.ChessComponent.ChessTrait
+import Model.ChessComponent.Default.given
 import Model.ChessComponent.RealChess.RealChessFacade
 import cController.ControllerComponent.ControllerTrait
 import cController.ControllerComponent.RealChessController.{ChessContext, Controller}
@@ -16,7 +18,7 @@ import util.Observer
 class GuiMenu(option_controller: Option[ControllerTrait]) extends VBox{
     val controller: ControllerTrait = option_controller match {
         case Some(a) => a
-        case _ => new Controller("", new ChessContext(), "", new RealChessFacade);
+        case _ => new Controller(using summon[ChessTrait], "", new ChessContext(), "");
     }
 
     val screenBounds = Screen.getPrimary.getVisualBounds
