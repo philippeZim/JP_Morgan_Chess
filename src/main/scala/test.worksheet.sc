@@ -1,11 +1,14 @@
+import Controller.State
+import Model.{ChessBoard, Event, LegalMoves, Remis, SetCommand,ProcessManager}
+
+import java.io.IOException
 
 
+var process = ProcessManager()
+process.startExecutable("C:\\Users\\eronz\\IdeaProjects\\JP_Morgan_Chess\\src\\main\\resources\\stockfish\\main.exe")
 
-// Example usage:
-val pathStock = "C:\\Users\\eronz\\IdeaProjects\\JP_Morgan_Chess\\src\\main\\resources\\stockfish\\stockfish-windows-x86-64-avx2.exe"
 
-val s = new Stockfish(pathStock)
-val (process, out, in, err) = s.initConnection()
-val bestMove = s.getBestMove("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", out, in)
-println(s"Best move: $bestMove")
-s.closeConnection(process, out, in, err)
+process.writeToExecutable("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1" + " 15")
+// Read response from the executable
+val response = process.readFromExecutable
+System.out.println("Response from executable: " + response)

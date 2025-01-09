@@ -32,3 +32,21 @@ val finalRes: String = outputResult match {
 
 
 println(finalRes)
+
+process.writeInput("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1 15") match {
+    case Success(()) => ()
+    case Failure(_) => "error writing to Stockfish"
+}
+
+val outFuture2 = process.readOutput()
+val outputResult2 = Await.result(outFuture, Duration.create(100000, MILLISECONDS))
+
+
+val finalRes2: String = outputResult match {
+    case Success(e) => e
+    case _ => ""
+}
+
+
+
+println(finalRes2)
