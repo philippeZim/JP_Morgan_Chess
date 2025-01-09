@@ -1,11 +1,8 @@
-package Model.UndoRedoComponent.StackSolution
+package cController.ControllerComponent.RealChessController
 
-import Controller.ControllerComponent.ControllerTrait
-import Controller.ControllerComponent.RealChessController.Controller
-import Model.UndoRedoComponent.StackSolution.{Command, SetCommand}
 import Model.UndoRedoComponent.UndoRedoTrait
 
-class UndoInvoker extends UndoRedoTrait {
+object UndoInvoker {
     private var undoStack: List[Command]= Nil
     private var redoStack: List[Command]= Nil
     def doStep(command: Command) = {
@@ -33,10 +30,6 @@ class UndoInvoker extends UndoRedoTrait {
                 undoStack = head :: undoStack
             }
         }
-    }
-
-    def newCommand(fen : String, exFen : String, controller: ControllerTrait) : Command = {
-        new SetCommand(fen, exFen, controller)
     }
 }
 

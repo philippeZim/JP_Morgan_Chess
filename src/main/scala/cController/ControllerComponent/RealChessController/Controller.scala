@@ -1,16 +1,13 @@
-package Controller.ControllerComponent.RealChessController
+package cController.ControllerComponent.RealChessController
 
-import Controller.ControllerComponent.ControllerTrait
 import Model.ChessComponent.DevourChess.ChessFacade
-import Model.UndoRedoComponent.StackSolution.UndoInvoker
-import Model.UndoRedoComponent.UndoRedoTrait
+import cController.ControllerComponent.ControllerTrait
 import util.Observable
 
 class Controller(override var fen : String, var context : ChessContext, var output : String) extends Observable with ControllerTrait {
-    val invoker : UndoRedoTrait = new UndoInvoker
     var activeSquare : Int = -5;
     var current_theme: Int = 0;
-
+    
     def boardToString() : String = {ChessFacade.getBoardString(ChessFacade.fenToBoard(fen))}
 
     def createOutput() : String = {output}
@@ -26,7 +23,7 @@ class Controller(override var fen : String, var context : ChessContext, var outp
             case _ => if (!legalMoves.contains(move)) {
                 output = "Das kannste nicht machen Bro (kein legaler Zug)"
             } else {
-                invoker.doStep(invoker.newCommand(ChessFacade.makeMove(fen, move), fen, this))
+                UndoInvoker.doStep(new SetCommand(ChessFacade.makeMove(fen, move), fen, this))
                 if (ChessFacade.canPromote(fen) != -1) {
                     ringObservers
                 }
@@ -41,13 +38,13 @@ class Controller(override var fen : String, var context : ChessContext, var outp
     }
 
     def undo(): Unit = {
-        invoker.undoStep()
+        UndoInvoker.undoStep()
         output = boardToString()
         notifyObservers
     }
 
     def redo() : Unit = {
-        invoker.redoStep()
+        UndoInvoker.redoStep()
         output = boardToString()
         notifyObservers
     }

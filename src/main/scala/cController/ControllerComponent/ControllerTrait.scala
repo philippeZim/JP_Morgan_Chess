@@ -1,7 +1,5 @@
-package Controller.ControllerComponent
+package cController.ControllerComponent
 
-import Model.UndoRedoComponent.StackSolution.Command
-import Model.UndoRedoComponent.UndoRedoTrait
 import util.{Observable, Observer}
 
 trait ControllerTrait extends Observable {
@@ -12,8 +10,6 @@ trait ControllerTrait extends Observable {
     def current_theme: Int
 
     def current_theme_=(value: Int): Unit
-    
-    def invoker: UndoRedoTrait
 
     def play(move : (Int, Int)) : Unit
     

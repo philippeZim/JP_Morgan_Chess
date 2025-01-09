@@ -1,4 +1,4 @@
-package Controller.ControllerComponent.RealChessController
+package cController.ControllerComponent.RealChessController
 
 import Model.ChessComponent.RealChess.Remis
 import util.Observable;

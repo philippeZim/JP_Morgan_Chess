@@ -1,7 +1,7 @@
 package ModelTests.UndoRedoComponentTests
 
-import Controller.ControllerComponent.RealChessController.{ChessContext, Controller}
 import ModelTests.ChessComponentTests.ControllerFakeSpy
+import cController.ControllerComponent.RealChessController.{ChessContext, Controller}
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.wordspec.AnyWordSpec
 

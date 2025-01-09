@@ -1,7 +1,7 @@
 package Model.ChessComponent
 
-import Controller.ControllerComponent.RealChessController.Event
 import Model.ChessComponent.BasicChess.StandartChess.Piece
+import cController.ControllerComponent.RealChessController.Event
 
 trait ChessTrait {
     def getBoardString(board : Vector[Piece]) : String

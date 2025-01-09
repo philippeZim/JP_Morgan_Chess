@@ -1,6 +1,4 @@
-package Model.UndoRedoComponent.StackSolution
-
-import Controller.ControllerComponent.ControllerTrait
+package cController.ControllerComponent.RealChessController
 
 trait Command {
     def doStep:Unit
@@ -9,7 +7,7 @@ trait Command {
 }
 
 
-class SetCommand(fen : String, exFen : String, controller: ControllerTrait) extends Command {
+class SetCommand(fen : String, exFen : String, controller: Controller) extends Command {
     override def doStep: Unit = controller.fen = fen
     override def undoStep: Unit = controller.fen = exFen
     override def redoStep: Unit =  controller.fen = fen

@@ -1,8 +1,8 @@
 package ModelTests.UndoRedoComponentTests
 
-import Controller.ControllerComponent.ControllerTrait
-import Model.UndoRedoComponent.StackSolution.{Command, SetCommand, UndoInvoker}
 import Model.UndoRedoComponent.UndoRedoTrait
+import cController.ControllerComponent.ControllerTrait
+import cController.ControllerComponent.RealChessController.{Command, SetCommand, UndoInvoker}
 
 class ControllerStub(override var fen : String) extends ControllerTrait {
     val invoker : UndoRedoTrait = new UndoInvoker

@@ -1,9 +1,9 @@
 package ModelTests.ChessComponentTests
 
-import Controller.ControllerComponent.ControllerTrait
 import Model.ChessComponent.RealChess.ChessFacade
-import Model.UndoRedoComponent.StackSolution.UndoInvoker
 import Model.UndoRedoComponent.UndoRedoTrait
+import cController.ControllerComponent.ControllerTrait
+import cController.ControllerComponent.RealChessController.UndoInvoker
 import util.Observable
 
 class ControllerFakeSpy(var fen : String) extends Observable with ControllerTrait {
