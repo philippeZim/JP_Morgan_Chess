@@ -3,9 +3,9 @@ package Model.ChessComponent.RealChess
 import requests.Response
 
 object ChessApiClient {
-    val host = "http://127.0.0.1:8000"
+    val host = "https://d948-141-37-128-1.ngrok-free.app"
 
-    def getBestMove(fen: String, depth: Int = 10): String = {
+    def getBestMove(fen: String, depth: Int): String = {
         val payload = ujson.Obj(
             "fen" -> fen,
             "depth" -> depth

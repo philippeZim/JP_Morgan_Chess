@@ -44,11 +44,15 @@ class RealChessFacade extends ChessTrait {
         ChessApiClient.getBestMove(fen, depth)
     }
 
-    def moveToIndex(from: String, to: String): (Int, Int) = {
-        BasicChessFacade.moveToIndex(from, to)
+    def translateMoveStringToInt(fen: String, move: String): (Int, Int) = {
+        BasicChessFacade.translateMoveStringToInt(fen, move)
     }
 
     def getDefaultFen(): String = {
         BasicChessFacade.getDefaultFen()
+    }
+
+    def getDefaultBoard(): Vector[Piece] = {
+        BasicChessFacade.getDefaultBoard()
     }
 }

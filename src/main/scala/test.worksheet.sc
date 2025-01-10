@@ -1,11 +1,27 @@
+import ChessApiClient.getBestMove
+import requests.Response
 
+object ChessApiClient {
+    val host = "https://d948-141-37-128-1.ngrok-free.app"
 
+    def getBestMove(fen: String, depth: Int = 10): String = {
+        val payload = ujson.Obj(
+            "fen" -> fen,
+            "depth" -> depth
+        )
 
-// Example usage:
-val pathStock = "C:\\Users\\eronz\\IdeaProjects\\JP_Morgan_Chess\\src\\main\\resources\\stockfish\\stockfish-windows-x86-64-avx2.exe"
+        val response: Response = requests.post(
+            url = s"$host/bestmove/",
+            data = payload.render(),
+            headers = Map("Content-Type" -> "application/json")
+        )
 
-val s = new Stockfish(pathStock)
-val (process, out, in, err) = s.initConnection()
-val bestMove = s.getBestMove("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", out, in)
-println(s"Best move: $bestMove")
-s.closeConnection(process, out, in, err)
+        if (response.statusCode == 200) {
+            val json = ujson.read(response.text())
+            json("best_move").str
+        } else {
+            throw new Exception(s"Error: ${response.statusCode}, ${response.text()}")
+        }
+    }
+}
+print(ChessApiClient.getBestMove("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"))

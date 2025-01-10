@@ -5,7 +5,7 @@ import cController.ControllerComponent.ControllerTrait
 import cController.ControllerComponent.Extra.{ChessContext, Event, SetCommand, State, UndoInvoker}
 import util.Observable
 
-class EngineController(using val gameMode : ChessTrait, override var fen : String, var context : ChessContext, var output : String, val depth : Int) extends Observable with ControllerTrait {
+class EngineController(using val gameMode : ChessTrait, var fen : String, var context : ChessContext, var output : String, val depth : Int) extends Observable with ControllerTrait {
     var activeSquare : Int = -5;
     var current_theme: Int = 0;
 
@@ -30,10 +30,13 @@ class EngineController(using val gameMode : ChessTrait, override var fen : Strin
         if(state) {return}
 
         val engineMoveString = gameMode.getBestMove(fen, depth)
-        val engineMoveInt = gameMode.moveToIndex(engineMoveString.substring(0,1), engineMoveString.substring(2,3))
+        print("test")
+        print(engineMoveString)
+        val engineMoveInt = gameMode.translateMoveStringToInt(fen, engineMoveString)
 
-        UndoInvoker.doStep(new SetCommand(gameMode.makeMove(fen, move), fen, this))
+        UndoInvoker.doStep(new SetCommand(gameMode.makeMove(fen, engineMoveInt), fen, this))
         val legalMoves2 = gameMode.getAllLegalMoves(fen);
+        output = boardToString()
         checkGameState(legalMoves2)
 
         notifyObservers
@@ -44,12 +47,12 @@ class EngineController(using val gameMode : ChessTrait, override var fen : Strin
         context.handle(event)
         context.state match {
             case State.remisState => output += "\n \nRemis"
-                false
+                true
             case State.whiteWonState => output += "\n \nSchwarz wurde vernichtend geschlagen"
-                false
+                true
             case State.blackWonState => output += "\n \nWeiß wurde vernichtend geschlagen"
-                false
-            case _ => true
+                true
+            case _ => false
         }
     }
 
