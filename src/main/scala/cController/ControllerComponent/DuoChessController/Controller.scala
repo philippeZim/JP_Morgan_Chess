@@ -5,7 +5,7 @@ import cController.ControllerComponent.ControllerTrait
 import cController.ControllerComponent.Extra.{ChessContext, Event, SetCommand, State, UndoInvoker}
 import util.Observable
 
-class Controller(using val gameMode : ChessTrait, override var fen : String, var context : ChessContext, var output : String) extends Observable with ControllerTrait {
+class Controller(using gameMode : ChessTrait, override var fen : String, var context : ChessContext, var output : String) extends Observable with ControllerTrait {
     var activeSquare : Int = -5;
     var current_theme: Int = 0;
     
@@ -24,6 +24,7 @@ class Controller(using val gameMode : ChessTrait, override var fen : String, var
             }
             output = boardToString()
         }
+
         notifyObservers
     }
 
