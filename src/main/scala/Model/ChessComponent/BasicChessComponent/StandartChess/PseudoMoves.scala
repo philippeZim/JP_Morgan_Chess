@@ -1,9 +1,9 @@
-package Model.ChessComponent.BasicChess.StandartChess
+package Model.ChessComponent.BasicChessComponent.StandartChess
 
 import Model.*
-import Model.ChessComponent.BasicChess.StandartChess.Color.WHITE
-import Model.ChessComponent.BasicChess.StandartChess.PieceType.EMPTY
-import Model.ChessComponent.BasicChess.StandartChess.{EmptySquareHandler, EnemySquareHandler, OnBoardHandler}
+import Model.ChessComponent.BasicChessComponent.StandartChess.Color.WHITE
+import Model.ChessComponent.BasicChessComponent.StandartChess.PieceType.EMPTY
+import Model.ChessComponent.BasicChessComponent.StandartChess.{EmptySquareHandler, EnemySquareHandler, OnBoardHandler}
 import Model.ChessComponent.RealChess.*
 
 import scala.annotation.tailrec

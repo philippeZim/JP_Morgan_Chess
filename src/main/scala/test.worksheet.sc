@@ -1,27 +1,15 @@
-import ChessApiClient.getBestMove
-import requests.Response
+import cController.ControllerComponent.Extra.ChessContext
+import play.api.libs.json.*
 
-object ChessApiClient {
-    val host = "https://d948-141-37-128-1.ngrok-free.app"
+val hallo = Json.toJson(0)
 
-    def getBestMove(fen: String, depth: Int = 10): String = {
-        val payload = ujson.Obj(
-            "fen" -> fen,
-            "depth" -> depth
-        )
-
-        val response: Response = requests.post(
-            url = s"$host/bestmove/",
-            data = payload.render(),
-            headers = Map("Content-Type" -> "application/json")
-        )
-
-        if (response.statusCode == 200) {
-            val json = ujson.read(response.text())
-            json("best_move").str
-        } else {
-            throw new Exception(s"Error: ${response.statusCode}, ${response.text()}")
-        }
-    }
+def to(context : ChessContext, fen : String) = {
+    <box>
+        <fen>
+            {fen}
+        </fen>
+        <state>
+            {context.state.ordinal}
+        </state>
+    </box>
 }
-print(ChessApiClient.getBestMove("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"))

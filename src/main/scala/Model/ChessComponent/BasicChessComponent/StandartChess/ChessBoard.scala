@@ -1,8 +1,8 @@
-package Model.ChessComponent.BasicChess.StandartChess
+package Model.ChessComponent.BasicChessComponent.StandartChess
 
 import Model.ChessComponent.*
-import Model.ChessComponent.BasicChess.StandartChess.Color.EMPTY
-import Model.ChessComponent.BasicChess.StandartChess.{Color, Piece, PieceType, PseudoMoves}
+import Model.ChessComponent.BasicChessComponent.StandartChess.Color.EMPTY
+import Model.ChessComponent.BasicChessComponent.StandartChess.{Color, Piece, PieceType, PseudoMoves}
 import Model.ChessComponent.RealChess.LegalMoves
 
 import scala.annotation.tailrec
