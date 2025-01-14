@@ -1,4 +1,4 @@
-package Model.ChessComponent.BasicChess.StandartChess
+package Model.ChessComponent.BasicChessComponent.StandartChess
 
 enum Color:
     case BLACK, WHITE, EMPTY

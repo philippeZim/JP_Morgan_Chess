@@ -1,4 +1,4 @@
-package cController.StateComponent
+package cController.ControllerComponent.StateComponent
 
 trait StateTrait {
     def to() : Unit

@@ -1,6 +1,6 @@
 package aView.TUIComponent
 
-import Model.ChessComponent.BasicChess.StandartChess.ChessBoard
+import Model.ChessComponent.BasicChessComponent.StandartChess.ChessBoard
 import cController.ControllerComponent.ControllerTrait
 import cController.ControllerComponent.DuoChessController.Controller
 import util.Observer

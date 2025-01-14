@@ -1,6 +1,6 @@
-package Model.ChessComponent.BasicChess
+package Model.ChessComponent.BasicChessComponent
 
-import Model.ChessComponent.BasicChess.StandartChess.{Color, Piece}
+import Model.ChessComponent.BasicChessComponent.StandartChess.{Color, Piece}
 
 trait BasicChessTrait {
     def getBoardString(board : Vector[Piece]) : String

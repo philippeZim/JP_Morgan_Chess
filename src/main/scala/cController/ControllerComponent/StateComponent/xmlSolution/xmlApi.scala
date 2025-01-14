@@ -1,8 +1,8 @@
-package cController.StateComponent.xmlSolution
+package cController.ControllerComponent.StateComponent.xmlSolution
 
 import cController.ControllerComponent.ControllerTrait
 import cController.ControllerComponent.Extra.State
-import cController.StateComponent.{Data_Wrapper, StateTrait}
+import cController.ControllerComponent.StateComponent.{Data_Wrapper, StateTrait}
 
 import java.io.*
 
@@ -27,7 +27,7 @@ class xmlApi (controller : ControllerTrait) extends StateTrait {
     }
 
     def printTo() = {
-        val writer = new PrintWriter(new File("GameState.xml"))
+        val writer = new PrintWriter(new File("resources/GameState.xml"))
         writer.write(to().toString())
         writer.close()
     }

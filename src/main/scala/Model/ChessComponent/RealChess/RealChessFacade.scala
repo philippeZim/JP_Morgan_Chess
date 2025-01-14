@@ -1,6 +1,6 @@
 package Model.ChessComponent.RealChess
 
-import Model.ChessComponent.BasicChess.StandartChess.{BasicChessFacade, Piece}
+import Model.ChessComponent.BasicChessComponent.StandartChess.{BasicChessFacade, Piece}
 import Model.ChessComponent.ChessTrait
 
 class RealChessFacade extends ChessTrait {

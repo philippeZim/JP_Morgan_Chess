@@ -1,6 +1,6 @@
 package Model.ChessComponent
 
-import Model.ChessComponent.BasicChess.StandartChess.Piece
+import Model.ChessComponent.BasicChessComponent.StandartChess.Piece
 import cController.ControllerComponent.Extra.Event
 
 trait ChessTrait {

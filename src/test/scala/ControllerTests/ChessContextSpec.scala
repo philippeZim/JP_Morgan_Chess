@@ -1,6 +1,6 @@
 package ControllerTests
 
-import Model.ChessComponent.BasicChess.StandartChess.{ChessBoard, PseudoMoves}
+import Model.ChessComponent.BasicChessComponent.StandartChess.{ChessBoard, PseudoMoves}
 import Model.ChessComponent.RealChess.LegalMoves
 import util.Observer
 import aView.TUIComponent.Tui

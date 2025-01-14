@@ -1,6 +1,6 @@
-package Model.ChessComponent.BasicChess.StandartChess
+package Model.ChessComponent.BasicChessComponent.StandartChess
 
-import Model.ChessComponent.BasicChess.BasicChessTrait
+import Model.ChessComponent.BasicChessComponent.BasicChessTrait
 
 object BasicChessFacade extends BasicChessTrait {
     def getBoardString(board: Vector[Piece]): String = {

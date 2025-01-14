@@ -2,7 +2,7 @@ package Model.ChessComponent.RealChess
 
 import Model.*
 import Model.ChessComponent.*
-import Model.ChessComponent.BasicChess.StandartChess.{BasicChessFacade, Color, Piece, PieceType}
+import Model.ChessComponent.BasicChessComponent.StandartChess.{BasicChessFacade, Color, Piece, PieceType}
 
 import scala.annotation.tailrec
 

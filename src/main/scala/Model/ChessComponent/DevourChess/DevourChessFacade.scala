@@ -1,6 +1,6 @@
 package Model.ChessComponent.DevourChess
 
-import Model.ChessComponent.BasicChess.StandartChess.{BasicChessFacade, Piece}
+import Model.ChessComponent.BasicChessComponent.StandartChess.{BasicChessFacade, Piece}
 import Model.ChessComponent.ChessTrait
 
 class DevourChessFacade extends ChessTrait {

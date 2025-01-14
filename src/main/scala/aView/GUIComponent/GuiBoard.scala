@@ -1,6 +1,6 @@
 package aView.GUIComponent
 
-import Model.ChessComponent.BasicChess.StandartChess.{ChessBoard, Piece, PieceType}
+import Model.ChessComponent.BasicChessComponent.StandartChess.{ChessBoard, Piece, PieceType}
 import Model.ChessComponent.ChessTrait
 import Model.ChessComponent.RealChess.RealChessFacade
 import cController.ControllerComponent.ControllerTrait

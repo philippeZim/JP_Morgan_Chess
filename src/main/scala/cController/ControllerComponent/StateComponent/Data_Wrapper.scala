@@ -1,4 +1,4 @@
-package cController.StateComponent
+package cController.ControllerComponent.StateComponent
 
 import play.api.libs.json.*
 

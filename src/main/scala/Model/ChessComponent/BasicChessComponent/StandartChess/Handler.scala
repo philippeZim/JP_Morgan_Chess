@@ -1,7 +1,7 @@
-package Model.ChessComponent.BasicChess.StandartChess
+package Model.ChessComponent.BasicChessComponent.StandartChess
 
 import Model.ChessComponent.*
-import Model.ChessComponent.BasicChess.*
+import Model.ChessComponent.BasicChessComponent.*
 import Model.ChessComponent.RealChess.*
 
 trait Handler {

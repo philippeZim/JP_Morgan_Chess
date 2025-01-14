@@ -1,6 +1,6 @@
 package Model.ChessComponent.DevourChess
 
-import Model.ChessComponent.BasicChess.StandartChess.BasicChessFacade
+import Model.ChessComponent.BasicChessComponent.StandartChess.BasicChessFacade
 
 import scala.annotation.tailrec
 

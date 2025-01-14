@@ -5,6 +5,8 @@ import cController.ControllerComponent.ControllerTrait
 import cController.ControllerComponent.DuoChessController.Controller
 import cController.ControllerComponent.Extra.ChessContext
 import cController.ControllerComponent.SoloChessController.EngineController
+import cController.ControllerComponent.StateComponent.StateTrait
+import cController.ControllerComponent.StateComponent.xmlSolution.xmlApi
 import com.google.inject.{AbstractModule, Provides}
 import com.google.inject.name.{Named, Names}
 
@@ -12,6 +14,8 @@ class ChessModule extends AbstractModule {
     override def configure(): Unit = {
         bind(classOf[ChessTrait]).annotatedWith(Names.named("RealChess")).to(classOf[RealChessFacade])
         bind(classOf[ChessTrait]).annotatedWith(Names.named("DevourChess")).to(classOf[DevourChessFacade])
+        
+        bind(classOf[StateTrait]).annotatedWith(Names.named("XML")).to(classOf[xmlApi])
     }
 
     @Provides
