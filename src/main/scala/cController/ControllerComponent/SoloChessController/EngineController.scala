@@ -3,9 +3,10 @@ package cController.ControllerComponent.SoloChessController
 import Model.ChessComponent.ChessTrait
 import cController.ControllerComponent.ControllerTrait
 import cController.ControllerComponent.Extra.{ChessContext, Event, SetCommand, State, UndoInvoker}
+import com.google.inject.Inject
 import util.Observable
 
-class EngineController(using val gameMode : ChessTrait, var fen : String, var context : ChessContext, var output : String, val depth : Int) extends Observable with ControllerTrait {
+class EngineController @Inject()(val gameMode : ChessTrait, var fen : String, var context : ChessContext, var output : String, val depth : Int) extends Observable with ControllerTrait {
     var activeSquare : Int = -5;
     var current_theme: Int = 0;
 

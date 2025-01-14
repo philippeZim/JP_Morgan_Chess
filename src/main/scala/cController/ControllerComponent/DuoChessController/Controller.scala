@@ -3,13 +3,12 @@ package cController.ControllerComponent.DuoChessController
 import Model.ChessComponent.ChessTrait
 import cController.ControllerComponent.ControllerTrait
 import cController.ControllerComponent.Extra.{ChessContext, Event, SetCommand, State, UndoInvoker}
+import com.google.inject.Inject
 import util.Observable
 
-class Controller(using val gameMode : ChessTrait, override var fen : String, var context : ChessContext, var output : String) extends Observable with ControllerTrait {
+class Controller @Inject()(val gameMode : ChessTrait, override var fen : String, var context : ChessContext, var output : String) extends Observable with ControllerTrait {
     var activeSquare : Int = -5;
     var current_theme: Int = 0;
-
-    // TODO: AUF GOOGLE JUIICEE zurück pls :)
     
     def boardToString() : String = {gameMode.getBoardString(gameMode.fenToBoard(fen))}
 
