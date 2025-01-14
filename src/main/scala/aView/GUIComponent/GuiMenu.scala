@@ -28,7 +28,7 @@ class GuiMenu(option_controller: Option[ControllerTrait]) extends VBox{
     val theme_button = new Button("Theme") {
         prefWidth = vh * 0.1
         prefHeight = vh * 0.05
-        style = "-fx-font-size: 16px; -fx-font-family: 'Roboto'; -fx-text-fill: black; -fx-font-weight: bold;"
+        style = "-fx-font-size: 16px; -fx-font-family: 'Roboto'; -fx-text-fill: black; -fx-font-weight: bold; -fx-background-color: #F5F5DC;"
         // Custom font and text color
         background = new Background(
             Array(new BackgroundFill(Color.White, new CornerRadii(10), Insets.Empty)) // White background with rounded corners
@@ -44,7 +44,7 @@ class GuiMenu(option_controller: Option[ControllerTrait]) extends VBox{
     val undo_button = new Button("Undo") {
         prefWidth = vh * 0.1
         prefHeight = vh * 0.05
-        style = "-fx-font-size: 16px; -fx-font-family: 'Roboto'; -fx-text-fill: black; -fx-font-weight: bold;"
+        style = "-fx-font-size: 16px; -fx-font-family: 'Roboto'; -fx-text-fill: black; -fx-font-weight: bold; -fx-background-color: #F5F5DC;"
         // Custom font and text color
         background = new Background(
             Array(new BackgroundFill(Color.White, new CornerRadii(10), Insets.Empty)) // White background with rounded corners
@@ -61,7 +61,7 @@ class GuiMenu(option_controller: Option[ControllerTrait]) extends VBox{
     val redo_button = new Button("Redo") {
         prefWidth = vh * 0.1
         prefHeight = vh * 0.05
-        style = "-fx-font-size: 16px; -fx-font-family: 'Roboto'; -fx-text-fill: black; -fx-font-weight: bold;"
+        style = "-fx-font-size: 16px; -fx-font-family: 'Roboto'; -fx-text-fill: black; -fx-font-weight: bold; -fx-background-color: #F5F5DC;"
         // Custom font and text color
         background = new Background(
             Array(new BackgroundFill(Color.White, new CornerRadii(10), Insets.Empty)) // White background with rounded corners
@@ -81,6 +81,6 @@ class GuiMenu(option_controller: Option[ControllerTrait]) extends VBox{
     this.setPrefSize(vh * 0.3, vh)
     val marginScreenHeight = vh * 0.05
     VBox.setMargin(this, Insets(marginScreenHeight, marginScreenHeight * 3, marginScreenHeight, marginScreenHeight * 3))
-    style = s"-fx-background-color:black"
+    style = "-fx-background-color: #A9A9A9;"
 
 }
