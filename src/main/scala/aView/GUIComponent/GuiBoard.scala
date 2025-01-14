@@ -6,6 +6,7 @@ import Model.ChessComponent.RealChess.RealChessFacade
 import cController.ControllerComponent.ControllerTrait
 import cController.ControllerComponent.Extra.ChessContext
 import cController.ControllerComponent.DuoChessController.Controller
+import cController.ControllerComponent.StateComponent.xmlSolution.XMLApi
 import javafx.stage.Screen
 import scalafx.application.JFXApp3
 import scalafx.event.ActionEvent
@@ -36,7 +37,7 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
     override def specialCase: Unit = ()
     val controller : ControllerTrait = option_controller match {
         case Some(a) => a
-        case _ => new Controller(new RealChessFacade(), "", new ChessContext(),"");
+        case _ => new Controller(new RealChessFacade(), new XMLApi, "", new ChessContext(),"");
     }
     controller.add(this)
     val screenBounds = Screen.getPrimary.getVisualBounds

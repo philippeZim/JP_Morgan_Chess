@@ -3,10 +3,11 @@ package cController.ControllerComponent.DuoChessController
 import Model.ChessComponent.ChessTrait
 import cController.ControllerComponent.ControllerTrait
 import cController.ControllerComponent.Extra.{ChessContext, Event, SetCommand, State, UndoInvoker}
+import cController.ControllerComponent.StateComponent.ApiFileTrait
 import com.google.inject.Inject
 import util.Observable
 
-class Controller @Inject()(val gameMode : ChessTrait, override var fen : String, var context : ChessContext, var output : String) extends Observable with ControllerTrait {
+class Controller @Inject()(val gameMode : ChessTrait, val fileapi : ApiFileTrait, override var fen : String, var context : ChessContext, var output : String) extends Observable with ControllerTrait {
     var activeSquare : Int = -5;
     var current_theme: Int = 0;
     
@@ -25,7 +26,8 @@ class Controller @Inject()(val gameMode : ChessTrait, override var fen : String,
             }
             output = boardToString()
         }
-
+        checkGameState(legalMoves)
+        fileapi.printTo(context, fen)
         notifyObservers
     }
 

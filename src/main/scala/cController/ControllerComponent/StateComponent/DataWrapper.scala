@@ -4,7 +4,7 @@ import play.api.libs.json.*
 
 import scala.xml.Node
 
-case class Data_Wrapper(node : Option[scala.xml.Node], json : Option[JsValue]) {
+case class DataWrapper(node : Option[scala.xml.Node], json : Option[JsValue]) {
     def getNode() = {
         node match {
             case Some(value) => value
