@@ -188,5 +188,5 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
     this.setPrefSize(vh * 0.9, vh)
     val marginScreenHeight = vh *0.05
     BorderPane.setMargin(this, Insets(marginScreenHeight, marginScreenHeight * 3, marginScreenHeight, marginScreenHeight * 3))
-
+    
 }
