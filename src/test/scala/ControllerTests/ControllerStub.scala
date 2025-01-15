@@ -1,11 +1,10 @@
-package ModelTests.UndoRedoComponentTests
+package ControllerTests
 
-import Model.UndoRedoComponent.UndoRedoTrait
 import cController.ControllerComponent.ControllerTrait
-import cController.ControllerComponent.Extra.{Command, SetCommand, UndoInvoker}
+import _root_.cController.ControllerComponent.Extra.{Command, SetCommand, UndoInvoker}
 
 class ControllerStub(override var fen : String) extends ControllerTrait {
-    val invoker : UndoRedoTrait = new UndoInvoker
+    val invoker = UndoInvoker
     override var current_theme: Int = 0
 
     def play(move: (Int, Int)): Unit = {invoker.doStep(new SetCommand(move.productIterator.mkString("-"), fen, this))}
@@ -23,4 +22,9 @@ class ControllerStub(override var fen : String) extends ControllerTrait {
     def squareClicked(clickedSquare: Int): Unit = {}
 
     def nextTheme(): Unit = {}
+
+    def context: cController. ControllerComponent. Extra. ChessContext = ???
+    
+    
+    def context_=(value: cController. ControllerComponent. Extra. ChessContext): Unit = ???
 }

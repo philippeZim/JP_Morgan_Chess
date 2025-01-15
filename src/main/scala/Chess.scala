@@ -32,5 +32,4 @@ object Chess {
             tui.processInputLine(input)
         }
     }
-
 }

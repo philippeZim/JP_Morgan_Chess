@@ -1,7 +1,7 @@
 package ModelTests.ChessComponentTests
 
 import Model.ChessComponent.BasicChessComponent.StandartChess.ChessBoard
-import Model.ChessComponent.RealChess.ChessFacade
+import Model.ChessComponent.RealChess.RealChessFacade
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.wordspec.AnyWordSpec
 

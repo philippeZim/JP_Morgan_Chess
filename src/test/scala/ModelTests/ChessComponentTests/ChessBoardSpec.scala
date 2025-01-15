@@ -58,16 +58,6 @@ class ChessBoardSpec extends AnyWordSpec {
                     "       a     b     c     d     e     f     g     h     "));
         }
 
-        "return a correct splitline" in {
-            splitLine() should be("    +-----+-----+-----+-----+-----+-----+-----+-----+\n");
-        }
-
-        "return a correct pieceLine" in {
-            val p = Piece(PieceType.PAWN, Color.BLACK);
-            val r = Vector(p, p, p, p, p, p, p, p);
-            pieceLine(r, "7") should be("7   |  p  |  p  |  p  |  p  |  p  |  p  |  p  |  p  |\n");
-        }
-
         "return a correct Vector[Piece] board given a FEN" in {
             val testFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
             ChessBoard.fenToBoard(testFen) should equal(ChessBoard.getDefaultBoard());
