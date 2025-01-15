@@ -41,8 +41,8 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
     }
     controller.add(this)
     val screenBounds = Screen.getPrimary.getVisualBounds
-    val vw = screenBounds.getWidth
-    val vh = screenBounds.getHeight
+    val varWidth = screenBounds.getWidth
+    val varHeight = screenBounds.getHeight
 
     val color_pallets: Vector[(String, String, String)] = Vector(
         ("#cb9df0", "#F0C1E1", "#FFF9BF"),
@@ -88,25 +88,25 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
         )
 
         @tailrec
-        def loopChildren(li: List[(Piece, Int)], acc: List[Node]): List[Node] = {
-            li match {
-                case Nil => acc
+        def loopChildren(piecePositions: List[(Piece, Int)], accumulator: List[Node]): List[Node] = {
+            piecePositions match {
+                case Nil => accumulator
                 case h :: t => h match {
-                    case (e: Piece, i: Int) => {
-                        val sp: StackPane = new StackPane {
+                    case (piece: Piece, i: Int) => {
+                        val stack: StackPane = new StackPane {
                             val rect_bg = new Rectangle() {
                                 if ((i + (i / 8)) % 2 == 0) {
-                                    val lcol1 = color_pallets(controller.current_theme)._3
-                                    fill = Paint.valueOf(lcol1)
+                                    val darkSquareColor = color_pallets(controller.current_theme)._3
+                                    fill = Paint.valueOf(darkSquareColor)
                                 } else {
-                                    val lcol2 = color_pallets(controller.current_theme)._2
-                                    fill = Paint.valueOf(lcol2)
+                                    val lightSquareColor = color_pallets(controller.current_theme)._2
+                                    fill = Paint.valueOf(lightSquareColor)
                                 }
 
-                                width = vh * 0.1
-                                height = vh * 0.1
-                                arcWidth = vh * 0.02
-                                arcHeight = vh * 0.02
+                                width = varHeight * 0.1
+                                height = varHeight * 0.1
+                                arcWidth = varHeight * 0.02
+                                arcHeight = varHeight * 0.02
                             }
                             val button1: Button = new Button() {
                                 style = "-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;"
@@ -114,17 +114,17 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
                                 focusWithin.apply()
 
                             }
-                            button1.setPrefSize(vh * 0.1, vh * 0.1)
+                            button1.setPrefSize(varHeight * 0.1, varHeight * 0.1)
 
 
-                            if (e.toString() == ".") {
+                            if (piece.toString() == ".") {
                                 children = Seq(rect_bg, button1)
                             } else {
-                                val path = "/pieces/" + pieceMap(e.toString()) + ".png"
+                                val path = "/pieces/" + pieceMap(piece.toString()) + ".png"
                                 val img = new ImageView {
                                     //padding = Insets(vh * 0.2, 0, 0, 0)
                                     image = new Image(path)
-                                    fitWidth = vh * 0.07
+                                    fitWidth = varHeight * 0.07
                                     preserveRatio = true
                                     alignmentInParent = Center
                                     val lcol3 = color_pallets(controller.current_theme)._1
@@ -140,9 +140,9 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
 
 
                         }
-                        loopChildren(t, sp::acc)
+                        loopChildren(t, stack::accumulator)
                     }
-                    case _ => loopChildren(t, acc)
+                    case _ => loopChildren(t, accumulator)
                 }
             }
         }
@@ -150,14 +150,14 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
 
 
         @tailrec
-        def addAllToGrid(li: List[(Node, Int)]): Unit = {
-            li match {
+        def addAllToGrid(nodeList: List[(Node, Int)]): Unit = {
+            nodeList match {
                 case Nil => ()
                 case h :: t => h match {
-                    case (e: Node, i: Int) =>
+                    case (node: Node, i: Int) =>
                         val row: Int = i / 8
-                        val col: Int = i % 8
-                        this.add(e, col, row)
+                        val colum: Int = i % 8
+                        this.add(node, colum, row)
                         addAllToGrid(t)
                     case _ => addAllToGrid(t)
                 }
@@ -165,28 +165,27 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
         }
         children = Seq()
         addAllToGrid(new_children.zipWithIndex)
-        val lcol3 = color_pallets(controller.current_theme)._1
-        this.style = s"-fx-background-color:$lcol3"
+        val backgroundColor = color_pallets(controller.current_theme)._1
+        this.style = s"-fx-background-color:$backgroundColor"
     }
 
     //gridBoard.setPrefSize(screenBounds.getHeight, screenBounds.getHeight)
     for (row <- 0 until 8)
     {
-        val rc = new RowConstraints();
-        rc.setVgrow(Always); // allow row to grow
-        rc.setFillHeight(true); // ask nodes to fill height for row
+        val rowConstraints = new RowConstraints();
+        rowConstraints.setVgrow(Always); // allow row to grow
+        rowConstraints.setFillHeight(true); // ask nodes to fill height for row
         // other settings as needed...
-        this.getRowConstraints().add(rc);
+        this.getRowConstraints().add(rowConstraints);
     }
     for (col <- 0 until 8) {
-        val cc = new ColumnConstraints();
-        cc.setHgrow(Always); // allow column to grow
-        cc.setFillWidth(true); // ask nodes to fill space for column
+        val columnConstraints = new ColumnConstraints();
+        columnConstraints.setHgrow(Always); // allow column to grow
+        columnConstraints.setFillWidth(true); // ask nodes to fill space for column
         // other settings as needed...
-        this.getColumnConstraints().add(cc)
+        this.getColumnConstraints().add(columnConstraints)
     }
-    this.setPrefSize(vh * 0.9, vh)
-    val marginScreenHeight = vh *0.05
+    this.setPrefSize(varHeight * 0.9, varHeight)
+    val marginScreenHeight = varHeight *0.05
     BorderPane.setMargin(this, Insets(marginScreenHeight, marginScreenHeight * 3, marginScreenHeight, marginScreenHeight * 3))
-    
 }

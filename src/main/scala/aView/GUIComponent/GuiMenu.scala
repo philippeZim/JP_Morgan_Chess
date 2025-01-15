@@ -30,11 +30,10 @@ class GuiMenu(option_controller: Option[ControllerTrait]) extends VBox{
         prefWidth = vh * 0.1
         prefHeight = vh * 0.05
         style = "-fx-font-size: 16px; -fx-font-family: 'Roboto'; -fx-text-fill: black; -fx-font-weight: bold; -fx-background-color: #F5F5DC;"
-        // Custom font and text color
         background = new Background(
-            Array(new BackgroundFill(Color.White, new CornerRadii(10), Insets.Empty)) // White background with rounded corners
+            Array(new BackgroundFill(Color.White, new CornerRadii(10), Insets.Empty)) 
         )
-        effect = new DropShadow { // Add a subtle shadow
+        effect = new DropShadow { 
             color = Color.Gray
             radius = 5
             spread = 0.2
@@ -46,11 +45,10 @@ class GuiMenu(option_controller: Option[ControllerTrait]) extends VBox{
         prefWidth = vh * 0.1
         prefHeight = vh * 0.05
         style = "-fx-font-size: 16px; -fx-font-family: 'Roboto'; -fx-text-fill: black; -fx-font-weight: bold; -fx-background-color: #F5F5DC;"
-        // Custom font and text color
         background = new Background(
-            Array(new BackgroundFill(Color.White, new CornerRadii(10), Insets.Empty)) // White background with rounded corners
+            Array(new BackgroundFill(Color.White, new CornerRadii(10), Insets.Empty))
         )
-        effect = new DropShadow { // Add a subtle shadow
+        effect = new DropShadow {
             color = Color.Gray
             radius = 5
             spread = 0.2
@@ -63,11 +61,10 @@ class GuiMenu(option_controller: Option[ControllerTrait]) extends VBox{
         prefWidth = vh * 0.1
         prefHeight = vh * 0.05
         style = "-fx-font-size: 16px; -fx-font-family: 'Roboto'; -fx-text-fill: black; -fx-font-weight: bold; -fx-background-color: #F5F5DC;"
-        // Custom font and text color
         background = new Background(
-            Array(new BackgroundFill(Color.White, new CornerRadii(10), Insets.Empty)) // White background with rounded corners
+            Array(new BackgroundFill(Color.White, new CornerRadii(10), Insets.Empty))
         )
-        effect = new DropShadow { // Add a subtle shadow
+        effect = new DropShadow {
             color = Color.Gray
             radius = 5
             spread = 0.2

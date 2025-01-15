@@ -9,26 +9,26 @@ import scala.annotation.tailrec
 
 object ChessBoard {
 
-    def splitLine(): String = {
-        "    " + "+-----" * 8 + "+\n"
-    }
-
-    def pieceLine(line: Vector[Piece], columnNumber: String): String = {
-        s"$columnNumber   |" + line.map(el => s"  ${el.toString()}  |").mkString("") + "\n";
-    }
-
     def getBoardString(board: Vector[Piece]): String = {
-        @tailrec def sub(ind: Int, acc: String): String = {
-            ind match {
+        @tailrec def buildBoard(index: Int, accumulator: String): String = {
+            index match {
                 case 8 => {
                     val letters = "abcdefgh";
-                    return acc + splitLine() + "       " + letters.map(el => s"$el     ").mkString("");
+                    accumulator + splitLine() + "       " + letters.map(element => s"$element     ").mkString("");
                 }
-                case _ => sub(ind + 1, acc + splitLine() + pieceLine(board.slice(ind * 8, ind * 8 + 8), s"${8 - ind}"));
+                case _ => buildBoard(index + 1, accumulator + splitLine() + pieceLine(board.slice(index * 8, index * 8 + 8), s"${8 - index}"));
             }
         }
 
-        sub(0, "")
+        def splitLine(): String = {
+            "    " + "+-----" * 8 + "+\n"
+        }
+
+        def pieceLine(line: Vector[Piece], columnNumber: String): String = {
+            s"$columnNumber   |" + line.map(el => s"  ${el.toString()}  |").mkString("") + "\n";
+        }
+
+        buildBoard(0, "")
 
     }
 
@@ -40,24 +40,24 @@ object ChessBoard {
     def boardToFen(board: Vector[Piece]): String = {
 
         @tailrec
-        def sub2(fen: List[String], acc: List[String], empty: Int): String = {
+        def pieceToStringTransformer(fen: List[String], accumulator: List[String], stringPosition: Int): String = {
             fen match {
                 case Nil => {
-                    if (empty == 0) {
-                        acc.mkString
+                    if (stringPosition == 0) {
+                        accumulator.mkString
                     } else {
-                        (empty.toString::acc).mkString
+                        (stringPosition.toString::accumulator).mkString
                     }
 
                 }
                 case h :: t => {
                     h match {
-                        case "." => sub2(t, acc, empty + 1);
-                        case el => {
-                            if (empty == 0) {
-                                sub2(t, el::acc, empty)
+                        case "." => pieceToStringTransformer(t, accumulator, stringPosition + 1);
+                        case element => {
+                            if (stringPosition == 0) {
+                                pieceToStringTransformer(t, element::accumulator, stringPosition)
                             } else {
-                                sub2(t, el::empty.toString::acc, 0)
+                                pieceToStringTransformer(t, element::stringPosition.toString::accumulator, 0)
                             }
                         }
                     }
@@ -66,58 +66,58 @@ object ChessBoard {
         }
 
         @tailrec
-        def sub1(acc: List[String], size: Int, pieces: List[Piece]): List[String] = {
+        def rowdivider(accumulator: List[String], size: Int, pieces: List[Piece]): List[String] = {
             pieces match {
-                case Nil => acc
+                case Nil => accumulator
                 case h :: t => {
                     if ((size + 1) % 8 == 0 && size != 63) {
-                        sub1("/"::h.toString()::acc, size+1, t)
+                        rowdivider("/"::h.toString()::accumulator, size+1, t)
                     } else {
-                        sub1(h.toString()::acc, size+1, t)
+                        rowdivider(h.toString()::accumulator, size+1, t)
                     }
                 }
             }
         }
-        sub2(sub1(List(), 0, board.toList), List(), 0);
+        pieceToStringTransformer(rowdivider(List(), 0, board.toList), List(), 0);
     }
 
     def fenToBoard(fen: String): Vector[Piece] = {
-        @tailrec def sub2(acc: List[Piece], n: Int): List[Piece] = {
-            n match {
-                case el if el > 0 => sub2(Piece(PieceType.EMPTY, Color.EMPTY) :: acc, n - 1)
-                case _ => acc
+        @tailrec def emptySpaceAdder(accumulator: List[Piece], spaces: Int): List[Piece] = {
+            spaces match {
+                case el if el > 0 => emptySpaceAdder(Piece(PieceType.EMPTY, Color.EMPTY) :: accumulator, spaces - 1)
+                case _ => accumulator
             }
         }
 
-        @tailrec def sub(fen: List[Char], acc: List[Piece]): List[Piece] = {
+        @tailrec def pieceAdder(fen: List[Char], accumulator: List[Piece]): List[Piece] = {
             fen match {
-                case Nil => acc
+                case Nil => accumulator
                 case h :: t => {
                     h match {
-                        case '/' => sub(t, acc)
-                        case 'p' => sub(t, Piece(PieceType.PAWN, Color.BLACK) :: acc)
-                        case 'r' => sub(t, Piece(PieceType.ROOK, Color.BLACK) :: acc)
-                        case 'n' => sub(t, Piece(PieceType.KNIGHT, Color.BLACK) :: acc)
-                        case 'b' => sub(t, Piece(PieceType.BISHOP, Color.BLACK) :: acc)
-                        case 'q' => sub(t, Piece(PieceType.QUEEN, Color.BLACK) :: acc)
-                        case 'k' => sub(t, Piece(PieceType.KING, Color.BLACK) :: acc)
-                        case 'P' => sub(t, Piece(PieceType.PAWN, Color.WHITE) :: acc)
-                        case 'R' => sub(t, Piece(PieceType.ROOK, Color.WHITE) :: acc)
-                        case 'N' => sub(t, Piece(PieceType.KNIGHT, Color.WHITE) :: acc)
-                        case 'B' => sub(t, Piece(PieceType.BISHOP, Color.WHITE) :: acc)
-                        case 'Q' => sub(t, Piece(PieceType.QUEEN, Color.WHITE) :: acc)
-                        case 'K' => sub(t, Piece(PieceType.KING, Color.WHITE) :: acc)
-                        case el: Char if el.isDigit => sub(t, sub2(acc, el.toInt - 48))
+                        case '/' => pieceAdder(t, accumulator)
+                        case 'p' => pieceAdder(t, Piece(PieceType.PAWN, Color.BLACK) :: accumulator)
+                        case 'r' => pieceAdder(t, Piece(PieceType.ROOK, Color.BLACK) :: accumulator)
+                        case 'n' => pieceAdder(t, Piece(PieceType.KNIGHT, Color.BLACK) :: accumulator)
+                        case 'b' => pieceAdder(t, Piece(PieceType.BISHOP, Color.BLACK) :: accumulator)
+                        case 'q' => pieceAdder(t, Piece(PieceType.QUEEN, Color.BLACK) :: accumulator)
+                        case 'k' => pieceAdder(t, Piece(PieceType.KING, Color.BLACK) :: accumulator)
+                        case 'P' => pieceAdder(t, Piece(PieceType.PAWN, Color.WHITE) :: accumulator)
+                        case 'R' => pieceAdder(t, Piece(PieceType.ROOK, Color.WHITE) :: accumulator)
+                        case 'N' => pieceAdder(t, Piece(PieceType.KNIGHT, Color.WHITE) :: accumulator)
+                        case 'B' => pieceAdder(t, Piece(PieceType.BISHOP, Color.WHITE) :: accumulator)
+                        case 'Q' => pieceAdder(t, Piece(PieceType.QUEEN, Color.WHITE) :: accumulator)
+                        case 'K' => pieceAdder(t, Piece(PieceType.KING, Color.WHITE) :: accumulator)
+                        case element: Char if element.isDigit => pieceAdder(t, emptySpaceAdder(accumulator, element.toInt - 48))
                     }
                 }
             }
         }
 
-        sub(fen.split(" ")(0).toList, List()).reverse.toVector
+        pieceAdder(fen.split(" ")(0).toList, List()).reverse.toVector
     }
 
-    def coordinatesToIndex(coord: String): Int = {
-        (coord.charAt(0).toInt - 97) + 8 * (8 - (coord.charAt(1).toInt - 48));
+    def coordinatesToIndex(coordinates: String): Int = {
+        (coordinates.charAt(0).toInt - 97) + 8 * (8 - (coordinates.charAt(1).toInt - 48));
     }
 
     def indexToCoordinates(index: Int): String = {
@@ -234,9 +234,9 @@ object ChessBoard {
     }
     
     def canPromote(fen: String): Int = {
-        val bf = fen.split(" ")(0);
-        val first_row = bf.split("/")(0);
-        val last_row = bf.split("/")(7);
+        val boardFen = fen.split(" ")(0);
+        val first_row = boardFen.split("/")(0);
+        val last_row = boardFen.split("/")(7);
         if (first_row.contains("P")) {
             return first_row.indexOf('P');
         }

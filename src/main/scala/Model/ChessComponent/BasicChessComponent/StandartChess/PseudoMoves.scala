@@ -23,7 +23,6 @@ object PseudoMoves {
     }
     
     def pseudoLegalMove(board: Vector[Piece], piecePosition: Int, rowDirection: Int, columdirection: Int, attackColor: Color): Boolean = {
-        //onBoard(piecePosition, rowDirection, columdirection) && (board(piecePosition + rowDirection * 8 + columdirection).color == Color.EMPTY || board(piecePosition + rowDirection * 8 + columdirection).color == attackColor)
         val handler = new OnBoardHandler(Some(new EmptySquareHandler(Some(new EnemySquareHandler(None)))))
         handler.handle(piecePosition, rowDirection, columdirection, board, attackColor)
     }
@@ -47,57 +46,40 @@ object PseudoMoves {
         }
         true
     }
-    
-    /*def piecePositions(board: Vector[Piece], piece: Piece): List[Int] = {
-        @tailrec def sub(board: List[Piece], accumulator: List[Int], index: Int): List[Int] = {
-            board match {
-                case Nil => accumulator
-                case h :: t => {
-                    if (h == piece) {
-                        sub(t, index :: accumulator, index + 1);
-                    } else {
-                        sub(t, accumulator, index + 1);
-                    }
-                }
-            }
-        }
-
-        sub(board.toList, List(), 0);
-    } */
         
     def piecesPositions(board: Vector[Piece], pieces: List[Piece]): List[Int] = {
 
-        @tailrec def sub(board: List[Piece], acc: List[Int], ind: Int): List[Int] = {
+        @tailrec def pieceChecker(board: List[Piece], accumulator: List[Int], index: Int): List[Int] = {
             board match {
-                case Nil => acc
+                case Nil => accumulator
                 case h :: t => {
                     if (pieces.contains(h)) {
-                        sub(t, ind :: acc, ind + 1);
+                        pieceChecker(t, index :: accumulator, index + 1);
                     } else {
-                        sub(t, acc, ind + 1);
+                        pieceChecker(t, accumulator, index + 1);
                     }
                 }
             }
         }
 
-        sub(board.toList, List(), 0);
+        pieceChecker(board.toList, List(), 0);
     }
 
     def piecePositions(board: Vector[Piece], piece: Piece): List[Int] = {
-        val bm = BoardMonad(board)
+        val boardMonad = BoardMonad(board)
         var index = -1
-        val bm_index = bm.map(e =>
+        val index_boardMonad = boardMonad.map(e =>
             index += 1
             (e, index)
         )
-        val correct_pieces_with_index = bm_index.filter(
-            (e, i) => e match {
+        val correct_pieces_with_index = index_boardMonad.filter(
+            (currentPiece, i) => currentPiece match {
                 case None => false
                 case Some(a) if a.pieceType == piece.pieceType && a.color == piece.color => true
                 case _ => false
             }
         )
-        correct_pieces_with_index.map((e, i) => i).toList
+        correct_pieces_with_index.map((piece, i) => i).toList
     }
     
     @tailrec def checkPawnMoves(board: Vector[Piece], pawnPostion: Int, moves: List[(Int, Int)], attacks: List[(Int, Int)], accumulator: List[(Int, Int)], attackColor: Color): List[(Int, Int)] = {
@@ -128,20 +110,19 @@ object PseudoMoves {
     def checkEnPassant(board: Vector[Piece], enPassantPosition: Int, attackColorNumber: Int, moveColor: Color): List[(Int, Int)] = {
         val toCheck = List((attackColorNumber * -1, attackColorNumber * -1), (attackColorNumber * -1, attackColorNumber))
 
-        @tailrec def sub1(li: List[(Int, Int)], acc: List[(Int, Int)]): List[(Int, Int)] = {
-            li match {
-                case Nil => acc
-                case (rd, cd) :: t => {
-                    if (onBoard(enPassantPosition, rd, cd) && board(enPassantPosition + 8 * rd + cd) == Piece(PieceType.PAWN, moveColor)) {
-                        sub1(t, (enPassantPosition + 8 * rd + cd, enPassantPosition) :: acc)
+        @tailrec def checkTakingPossibility(movelist: List[(Int, Int)], accumulator: List[(Int, Int)]): List[(Int, Int)] = {
+            movelist match {
+                case Nil => accumulator
+                case (rowdirection, columdirection) :: t => {
+                    if (onBoard(enPassantPosition, rowdirection, columdirection) && board(enPassantPosition + 8 * rowdirection + columdirection) == Piece(PieceType.PAWN, moveColor)) {
+                        checkTakingPossibility(t, (enPassantPosition + 8 * rowdirection + columdirection, enPassantPosition) :: accumulator)
                     } else {
-                        sub1(t, acc)
+                        checkTakingPossibility(t, accumulator)
                     }
                 }
             }
         }
-
-        sub1(toCheck, List());
+        checkTakingPossibility(toCheck, List());
     }
 
     def pseudoPawnMoves(fen: String): List[(Int, Int)] = {
@@ -156,24 +137,23 @@ object PseudoMoves {
 
         val piecePos = piecePositions(board, Piece(PieceType.PAWN, moveColor));
 
-        @tailrec def sub1(acc: List[(Int, Int)], piecePos: List[Int]): List[(Int, Int)] = {
+        @tailrec def checkPawnMove(acc: List[(Int, Int)], piecePos: List[Int]): List[(Int, Int)] = {
             piecePos match {
                 case Nil => acc
                 case h :: t => {
                     if ((h > 7 && h < 16 && attackColorNum == 1) || (h > 47 && h < 56 && attackColorNum == -1)) {
-                        sub1(checkPawnMoves(board, h, straightMovesBase, attackMoves, acc, attackColor), t)
+                        checkPawnMove(checkPawnMoves(board, h, straightMovesBase, attackMoves, acc, attackColor), t)
                     } else {
-                        sub1(checkPawnMoves(board, h, straightMoves, attackMoves, acc, attackColor), t)
+                        checkPawnMove(checkPawnMoves(board, h, straightMoves, attackMoves, acc, attackColor), t)
                     }
-
                 }
             }
         }
 
         if (fenSplit(3) != "-") {
-            sub1(checkEnPassant(board, ChessBoard.coordinatesToIndex(fenSplit(3)), attackColorNum, moveColor), piecePos);
+            checkPawnMove(checkEnPassant(board, ChessBoard.coordinatesToIndex(fenSplit(3)), attackColorNum, moveColor), piecePos);
         } else {
-            sub1(List(), piecePos);
+            checkPawnMove(List(), piecePos);
         }
 
     }
@@ -203,15 +183,15 @@ object PseudoMoves {
         val piecePos = piecePositions(board, Piece(PieceType.KNIGHT, moveColor));
 
 
-        @tailrec def sub1(accumulator: List[(Int, Int)], piecePosition: List[Int]): List[(Int, Int)] = {
+        @tailrec def checkKnighMove(accumulator: List[(Int, Int)], piecePosition: List[Int]): List[(Int, Int)] = {
             piecePosition match {
                 case Nil => accumulator
                 case h :: t => {
-                    sub1(checkMoves(board, h, moves, accumulator, attackColor), t)
+                    checkKnighMove(checkMoves(board, h, moves, accumulator, attackColor), t)
                 }
             }
         }
-        sub1(result, piecePos);
+        checkKnighMove(result, piecePos);
     }
     
     def pseudoKingMoves(result: List[(Int, Int)], fen: String): List[(Int, Int)] = {
@@ -225,11 +205,11 @@ object PseudoMoves {
         val currentPiecePositions = piecePositions(board, Piece(PieceType.KING, moveColor));
 
 
-        @tailrec def sub1(accumulator: List[(Int, Int)], piecePosistions: List[Int]): List[(Int, Int)] = {
+        @tailrec def checkKingMove(accumulator: List[(Int, Int)], piecePosistions: List[Int]): List[(Int, Int)] = {
             piecePosistions match {
                 case Nil => accumulator
                 case h :: t => {
-                    sub1(checkMoves(board, h, moves, accumulator, attackColor), t)
+                    checkKingMove(checkMoves(board, h, moves, accumulator, attackColor), t)
                 }
             }
         }
@@ -252,17 +232,17 @@ object PseudoMoves {
         }
 
         @tailrec
-        def sub2(acc: List[(Int, Int)], fenCastle: List[Char]): List[(Int, Int)] = {
+        def checkCastleMove(accumulator: List[(Int, Int)], fenCastle: List[Char]): List[(Int, Int)] = {
             fenCastle match {
-                case Nil => acc;
+                case Nil => accumulator;
                 case h :: t => {
                     h match {
-                        case '-' => acc
+                        case '-' => accumulator
                         case castleType => {
                             if (((moveColor == WHITE && castleType.isUpper) || (moveColor == Color.BLACK && castleType.isLower)) && emptyForKastle(castleType)) {
-                                sub2(mapKastleToMove(castleType)::acc, t);
+                                checkCastleMove(mapKastleToMove(castleType)::accumulator, t);
                             } else {
-                                sub2(acc, t);
+                                checkCastleMove(accumulator, t);
                             }
                         }
                     }
@@ -272,12 +252,12 @@ object PseudoMoves {
 
 
 
-        sub1(sub2(result, fenSplit(2).toList), currentPiecePositions);
+        checkKingMove(checkCastleMove(result, fenSplit(2).toList), currentPiecePositions);
     }
 
 
 
-    def pseudoHorizontalMoves(res: List[(Int, Int)], fen: String): List[(Int, Int)] = {
+    def pseudoHorizontalMoves(resultAccumulator: List[(Int, Int)], fen: String): List[(Int, Int)] = {
         val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;
 
@@ -288,38 +268,38 @@ object PseudoMoves {
         val piecePos = piecesPositions(board, List(Piece(PieceType.ROOK, moveColor), Piece(PieceType.QUEEN, moveColor)));
 
         @tailrec
-        def sub2(acc: List[(Int, Int)], piecePos: Int, startingPosition: Int, moveDir: (Int, Int)): List[(Int, Int)] = {
+        def checkMoveInDirection(accumulator: List[(Int, Int)], piecePos: Int, startingPosition: Int, moveDir: (Int, Int)): List[(Int, Int)] = {
             val (rowDirection, columDirection) = moveDir
             if (!PseudoMoves.onBoard(piecePos, rowDirection, columDirection)) {
-                return acc
+                return accumulator
             }
             board(piecePos + 8 * rowDirection + columDirection) match {
-                case Piece(_, `attackColor`) => (startingPosition, piecePos + 8* rowDirection + columDirection) :: acc
-                case Piece(PieceType.EMPTY, Color.EMPTY) => sub2((startingPosition, piecePos + 8* rowDirection + columDirection) :: acc, piecePos + 8* rowDirection + columDirection, startingPosition, moveDir);
-                case _ => acc;
+                case Piece(_, `attackColor`) => (startingPosition, piecePos + 8* rowDirection + columDirection) :: accumulator
+                case Piece(PieceType.EMPTY, Color.EMPTY) => checkMoveInDirection((startingPosition, piecePos + 8* rowDirection + columDirection) :: accumulator, piecePos + 8* rowDirection + columDirection, startingPosition, moveDir);
+                case _ => accumulator;
             }
         }
 
         @tailrec
-        def sub1(acc: List[(Int, Int)], piecePos: Int, moveDirections: List[(Int, Int)]): List[(Int, Int)] = {
+        def checkDirection(accumulator: List[(Int, Int)], piecePos: Int, moveDirections: List[(Int, Int)]): List[(Int, Int)] = {
             moveDirections match {
-                case Nil => acc;
-                case h :: t => sub1(sub2(acc, piecePos, piecePos, h), piecePos, t);
+                case Nil => accumulator;
+                case h :: t => checkDirection(checkMoveInDirection(accumulator, piecePos, piecePos, h), piecePos, t);
             }
         }
 
-        @tailrec def rookAndQueenMovesRecursive(acc: List[(Int, Int)], piecePos: List[Int]): List[(Int, Int)] = {
+        @tailrec def rookAndQueenMovesRecursive(accumulator: List[(Int, Int)], piecePos: List[Int]): List[(Int, Int)] = {
             piecePos match {
-                case Nil => acc
+                case Nil => accumulator
                 case h :: t => {
-                    rookAndQueenMovesRecursive(sub1(acc, h, directions), t);
+                    rookAndQueenMovesRecursive(checkDirection(accumulator, h, directions), t);
                 }
             }
         }
-        rookAndQueenMovesRecursive(res, piecePos);
+        rookAndQueenMovesRecursive(resultAccumulator, piecePos);
     }
 
-    def pseudoVerticalMoves(res: List[(Int, Int)], fen: String): List[(Int, Int)] = {
+    def pseudoVerticalMoves(resultAccumulator: List[(Int, Int)], fen: String): List[(Int, Int)] = {
         val board: Vector[Piece] = ChessBoard.fenToBoard(fen)
         val fenSplit: List[String] = fen.split(" ").toList;
 
@@ -330,7 +310,7 @@ object PseudoMoves {
         val piecePos = piecesPositions(board, List(Piece(PieceType.BISHOP, moveColor), Piece(PieceType.QUEEN, moveColor)));
 
         @tailrec
-        def sub2(acc: List[(Int, Int)], piecePos: Int, startingPosition: Int, moveDir: (Int, Int)): List[(Int, Int)] = {
+        def checkMoveInDirection(acc: List[(Int, Int)], piecePos: Int, startingPosition: Int, moveDir: (Int, Int)): List[(Int, Int)] = {
             val (rowDirection, columDirection) = moveDir
             if (!PseudoMoves.onBoard(piecePos, rowDirection, columDirection)) {
                 return acc
@@ -338,35 +318,29 @@ object PseudoMoves {
 
             board(piecePos + 8 * rowDirection + columDirection) match {
                 case Piece(_, `attackColor`) => (startingPosition, piecePos + 8 * rowDirection + columDirection) :: acc
-                case Piece(PieceType.EMPTY, Color.EMPTY) => sub2((startingPosition, piecePos + 8 * rowDirection + columDirection) :: acc, piecePos + 8 * rowDirection + columDirection, startingPosition, moveDir);
+                case Piece(PieceType.EMPTY, Color.EMPTY) => checkMoveInDirection((startingPosition, piecePos + 8 * rowDirection + columDirection) :: acc, piecePos + 8 * rowDirection + columDirection, startingPosition, moveDir);
                 case _ => acc;
             }
         }
 
         @tailrec
-        def sub1(acc: List[(Int, Int)], piecePos: Int, moveDirections: List[(Int, Int)]): List[(Int, Int)] = {
+        def checkDirection(accumulator: List[(Int, Int)], piecePos: Int, moveDirections: List[(Int, Int)]): List[(Int, Int)] = {
             moveDirections match {
-                case Nil => acc;
-                case h :: t => sub1(sub2(acc, piecePos, piecePos, h), piecePos, t);
+                case Nil => accumulator;
+                case h :: t => checkDirection(checkMoveInDirection(accumulator, piecePos, piecePos, h), piecePos, t);
             }
 
         }
 
-        @tailrec def verticalMovesRecursive(acc: List[(Int, Int)], piecePos: List[Int]): List[(Int, Int)] = {
+        @tailrec def verticalMovesRecursive(accumulator: List[(Int, Int)], piecePos: List[Int]): List[(Int, Int)] = {
             piecePos match {
-                case Nil => acc
+                case Nil => accumulator
                 case h :: t => {
-                    verticalMovesRecursive(sub1(acc, h, directions), t);
+                    verticalMovesRecursive(checkDirection(accumulator, h, directions), t);
                 }
             }
         }
 
-        verticalMovesRecursive(res, piecePos);
+        verticalMovesRecursive(resultAccumulator, piecePos);
     }
-
-   /* def getAllPseudoLegalMoves(fen: String): List[(Int, Int)] = {
-        pseudoVerticalMoves(pseudoHorizontalMoves(pseudoKingMoves(pseudoKnightMoves(pseudoPawnMoves(fen), fen), fen), fen), fen);
-    }*/
-
-
 }
