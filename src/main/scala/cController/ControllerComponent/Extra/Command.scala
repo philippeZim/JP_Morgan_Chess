@@ -1,4 +1,6 @@
-package cController.ControllerComponent.RealChessController
+package cController.ControllerComponent.Extra
+
+import cController.ControllerComponent.ControllerTrait
 
 import cController.ControllerComponent.ControllerTrait
 

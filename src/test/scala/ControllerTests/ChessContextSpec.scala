@@ -1,10 +1,10 @@
 package ControllerTests
 
-import Model.ChessComponent.BasicChess.StandartChess.{ChessBoard, PseudoMoves}
+import Model.ChessComponent.BasicChessComponent.StandartChess.{ChessBoard, PseudoMoves}
 import Model.ChessComponent.RealChess.LegalMoves
 import util.Observer
 import aView.TUIComponent.Tui
-import cController.ControllerComponent.RealChessController.{ChessContext, Event, State}
+import cController.ControllerComponent.Extra.{ChessContext, Event, State}
 
 import scala.language.reflectiveCalls
 import org.scalatest.matchers.should.Matchers

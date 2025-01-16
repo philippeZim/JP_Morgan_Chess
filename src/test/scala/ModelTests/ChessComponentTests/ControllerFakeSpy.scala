@@ -2,37 +2,35 @@ package ModelTests.ChessComponentTests
 
 import Model.ChessComponent.RealChess.RealChessFacade
 import cController.ControllerComponent.ControllerTrait
-import cController.ControllerComponent.RealChessController.{ChessContext, UndoInvoker}
+import cController.ControllerComponent.Extra.UndoInvoker
 import util.Observable
 
 class ControllerFakeSpy(var fen : String) extends Observable with ControllerTrait {
     var activeSquare : Int = -5;
-    var invoker = new InvokerDummy
     var counter : Int = 0;
-    val chessFacade = new RealChessFacade()
+    val chessRules = new RealChessFacade
 
     def play(move : (Int, Int)) : Unit = {
-        
-        val legalMoves = chessFacade.getAllLegalMoves(fen);
+        val legalMoves = chessRules.getAllLegalMoves(fen);
             if (!legalMoves.contains(move)) {
                 counter += 1
             } else {
-                fen = chessFacade.makeMove(fen, move)
-                if (chessFacade.canPromote(fen) != -1) {
+                fen = chessRules.makeMove(fen, move)
+                if (chessRules.canPromote(fen) != -1) {
                     promotePawn("Q")
                 }
             }
     }
 
     def promotePawn(pieceKind: String): Unit = {
-        fen = chessFacade.promote(pieceKind, fen, chessFacade.canPromote(fen));
+        fen = chessRules.promote(pieceKind, fen, chessRules.canPromote(fen));
     }
 
     def squareClicked(clickedSquare: Int): Unit = {
-        if (chessFacade.isColorPiece(fen, clickedSquare)) {
+        if (chessRules.isColorPiece(fen, clickedSquare)) {
             activeSquare = clickedSquare
-        } else if (!chessFacade.isColorPiece(fen, clickedSquare) && activeSquare != -5) {
-            play(chessFacade.translateCastle(chessFacade.fenToBoard(fen), (activeSquare, clickedSquare)))
+        } else if (!chessRules.isColorPiece(fen, clickedSquare) && activeSquare != -5) {
+            play(chessRules.translateCastle(chessRules.fenToBoard(fen), (activeSquare, clickedSquare)))
             activeSquare = -5
         }
     }
@@ -50,7 +48,7 @@ class ControllerFakeSpy(var fen : String) extends Observable with ControllerTrai
 
     def redo(): Unit = ???
 
-    def context: ChessContext = ???
-
-    def context_=(value: ChessContext): Unit = ???
+    def context: cController. ControllerComponent. Extra. ChessContext = ???
+    
+    def context_=(value: cController. ControllerComponent. Extra. ChessContext): Unit = ???
 }

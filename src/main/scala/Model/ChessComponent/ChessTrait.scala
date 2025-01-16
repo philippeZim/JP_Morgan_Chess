@@ -1,7 +1,7 @@
 package Model.ChessComponent
 
-import Model.ChessComponent.BasicChess.StandartChess.Piece
-import cController.ControllerComponent.RealChessController.Event
+import Model.ChessComponent.BasicChessComponent.StandartChess.Piece
+import cController.ControllerComponent.Extra.Event
 
 trait ChessTrait {
     def getBoardString(board : Vector[Piece]) : String
@@ -21,4 +21,12 @@ trait ChessTrait {
     def translateCastle(board: Vector[Piece], move: (Int, Int)): (Int, Int)
     
     def isRemis(fen: String, legalMoves: List[(Int, Int)]) : Boolean
+
+    def getBestMove(fen: String, depth: Int): String
+
+    def getDefaultFen() : String
+
+    def translateMoveStringToInt(fen: String, move: String): (Int, Int)
+
+    def getDefaultBoard(): Vector[Piece]
 }

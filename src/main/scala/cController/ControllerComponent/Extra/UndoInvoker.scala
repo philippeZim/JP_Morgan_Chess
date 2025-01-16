@@ -1,4 +1,4 @@
-package cController.ControllerComponent.RealChessController
+package cController.ControllerComponent.Extra
 
 object UndoInvoker {
     private var undoStack: List[Command]= Nil

@@ -1,6 +1,6 @@
-package Model.ChessComponent.BasicChess.StandartChess
+package Model.ChessComponent.BasicChessComponent.StandartChess
 
-import Model.ChessComponent.BasicChess.BasicChessTrait
+import Model.ChessComponent.BasicChessComponent.BasicChessTrait
 
 object BasicChessFacade extends BasicChessTrait {
     def getBoardString(board: Vector[Piece]): String = {
@@ -57,5 +57,17 @@ object BasicChessFacade extends BasicChessTrait {
 
     def isDifferentColorPiece(fen: String, position: Int): Boolean = {
         ChessBoard.isDifferentColorPiece(fen, position)
+    }
+
+    def translateMoveStringToInt(fen: String, move: String): (Int, Int) = {
+        ChessBoard.translateMoveStringToInt(fen, move)
+    }
+
+    def getDefaultFen(): String = {
+        ChessBoard.boardToFen(ChessBoard.getDefaultBoard())
+    }
+
+    def getDefaultBoard(): Vector[Piece] = {
+        ChessBoard.getDefaultBoard()
     }
 }

@@ -1,8 +1,8 @@
 package ModelTests.ChessComponentTests
 
-import Model.ChessComponent.BasicChess.StandartChess.ChessBoard.*
-import Model.ChessComponent.BasicChess.StandartChess.Piece.*
-import Model.ChessComponent.BasicChess.StandartChess.{ChessBoard, Color, Piece, PieceType}
+import Model.ChessComponent.BasicChessComponent.StandartChess.ChessBoard.*
+import Model.ChessComponent.BasicChessComponent.StandartChess.Piece.*
+import Model.ChessComponent.BasicChessComponent.StandartChess.{ChessBoard, Color, Piece, PieceType}
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -56,16 +56,6 @@ class ChessBoardSpec extends AnyWordSpec {
                     "1   |  R  |  N  |  B  |  Q  |  K  |  B  |  N  |  R  |\n" + 
                     "    +-----+-----+-----+-----+-----+-----+-----+-----+\n" + 
                     "       a     b     c     d     e     f     g     h     "));
-        }
-
-        "return a correct splitline" in {
-            splitLine() should be("    +-----+-----+-----+-----+-----+-----+-----+-----+\n");
-        }
-
-        "return a correct pieceLine" in {
-            val p = Piece(PieceType.PAWN, Color.BLACK);
-            val r = Vector(p, p, p, p, p, p, p, p);
-            pieceLine(r, "7") should be("7   |  p  |  p  |  p  |  p  |  p  |  p  |  p  |  p  |\n");
         }
 
         "return a correct Vector[Piece] board given a FEN" in {

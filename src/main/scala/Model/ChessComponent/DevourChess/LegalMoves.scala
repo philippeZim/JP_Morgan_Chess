@@ -1,34 +1,34 @@
 package Model.ChessComponent.DevourChess
 
-import Model.ChessComponent.BasicChess.StandartChess.BasicChessFacade
+import Model.ChessComponent.BasicChessComponent.StandartChess.BasicChessFacade
 
 import scala.annotation.tailrec
 
 object LegalMoves {
     def getAllLegalMoves (fen : String) : List[(Int,Int)]= {
         @tailrec
-        def filterLegalWithoutTake(acc: List[(Int, Int)], pseudo: List[(Int, Int)]): List[(Int, Int)] = {
-            pseudo match {
-                case Nil => acc;
+        def filterLegalWithoutTake(accumulator: List[(Int, Int)], pseudoMoves: List[(Int, Int)]): List[(Int, Int)] = {
+            pseudoMoves match {
+                case Nil => accumulator;
                 case h :: t => {
                     if (isTakingMove(fen, h._2)) {
                         filterLegalWithTake(List(h), t);
                     } else {
-                        filterLegalWithoutTake(h :: acc, t);
+                        filterLegalWithoutTake(h :: accumulator, t);
                     }
                 }
             }
         }
 
         @tailrec
-        def filterLegalWithTake(acc: List[(Int, Int)], pseudo: List[(Int, Int)]): List[(Int, Int)] = {
-            pseudo match {
-                case Nil => acc;
+        def filterLegalWithTake(accumulator: List[(Int, Int)], pseudoMoves: List[(Int, Int)]): List[(Int, Int)] = {
+            pseudoMoves match {
+                case Nil => accumulator;
                 case h :: t => {
                     if (isTakingMove(fen, h._2)) {
-                        filterLegalWithTake(h :: acc, t);
+                        filterLegalWithTake(h :: accumulator, t);
                     } else {
-                        filterLegalWithTake(acc, t);
+                        filterLegalWithTake(accumulator, t);
                     }
                 }
             }

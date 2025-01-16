@@ -1,8 +1,8 @@
 package Model.ChessComponent.DevourChess
 
-import Model.ChessComponent.BasicChess.StandartChess.Color.{BLACK, WHITE}
-import Model.ChessComponent.BasicChess.StandartChess.PieceType.{KING, KNIGHT, PAWN, QUEEN, ROOK}
-import Model.ChessComponent.BasicChess.StandartChess.{BasicChessFacade, Color, Piece, PieceType}
+import Model.ChessComponent.BasicChessComponent.StandartChess.Color.{BLACK, WHITE}
+import Model.ChessComponent.BasicChessComponent.StandartChess.PieceType.{KING, KNIGHT, PAWN, QUEEN, ROOK}
+import Model.ChessComponent.BasicChessComponent.StandartChess.{BasicChessFacade, Color, Piece, PieceType}
 
 object Remis {
     //für den Fall, dass 2 pieces sich nicht gegenseitig schlagen können (also eig. nur bei 2 Läufern auf unterschiedlichen Farben
