@@ -1,11 +1,16 @@
 package cController.ControllerComponent
 
+import cController.ControllerComponent.RealChessController.ChessContext
 import util.{Observable, Observer}
 
 trait ControllerTrait extends Observable {
     def fen: String
 
     def fen_=(value: String): Unit
+
+    def context: ChessContext
+
+    def context_=(value: ChessContext): Unit
 
     def current_theme: Int
 

@@ -14,9 +14,12 @@ import scalafx.scene.text.Text
 import scalafx.scene.{Node, Scene}
 import util.Observer
 
-object GuiMain extends JFXApp3{
+object GuiMain extends JFXApp3 {
 
     var controller : Option[ControllerTrait] = None
+
+    
+    
     def start(): Unit = {
 
         stage = new JFXApp3.PrimaryStage {
@@ -32,8 +35,6 @@ object GuiMain extends JFXApp3{
                     right = new GuiMenu(controller)
                     style = "-fx-background-color: #F5F5DC;"
                     
-                    
-
                 }
             }
             fullScreen = true

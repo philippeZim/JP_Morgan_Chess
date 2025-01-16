@@ -1,11 +1,34 @@
+// 1. Define the dependency (Logger trait)
+trait Logger:
+    def log(message: String): Unit
+
+// 2. Implement the dependency (ConsoleLogger)
+class ConsoleLogger extends Logger:
+    def log(message: String): Unit = println(s"CONSOLE: $message")
 
 
+class DoubleConsoleLogger extends Logger:
+    def log(message: String): Unit = {
+        println(s"CONSOLE: $message")
+        println(s"CONSOLE: $message")
+    }
 
-// Example usage:
-val pathStock = "C:\\Users\\eronz\\IdeaProjects\\JP_Morgan_Chess\\src\\main\\resources\\stockfish\\stockfish-windows-x86-64-avx2.exe"
+// 3. Define a service that needs the dependency (UserService)
+class UserService:
+    def registerUser(name: String)(using logger: Logger): Unit =
+        logger.log(s"Registering user: $name\n")
+// ... actual user registration logic ...
 
-val s = new Stockfish(pathStock)
-val (process, out, in, err) = s.initConnection()
-val bestMove = s.getBestMove("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", out, in)
-println(s"Best move: $bestMove")
-s.closeConnection(process, out, in, err)
+
+// 4. Provide the dependency using `given`
+given logger1: Logger = new ConsoleLogger
+
+val userService = new UserService()
+userService.registerUser("Bob")
+/*
+given logger2: Logger = new DoubleConsoleLogger
+
+// 5. Use the service, and the dependency is automatically injected
+val userService2 = new UserService()
+userService2.registerUser("Alice")
+*/

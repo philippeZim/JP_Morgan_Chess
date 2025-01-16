@@ -4,7 +4,7 @@ import Model.ChessComponent.ChessTrait
 import cController.ControllerComponent.ControllerTrait
 import util.Observable
 
-class Controller(using val gameMode : ChessTrait, override var fen : String, var context : ChessContext, var output : String) extends Observable with ControllerTrait {
+class Controller(override var fen : String, var context : ChessContext, var output : String)(using val gameMode : ChessTrait) extends Observable with ControllerTrait {
     var activeSquare : Int = -5;
     var current_theme: Int = 0;
     

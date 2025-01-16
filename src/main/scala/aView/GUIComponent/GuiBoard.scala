@@ -36,7 +36,7 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
     override def specialCase: Unit = ()
     val controller : ControllerTrait = option_controller match {
         case Some(a) => a
-        case _ => new Controller(using summon[ChessTrait], "", new ChessContext(),"");
+        case _ => new Controller("", new ChessContext(),"");
     }
     controller.add(this)
     val screenBounds = Screen.getPrimary.getVisualBounds
@@ -141,7 +141,7 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
                         }
                         loopChildren(t, sp::acc)
                     }
-                    case _ => loopChildren(t, acc)
+                    case null => loopChildren(t, acc)
                 }
             }
         }
@@ -158,7 +158,7 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
                         val col: Int = i % 8
                         this.add(e, col, row)
                         addAllToGrid(t)
-                    case _ => addAllToGrid(t)
+                    case null => addAllToGrid(t)
                 }
             }
         }
@@ -185,7 +185,7 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
         this.getColumnConstraints().add(cc)
     }
     this.setPrefSize(vh * 0.9, vh)
-    val marginScreenHeight = vh *0.05
+    val marginScreenHeight = vh * 0.05
     BorderPane.setMargin(this, Insets(marginScreenHeight, marginScreenHeight * 3, marginScreenHeight, marginScreenHeight * 3))
-    
+
 }

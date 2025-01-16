@@ -1,10 +1,9 @@
 package ControllerTests
 
 import util.Observer
-import Controller.ControllerComponent
 import Model.ChessComponent.BasicChess.StandartChess.ChessBoard
-import _root_.Controller.ControllerComponent.RealChessController
-import Model.UndoRedoComponent.UndoRedoTrait
+import Model.ChessComponent.ChessTrait
+import Model.ChessComponent.RealChess.RealChessFacade
 import ModelTests.ChessComponentTests.ControllerFakeSpy
 import cController.ControllerComponent.RealChessController.{ChessContext, Controller, State}
 
@@ -13,10 +12,11 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 class ControllerSpec extends AnyWordSpec with Matchers {
-
+    given ChessTrait = RealChessFacade()
     "A Controller" should {
         "play a move" in {
-            val startingFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+
+            val startingFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
             val controller = new Controller(startingFen, new ChessContext(), "")
             class TestObserver(var updated : Boolean, var fen: String, controller: Controller, output : String) extends Observer {
                 controller.add(this)
