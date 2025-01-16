@@ -2,9 +2,11 @@ package cController.ControllerComponent.RealChessController
 
 import Model.ChessComponent.ChessTrait
 import cController.ControllerComponent.ControllerTrait
+import cController.ControllerComponent.Extra.{ChessContext, Event, SetCommand, State, UndoInvoker}
+import cController.ControllerComponent.StateComponent.ApiFileTrait
 import util.Observable
 
-class Controller(override var fen : String, var context : ChessContext, var output : String)(using val gameMode : ChessTrait) extends Observable with ControllerTrait {
+class Controller(override var fen : String, var context : ChessContext, var output : String)(using val gameMode : ChessTrait)(using val fileapi: ApiFileTrait) extends Observable with ControllerTrait {
     var activeSquare : Int = -5;
     var current_theme: Int = 0;
     

@@ -1,11 +1,11 @@
 package aView.GUIComponent
 
-import Model.ChessComponent.Default.given
-import Model.ChessComponent.BasicChess.StandartChess.{ChessBoard, Piece, PieceType}
+import Model.ChessComponent.BasicChessComponent.StandartChess.{ChessBoard, Piece}
 import Model.ChessComponent.ChessTrait
 import Model.ChessComponent.RealChess.RealChessFacade
 import cController.ControllerComponent.ControllerTrait
-import cController.ControllerComponent.RealChessController.{ChessContext, Controller}
+import cController.ControllerComponent.Extra.ChessContext
+import cController.ControllerComponent.RealChessController.Controller
 import javafx.stage.Screen
 import scalafx.application.JFXApp3
 import scalafx.event.ActionEvent
@@ -32,11 +32,11 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
     override def update: Unit = {
         updateGrid()
     }
-
+    given ChessTrait = RealChessFacade()
     override def specialCase: Unit = ()
     val controller : ControllerTrait = option_controller match {
         case Some(a) => a
-        case _ => new Controller("", new ChessContext(),"");
+        case _ => null
     }
     controller.add(this)
     val screenBounds = Screen.getPrimary.getVisualBounds
@@ -139,12 +139,13 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
 
 
                         }
-                        loopChildren(t, stack::accumulator)
+                        loopChildren(t, stack :: accumulator)
                     }
                     case _ => loopChildren(t, accumulator)
                 }
             }
         }
+
         val new_children = loopChildren(ChessBoard.fenToBoard(controller.fen).toList.reverse.zipWithIndex, List())
 
 
@@ -162,6 +163,7 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
                 }
             }
         }
+
         children = Seq()
         addAllToGrid(new_children.zipWithIndex)
         val backgroundColor = color_pallets(controller.current_theme)._1
@@ -185,6 +187,6 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
             this.getColumnConstraints().add(columnConstraints)
         }
         this.setPrefSize(varHeight * 0.9, varHeight)
-        val marginScreenHeight = varHeight *0.05
+        val marginScreenHeight = varHeight * 0.05
         BorderPane.setMargin(this, Insets(marginScreenHeight, marginScreenHeight * 3, marginScreenHeight, marginScreenHeight * 3))
 }

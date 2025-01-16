@@ -2,7 +2,6 @@ package aView.GUIComponent
 
 import aView.GUIComponent.{GuiBoard, GuiMenu}
 import cController.ControllerComponent.ControllerTrait
-import cController.ControllerComponent.DuoChessController.Controller
 import scalafx.application.JFXApp3
 import scalafx.geometry.Insets
 import scalafx.scene.effect.DropShadow

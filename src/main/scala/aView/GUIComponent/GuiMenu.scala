@@ -1,10 +1,10 @@
 package aView.GUIComponent
 
 import Model.ChessComponent.ChessTrait
-import Model.ChessComponent.Default.given
 import Model.ChessComponent.RealChess.RealChessFacade
 import cController.ControllerComponent.ControllerTrait
-import cController.ControllerComponent.RealChessController.{ChessContext, Controller, State}
+import cController.ControllerComponent.Extra.{ChessContext, State}
+import cController.ControllerComponent.RealChessController.Controller
 import javafx.stage.Screen
 import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.control.{Button, Label}
@@ -16,10 +16,10 @@ import scalafx.scene.text.Font
 import util.Observer
 
 class GuiMenu(option_controller: Option[ControllerTrait]) extends VBox, Observer {
-    given ChessTrait = RealChessFacade()
+    
     val controller: ControllerTrait = option_controller match {
         case Some(a) => a
-        case _ => new Controller("", new ChessContext(), "");
+        case _ => null
     }
 
     controller.add(this)

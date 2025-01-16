@@ -1,6 +1,5 @@
 package cController.ControllerComponent
-
-import cController.ControllerComponent.RealChessController.ChessContext
+import cController.ControllerComponent.Extra.ChessContext
 import util.{Observable, Observer}
 
 trait ControllerTrait extends Observable {
