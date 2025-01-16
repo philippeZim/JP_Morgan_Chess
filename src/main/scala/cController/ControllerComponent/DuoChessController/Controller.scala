@@ -13,7 +13,11 @@ class Controller(override var fen : String, var context : ChessContext, var outp
     def boardToString() : String = {gameMode.getBoardString(gameMode.fenToBoard(fen))}
 
     def createOutput() : String = {output}
-
+    
+    def resetBoard(): Unit = {
+        fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+        this.notifyObservers
+    }
     def play(move : (Int, Int)) : Unit = {
         val legalMoves = gameMode.getAllLegalMoves(fen);
         if (!legalMoves.contains(move)) {

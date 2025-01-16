@@ -12,6 +12,11 @@ class EngineController @Inject()(val gameMode : ChessTrait, var fen : String, va
 
     def boardToString() : String = {gameMode.getBoardString(gameMode.fenToBoard(fen))}
 
+    def resetBoard(): Unit = {
+        fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+        this.notifyObservers
+    }
+    
     def createOutput() : String = {output}
 
     def play(move : (Int, Int)) : Unit = {

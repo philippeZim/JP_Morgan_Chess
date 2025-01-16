@@ -1,11 +1,14 @@
 package ControllerTests
 
+import Model.ChessComponent.BasicChessComponent.StandartChess.ChessBoard
 import util.Observer
-import Model.ChessComponent.BasicChess.StandartChess.ChessBoard
 import Model.ChessComponent.ChessTrait
 import Model.ChessComponent.RealChess.RealChessFacade
 import ModelTests.ChessComponentTests.ControllerFakeSpy
-import cController.ControllerComponent.RealChessController.{ChessContext, Controller, State}
+import cController.ControllerComponent.Extra.{ChessContext, State}
+import cController.ControllerComponent.RealChessController.Controller
+import cController.ControllerComponent.StateComponent.ApiFileTrait
+import cController.ControllerComponent.StateComponent.xmlSolution.XMLApi
 
 import scala.language.reflectiveCalls
 import org.scalatest.matchers.should.Matchers
@@ -13,6 +16,7 @@ import org.scalatest.wordspec.AnyWordSpec
 
 class ControllerSpec extends AnyWordSpec with Matchers {
     given ChessTrait = RealChessFacade()
+    given ApiFileTrait = XMLApi()
     "A Controller" should {
         "play a move" in {
 

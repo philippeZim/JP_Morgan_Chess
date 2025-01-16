@@ -1,10 +1,8 @@
 package ControllerTests
 
-import Model.ChessComponent.BasicChess.StandartChess.ChessBoard
 import Model.ChessComponent.ChessTrait
 import Model.ChessComponent.RealChess.RealChessFacade
 import ModelTests.ChessComponentTests.ControllerFakeSpy
-import cController.ControllerComponent.DuoChessController.Controller
 import cController.ControllerComponent.Extra.ChessContext
 import org.scalatest.matchers.should.Matchers.*
 import org.scalatest.wordspec.AnyWordSpec

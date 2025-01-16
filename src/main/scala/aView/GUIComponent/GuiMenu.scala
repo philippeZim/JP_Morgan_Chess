@@ -1,5 +1,6 @@
 package aView.GUIComponent
 
+import Model.ChessComponent.BasicChessComponent.StandartChess.ChessBoard
 import Model.ChessComponent.ChessTrait
 import Model.ChessComponent.RealChess.RealChessFacade
 import cController.ControllerComponent.ControllerTrait
@@ -16,7 +17,7 @@ import scalafx.scene.text.Font
 import util.Observer
 
 class GuiMenu(option_controller: Option[ControllerTrait]) extends VBox, Observer {
-    
+
     val controller: ControllerTrait = option_controller match {
         case Some(a) => a
         case _ => null
@@ -32,23 +33,23 @@ class GuiMenu(option_controller: Option[ControllerTrait]) extends VBox, Observer
                     style = "-fx-font-size: 16px; -fx-font-family: 'Roboto'; -fx-text-fill: black; -fx-font-weight: bold; -fx-background-color: #F5F5DC;"
                     wrapText = true
                 }
-                children = Seq(theme_button, undo_button, redo_button, infoLabel)
+                children = Seq(theme_button, undo_button, redo_button, reset_button, infoLabel)
             }
             case State.whiteWonState => {
                 val infoLabel = new Label("Schwarz wurde vernichtend geschlagen") {
                     style = "-fx-font-size: 16px; -fx-font-family: 'Roboto'; -fx-text-fill: black; -fx-font-weight: bold; -fx-background-color: #F5F5DC;"
                     wrapText = true
                 }
-                children = Seq(theme_button, undo_button, redo_button, infoLabel)
+                children = Seq(theme_button, undo_button, redo_button, reset_button, infoLabel)
             }
             case State.blackWonState => {
                 val infoLabel = new Label("Weiß wurde vernichtend geschlagen") {
                     style = "-fx-font-size: 16px; -fx-font-family: 'Roboto'; -fx-text-fill: black; -fx-font-weight: bold; -fx-background-color: #F5F5DC;"
                     wrapText = true
                 }
-                children = Seq(theme_button, undo_button, redo_button, infoLabel)
+                children = Seq(theme_button, undo_button, redo_button, reset_button, infoLabel)
             }
-            case _ => children = Seq(theme_button, undo_button, redo_button)
+            case _ => children = Seq(theme_button, undo_button, redo_button, reset_button)
         }
     }
 
@@ -108,7 +109,25 @@ class GuiMenu(option_controller: Option[ControllerTrait]) extends VBox, Observer
 
     }
 
-    children = Seq(theme_button, undo_button, redo_button)
+    val reset_button = new Button("Reset") {
+        prefWidth = vh * 0.1
+        prefHeight = vh * 0.05
+        style = "-fx-font-size: 16px; -fx-font-family: 'Roboto'; -fx-text-fill: black; -fx-font-weight: bold; -fx-background-color: #F5F5DC;"
+        // Custom font and text color
+        background = new Background(
+            Array(new BackgroundFill(Color.White, new CornerRadii(10), Insets.Empty)) // White background with rounded corners
+        )
+        effect = new DropShadow { // Add a subtle shadow
+            color = Color.Gray
+            radius = 5
+            spread = 0.2
+        }
+        onAction = _ => {
+            controller.resetBoard()
+        }
+    }
+
+    children = Seq(theme_button, undo_button, redo_button, reset_button)
 
     alignment = Pos.Center
     spacing = vh * 0.05

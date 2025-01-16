@@ -7,6 +7,8 @@ trait ControllerTrait extends Observable {
 
     def fen_=(value: String): Unit
 
+    def resetBoard(): Unit
+
     def context: ChessContext
 
     def context_=(value: ChessContext): Unit
