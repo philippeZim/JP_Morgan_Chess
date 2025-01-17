@@ -8,10 +8,10 @@
 
 ## Table of Contents
 
-- [General Description](#General)
+- [General Description](#general-Description)
 - [Outlook](#Outlook)
-- [How to setup our Chess-Game](#How)
-- [How to play](#How)
+- [How to setup our Chess-Game](#How-to-setup-our-Chess-Game)
+- [How to play](#How-to-play)
 - [Preview](#preview)
 
 ### General Description
