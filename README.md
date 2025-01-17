@@ -17,7 +17,7 @@ Will they achieve their goal and resist the sweet temptation of Variables and lo
 Find yourselves in our comfy repository on a regular basis to see their latest achievements.
 
 ### Outlook
-![ChessBoardView]
+![ChessBoardView]()
 
 ### How to setup our Chess-Game
 
