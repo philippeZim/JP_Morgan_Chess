@@ -34,6 +34,8 @@ class ControllerFakeSpy(var fen : String) extends Observable with ControllerTrai
             activeSquare = -5
         }
     }
+
+    override def resetBoard(): Unit = ???
     def boardToString(): String = ???
 
     def createOutput(): String = ???

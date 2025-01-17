@@ -141,7 +141,7 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
                         }
                         loopChildren(t, stack :: accumulator)
                     }
-                    case _ => loopChildren(t, accumulator)
+                    case null => loopChildren(t, accumulator)
                 }
             }
         }
@@ -159,7 +159,7 @@ class GuiBoard(option_controller: Option[ControllerTrait]) extends GridPane, Obs
                         val colum: Int = i % 8
                         this.add(node, colum, row)
                         addAllToGrid(t)
-                    case _ => addAllToGrid(t)
+                    case null => addAllToGrid(t)
                 }
             }
         }

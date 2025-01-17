@@ -27,4 +27,6 @@ class ControllerStub(override var fen : String) extends ControllerTrait {
     
     
     def context_=(value: cController. ControllerComponent. Extra. ChessContext): Unit = ???
+
+    override def resetBoard(): Unit = ???
 }
