@@ -1,4 +1,3 @@
-import Model.ChessComponent.BasicChessComponent.StandartChess.ChessBoard
 import Model.ChessComponent.ChessTrait
 import Model.ChessComponent.DevourChess.DevourChessFacade
 import Model.ChessComponent.RealChess.RealChessFacade
@@ -18,7 +17,7 @@ import scala.language.postfixOps
 import scala.xml.XML
 
 object ChessModule {
-    
+
 
     def unpackToFen(dataWrapped: DataWrapper, fileApi: ApiFileTrait): String = {
         val data: (String, State) = fileApi.from(dataWrapped)
@@ -29,9 +28,9 @@ object ChessModule {
             case _ => data._1
         }
     }
-    
-    
-    def provideDuoChessXML(): Controller = {
+
+
+    def provideDuoChessXML(): ControllerTrait = {
         given ApiFileTrait = XMLApi()
         given ChessTrait = RealChessFacade()
         val fileApi = XMLApi()
@@ -43,7 +42,7 @@ object ChessModule {
         new Controller(arg1, arg2, arg3)
     }
 
-    def provideDuoChessJSON(): Controller = {
+    def provideDuoChessJSON(): ControllerTrait = {
         given ApiFileTrait = JSONApi()
         given ChessTrait = RealChessFacade()
         val fileApi = JSONApi()
@@ -57,7 +56,7 @@ object ChessModule {
         new Controller(arg1, arg2, arg3)
     }
 
-    def provideEngineChessXML(): Controller = {
+    def provideEngineChessXML(): ControllerTrait = {
         given ApiFileTrait = XMLApi()
         given ChessTrait = DevourChessFacade()
 
@@ -67,10 +66,10 @@ object ChessModule {
         val arg1 = unpackToFen(wrapper, fileApi)
         val arg2 = new ChessContext
         val arg3 = ""
-        new Controller(arg1, arg2, arg3)
+        new EngineController(arg1, arg2, arg3, 15)
     }
 
-    def provideEngineChessJSON(): Controller = {
+    def provideEngineChessJSON(): ControllerTrait = {
         given ApiFileTrait = JSONApi()
 
         given ChessTrait = DevourChessFacade()
@@ -83,7 +82,7 @@ object ChessModule {
         val arg1 = unpackToFen(wrapper, fileApi)
         val arg2 = new ChessContext
         val arg3 = ""
-        new Controller(arg1, arg2, arg3)
+        new EngineController(arg1, arg2, arg3, 15)
     }
 }
 /*

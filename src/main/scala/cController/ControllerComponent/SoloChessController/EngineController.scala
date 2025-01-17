@@ -3,10 +3,11 @@ package cController.ControllerComponent.SoloChessController
 import Model.ChessComponent.ChessTrait
 import cController.ControllerComponent.ControllerTrait
 import cController.ControllerComponent.Extra.{ChessContext, Event, SetCommand, State, UndoInvoker}
+import cController.ControllerComponent.StateComponent.ApiFileTrait
 import com.google.inject.Inject
 import util.Observable
 
-class EngineController @Inject()(val gameMode : ChessTrait, var fen : String, var context : ChessContext, var output : String, val depth : Int) extends Observable with ControllerTrait {
+class EngineController (override var fen : String, var context : ChessContext, var output : String, val depth: Int)(using val gameMode : ChessTrait)(using val fileapi: ApiFileTrait) extends Observable with ControllerTrait {
     var activeSquare : Int = -5;
     var current_theme: Int = 0;
 
@@ -14,6 +15,7 @@ class EngineController @Inject()(val gameMode : ChessTrait, var fen : String, va
 
     def resetBoard(): Unit = {
         fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+        fileapi.printTo(context, fen)
         this.notifyObservers
     }
     
