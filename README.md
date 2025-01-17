@@ -6,8 +6,15 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/philippeZim/JP_Morgan_Chess)
 ![GitHub repo size](https://img.shields.io/github/repo-size/philippeZim/JP_Morgan_Chess)
 
+## Table of Contents
 
-### General Describtion
+- [General Description](#General Description)
+- [Outlook](#Outlook)
+- [How to setup our Chess-Game](#How to setup our Chess-Game)
+- [How to play](#How to play)
+- [Preview](#preview)
+
+### General Description
 This repository marks the plane on which the glorious quest of phillipe and jakob takes place.
 A Quest to build their own Chess Game!!!
 They are only armed with the programming language scala, the build tool sbt and their wits.
@@ -17,7 +24,7 @@ Will they achieve their goal and resist the sweet temptation of Variables and lo
 Find yourselves in our comfy repository on a regular basis to see their latest achievements.
 
 ### Outlook
-![ChessBoardView]()
+![ChessBoardView](https://github.com/philippeZim/JP_Morgan_Chess/blob/developer/src/main/resources/githubImages/ChessBoardImage.png)
 
 ### How to setup our Chess-Game
 
@@ -62,24 +69,18 @@ Now:
 
 ### Start Playing
 
-### Example output
+If you are unfamiliar withe the ways of Chess one must ask the question of what deficiencies you must suffer
+and what exactly your father has done to deserve an offspring like you.
 
-```scala
-   +-----+-----+-----+-----+-----+-----+-----+-----+
-8  |  r  |  n  |  b  |  q  |  k  |  b  |  n  |  r  |
-   +-----+-----+-----+-----+-----+-----+-----+-----+
-7  |  p  |  p  |  p  |  p  |  p  |  p  |  p  |  p  |
-   +-----+-----+-----+-----+-----+-----+-----+-----+
-6  |  .  |  .  |  .  |  .  |  .  |  .  |  .  |  .  |
-   +-----+-----+-----+-----+-----+-----+-----+-----+
-5  |  .  |  .  |  .  |  .  |  .  |  .  |  .  |  .  |
-   +-----+-----+-----+-----+-----+-----+-----+-----+
-4  |  .  |  .  |  .  |  .  |  .  |  .  |  .  |  .  |
-   +-----+-----+-----+-----+-----+-----+-----+-----+
-3  |  .  |  .  |  .  |  .  |  .  |  .  |  .  |  .  |
-   +-----+-----+-----+-----+-----+-----+-----+-----+
-2  |  P  |  P  |  P  |  P  |  P  |  P  |  P  |  P  |
-   +-----+-----+-----+-----+-----+-----+-----+-----+
-1  |  R  |  N  |  B  |  Q  |  K  |  B  |  N  |  R  |
-   +-----+-----+-----+-----+-----+-----+-----+-----+
-      a     b     c     d     e     f     g     h
+### Our Journey
+
+For those few Fellows that are want to take a peek at our journey and the challenges we had to face.
+I will indulge in sharing our goals and struggles with you.
+
+The requirements for the result of our hardship were the following:
+- **TUI**: Text User Interface.
+- **GUI**: Graphical User Interface.
+- **Concurrency**: Running TUI and GUI simultaneously in influence of each other.
+- **Documentation**: Documented and maintained on GitHub.
+- **MVC Architecture**: Model-view-controller design pattern.
+- **Coverage**: 100% Code coverage.
