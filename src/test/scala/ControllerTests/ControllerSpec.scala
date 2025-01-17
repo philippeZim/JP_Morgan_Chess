@@ -81,7 +81,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
             val promotionFen = "rnbqkbnr/Ppppppp1/8/8/8/8/P1PPPPpP/RNBQKBNR b KQkq - 0 5"
             val controller = new Controller(promotionFen, new ChessContext(), "")
             controller.play(ChessBoard.moveToIndex("a7", "b8"))
-            controller.context.state should be (State.blackPlayingState)
+            controller.context.state should be (State.whitePlayingState)
         }
 
         "outsource promoting a pawn correctly" in {
@@ -128,20 +128,19 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         }
 
         "return correct outputs based on the game state" in {
-            val controller = new Controller("rnbqkbnr/ppppp2p/5p2/6pQ/4P3/3P4/PPP2PPP/RNB1KBNR b KQkq - 1 3", new ChessContext(), "")
-            controller.play(7,15)
-            println(controller.output)
-            controller.output should be ("Schwarz wurde vernichtend geschlagen")
-            /*
+            val controller = new Controller("rnbqkbnr/ppppp2p/5p2/6p1/4P3/3P4/PPP2PPP/RNBQKBNR w KQkq - 1 3", new ChessContext(), "")
+            controller.play(59,31)
+            controller.context.state should be (State.whiteWonState)
+
             val controller2 = new Controller("rnb1kbnr/pppp1ppp/8/4p3/5PPq/8/PPPPP2P/RNBQKBNR w KQkq - 1 3", new ChessContext(), "")
             controller2.play(59, 8)
-            controller2.output should be ("Weiß wurde vernichtend geschlagen")
+            controller2.context.state should be (State.blackWonState)
 
             val controller3 = new Controller("8/8/8/8/8/1q1k4/8/K7 w - - 0 1", new ChessContext(), "")
             controller3.play(1,0)
-            controller3.output should be ("Remis")
+            controller3.context.state should be (State.remisState)
 
-             */
+
         }
 
         "detect a non valid Move" in {
