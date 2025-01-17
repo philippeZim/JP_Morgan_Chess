@@ -17,12 +17,6 @@ object Remis {
             return false           
         }
         val bishopPositions = BasicChessFacade.piecesPositions(board, bishopPieceList)
-        if(bishopPositions.size != 2) {
-            return false
-        }
-        if(BasicChessFacade.isColorPiece(fen, bishopPositions(0)) == BasicChessFacade.isColorPiece(fen, bishopPositions(1))) {
-            return false
-        }
         val Color1 = bishopPositions(0) match {
             case white1 if(bishopPositions(0) / 8) % 2 == 0 && bishopPositions(0) % 2 == 0 => Color.WHITE
             case black1 if(bishopPositions(0) / 8) % 2 == 0 && bishopPositions(0) % 2 == 1 => Color.BLACK
