@@ -6,14 +6,18 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/philippeZim/JP_Morgan_Chess)
 ![GitHub repo size](https://img.shields.io/github/repo-size/philippeZim/JP_Morgan_Chess)
 
+
 ### General Describtion
 This repository marks the plane on which the glorious quest of phillipe and jakob takes place.
 A Quest to build their own Chess Game!!!
 They are only armed with the programming language scala, the build tool sbt and their wits.
 Will the classes of Marco Boger and the depths of the internet be enough for them to figure it out?
-Will they prevail in thier journey to a full working chess game?
+Will they prevail in their journey to a full working chess game?
 Will they achieve their goal and resist the sweet temptation of Variables and loops to ascend to fully functional programming?
 Find yourselves in our comfy repository on a regular basis to see their latest achievements.
+
+### Outlook
+![ChessBoardView]
 
 ### How to setup our Chess-Game
 
@@ -41,7 +45,12 @@ Simply type:
 sbt run
 into your console.
 
-Before you will rise a chessboard.
+Before you will rise a chessboard, forming as a Desktop-Application as well as a Accumulation of Letters.
+
+If you dare to use the Desktop-Application you simply have to use the powers of your mighty mouse by clicking
+your desired piece and then declaring your order by clicking on the desired square.
+
+If you retreat to the cowardly Option of using your Keyboard:
 You will be asked to move. To make a move you simply have to type in the field from
 which you wish to move and the field that marks the new intended position of your chosen Piece.
 Choose your formatting carefully. It should always look like this: e2e4 
@@ -73,4 +82,4 @@ Now:
    +-----+-----+-----+-----+-----+-----+-----+-----+
 1  |  R  |  N  |  B  |  Q  |  K  |  B  |  N  |  R  |
    +-----+-----+-----+-----+-----+-----+-----+-----+
-      a     b     c     d     e     f     g     h   
+      a     b     c     d     e     f     g     h
