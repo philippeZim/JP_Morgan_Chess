@@ -25,7 +25,8 @@ Find yourselves in our comfy repository on a regular basis to see their latest a
 
 ### Outlook
 ![ChessBoardView](https://github.com/philippeZim/JP_Morgan_Chess/blob/developer/src/main/resources/githubImages/ChessBoardImage.png)
-   
+
+```scala
    +-----+-----+-----+-----+-----+-----+-----+-----+
 8  |  r  |  n  |  b  |  q  |  k  |  b  |  n  |  r  |
    +-----+-----+-----+-----+-----+-----+-----+-----+
@@ -44,7 +45,7 @@ Find yourselves in our comfy repository on a regular basis to see their latest a
 1  |  R  |  N  |  B  |  Q  |  K  |  B  |  N  |  R  |
    +-----+-----+-----+-----+-----+-----+-----+-----+
       a     b     c     d     e     f     g     h
-
+```
 ### How to setup our Chess-Game
 
 To play Chess with our glorious implementation one must prepare.
